@@ -134,7 +134,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     headers.append('Content-Type', 'application/json');
                     var options = new http_1.RequestOptions({ headers: headers });
                     var jsonString = inSheet.jsonStringForBackEnd();
-                    var myPost = this._http.post(this._environment + 'addSheet', jsonString, options);
+                    var myPost = this._http.post(this._environment.baseServiceUrl + 'addSheet', jsonString, options);
                     return myPost;
                 };
                 BackEndRest.prototype.handleError = function (error) {

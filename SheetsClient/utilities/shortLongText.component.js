@@ -29,17 +29,16 @@ System.register(['angular2/core'], function(exports_1) {
                     else {
                         ret = this.longText;
                     }
+                    //ret = ret + this.getToggleText();
                     return ret;
                 };
                 ShortLongTextComponent.prototype.getShortText = function () {
                     var ret;
-                    if (this.shortText) {
-                        if (this.shortTextLength > 0) {
-                            ret = this.longText.substring(0, this.shortTextLength);
-                        }
-                        else {
-                            ret = this.shortText;
-                        }
+                    if (this.shortTextLength > 0) {
+                        ret = this.longText.substring(0, this.shortTextLength);
+                    }
+                    else {
+                        ret = this.shortText;
                     }
                     return ret;
                 };

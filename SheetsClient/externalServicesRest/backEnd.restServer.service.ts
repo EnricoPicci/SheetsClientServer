@@ -110,7 +110,7 @@ export class BackEndRest extends BackEndClientMock {
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({headers: headers});
         let jsonString = inSheet.jsonStringForBackEnd();
-        let myPost = this._http.post(this._environment + 'addSheet', jsonString, options);
+        let myPost = this._http.post(this._environment.baseServiceUrl + 'addSheet', jsonString, options);
         return myPost;
 	}
     

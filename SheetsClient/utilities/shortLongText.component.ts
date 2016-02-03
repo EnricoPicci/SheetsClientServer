@@ -17,21 +17,20 @@ export class ShortLongTextComponent {
     getText() {
         let ret: string;
         if (this._showShort) {
-            ret = this.getShortText(); 
+           ret = this.getShortText(); 
         } else {
-            ret = this.longText;
+           ret = this.longText;
         }
+        //ret = ret + this.getToggleText();
         return ret;
     }
     
     getShortText() {
         let ret: string;
-        if (this.shortText) {
-            if (this.shortTextLength > 0) {
-                ret = this.longText.substring(0, this.shortTextLength);
-            } else {
-                ret = this.shortText;
-            }
+        if (this.shortTextLength > 0) {
+            ret = this.longText.substring(0, this.shortTextLength);
+        } else {
+            ret = this.shortText;
         }
         return ret;
     }
