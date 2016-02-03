@@ -13,7 +13,7 @@ import {MockData} from './mockData';
 export class BackEndClientMock extends SheetBackEnd {
     mockData = new MockData();
     
-	getSheet(inId: number) {
+	getSheet(inId: number) : any {
 		return this.getSomeSheets(inId, 1)[0];
 	}
     
@@ -23,7 +23,7 @@ export class BackEndClientMock extends SheetBackEnd {
         return null;
     }
 
-	getSomeSheets(inFromPosition: number, inMaxNumberOfSheets: number) {
+	getSomeSheets(inFromPosition: number, inMaxNumberOfSheets: number) : any {
 		var sheets: Sheet[] = new Array<Sheet>();
 		var sheetsCreated: Sheet[] = this.createSheets();
         let createdBY = 'CocoonTechies';

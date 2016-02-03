@@ -53,10 +53,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         .subscribe(function (sheet) {
                         _this.sheet = sheet;
                         _this.sheets[0] = _this.sheet;
-                    }, 
-                    /*sheet => this.sheet = sheet,*/
-                    //sheet => this.setSheet,
-                    function (error) { return _this.errorMessage = error; });
+                    }, function (error) { return _this.errorMessage = error; });
                     //this._sheetBackEnd.fillDetails(this.sheets[0]);
                     //this.sheets[0] = this.sheet;
                     /*let id = +this._routeParams.get('id');

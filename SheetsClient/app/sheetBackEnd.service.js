@@ -7,6 +7,7 @@ System.register([], function(exports_1) {
                 function SheetBackEnd() {
                 }
                 SheetBackEnd.prototype.getSheet = function (inId) { return null; };
+                SheetBackEnd.prototype.getAllSheets = function () { return null; };
                 //getSheet(inId: number, inComponent: any) {}
                 //getSheet(inId: number) {}
                 SheetBackEnd.prototype.getSheetWithDetails = function (inId) { return null; };
@@ -15,7 +16,6 @@ System.register([], function(exports_1) {
                 SheetBackEnd.prototype.getValueBasedSearchCriteriaDomain = function () { return null; };
                 SheetBackEnd.prototype.getSectorsSearchCriteriaDomain = function () { return null; };
                 SheetBackEnd.prototype.fetchSheets = function (searchString, generalTags, valueBasedTags, sectorsTags) { return null; };
-                SheetBackEnd.prototype.fillDetails = function (inSheet) { return null; };
                 SheetBackEnd.prototype.fillReturnData = function (inSheet, inPeriod) { };
                 SheetBackEnd.prototype.updateReturnData = function (inSheet, inPeriod) { };
                 SheetBackEnd.prototype.updateValueAtRisk = function (inSheet) { };

@@ -37,9 +37,8 @@ export class SheetDetailComponent {
             .subscribe(
                 sheet => {this.sheet = sheet;
                             this.sheets[0] = this.sheet},
-                /*sheet => this.sheet = sheet,*/
-                //sheet => this.setSheet,
-                error => this.errorMessage = <any>error);
+                error => this.errorMessage = <any>error
+            );
         //this._sheetBackEnd.fillDetails(this.sheets[0]);
         //this.sheets[0] = this.sheet;
         /*let id = +this._routeParams.get('id');

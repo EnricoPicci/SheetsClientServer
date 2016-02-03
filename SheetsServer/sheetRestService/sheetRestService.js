@@ -26,6 +26,19 @@ var SheetRestService = (function () {
             }
         });
     };
+    SheetRestService.getSomeSheets = function (inFromId, inMaxNoOfItems, inHttpRes) {
+        var endId = (parseInt(inFromId) + parseInt(inMaxNoOfItems));
+        console.log(endId);
+        sheetConnectionManager_1.SheetConnectionManager.connectAndOpen();
+        sheetConnectionManager_1.SheetConnectionManager.getSheetModel().find({ id: { $gte: inFromId, $lt: endId } }, function (err, sheetModels) {
+            if (err) {
+                return console.error(err);
+            }
+            else {
+                inHttpRes.json(sheetModels);
+            }
+        });
+    };
     SheetRestService.addSheet = function (inSheetToAdd, inHttpRes) {
         sheetConnectionManager_1.SheetConnectionManager.connectAndOpen();
         var SheetModel = sheetConnectionManager_1.SheetConnectionManager.getSheetModel();
@@ -34,7 +47,8 @@ var SheetRestService = (function () {
             let newId = this.getNextSheetID(SheetModel);
             sheetToAdd.id = newId;
         }*/
-        SheetModel.where('id').ne(null).count(function (err, count) {
+        //SheetModel.where('id').ne(null).count(function (err, count) {
+        SheetModel.count({}, function (err, count) {
             if (err) {
                 return console.error(err);
             }
@@ -48,7 +62,8 @@ var SheetRestService = (function () {
                         return console.error(err);
                     }
                     else {
-                        inHttpRes.json({ result: "OK", inserted: sheetToAdd.title });
+                        inHttpRes.json({ result: "OK", inserted: sheetToAdd.title,
+                            id: sheetToAdd.id, createdBy: sheetToAdd.createdBy });
                     }
                 });
             }

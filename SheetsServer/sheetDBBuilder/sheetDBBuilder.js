@@ -64,7 +64,7 @@ var SheetDBBuilder = (function () {
             assetJSONs: [assetSchema]
         });
         return {
-            id: String,
+            id: Number,
             title: String,
             longTitle: String,
             imageUrl: String,

@@ -35,9 +35,9 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
             }],
         execute: function() {
             SheetAssetCompositionComponent = (function () {
-                function SheetAssetCompositionComponent(_sheetWeightAdjuster, _user, _sheetBackEnd) {
+                function SheetAssetCompositionComponent(_sheetWeightAdjuster, _userLogged, _sheetBackEnd) {
                     this._sheetWeightAdjuster = _sheetWeightAdjuster;
-                    this._user = _user;
+                    this._userLogged = _userLogged;
                     this._sheetBackEnd = _sheetBackEnd;
                     this.editStatus = false;
                     this.isChanged = false;
@@ -101,11 +101,17 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                 };
                 SheetAssetCompositionComponent.prototype.changed = function () {
                     this.isChanged = true;
-                    this.sheet.personalized(this._user);
+                    this.sheet.personalized(this._userLogged);
                 };
                 SheetAssetCompositionComponent.prototype.onClickOverSaveButton = function () {
+                    var _this = this;
                     this._sheetBackEnd.addSheet(this.sheet)
-                        .subscribe(function (data) { return console.log('Data received after Save --- ' + data.json()); }, function (err) { return console.error(err); }, function () { return console.log('Save Complete'); });
+                        .subscribe(function (data) {
+                        _this.isChanged = false;
+                        var retJson = data.json();
+                        _this.sheet.id = retJson.id;
+                        console.log('Data received after Save --- ' + JSON.stringify(retJson));
+                    }, function (err) { return console.error(err); }, function () { return console.log('Save Complete'); });
                 };
                 SheetAssetCompositionComponent = __decorate([
                     core_1.Component({

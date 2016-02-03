@@ -30,7 +30,7 @@ export class SheetAssetCompositionComponent {
     
     constructor(
         private _sheetWeightAdjuster: SheetWeightAdjuster, 
-        private _user: UserLogged,
+        private _userLogged: UserLogged,
         private _sheetBackEnd: SheetBackEnd
     ) { }
        
@@ -101,13 +101,16 @@ export class SheetAssetCompositionComponent {
     
     changed() {
         this.isChanged = true;
-        this.sheet.personalized(this._user);
+        this.sheet.personalized(this._userLogged);
     }
     
     onClickOverSaveButton() {
         this._sheetBackEnd.addSheet(this.sheet)
             .subscribe(
-                data => console.log('Data received after Save --- ' + data.json()),
+                data => {this.isChanged= false; 
+                    let retJson = data.json();
+                    this.sheet.id = retJson.id;
+                    console.log('Data received after Save --- ' + JSON.stringify(retJson))},
                 err => console.error(err),
                 () => console.log('Save Complete')
             );

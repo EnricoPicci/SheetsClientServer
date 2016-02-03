@@ -70,7 +70,7 @@ export class SheetDBBuilder {
             }
         );
         return {
-            id: String,
+            id: Number,
             title: String,
             longTitle: String,
             imageUrl: String,

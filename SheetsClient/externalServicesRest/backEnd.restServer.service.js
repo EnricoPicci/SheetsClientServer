@@ -52,65 +52,29 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     this._http = _http;
                     this._environment = _environment;
                 }
-                /*getSheet(inId: number) {
-                    return this._http.get(this._environment + 'sheets/?id=' + inId)
-                        .map(res => res.json());
-                }*/
-                /*getSheetWithDetails(inId: number, inSheetArray: Sheet[], inIndex: number) {
-                    let myUrl = this._environment.baseServiceUrl + 'sheets/?id=' + inId;
-                    let myReq = this._http.get(this._environment.baseServiceUrl + 'sheets/?id=' + inId);
-                        myReq.map(res => res.json())
-                        .subscribe(
-                            data => {
-                                let sheetJSON = data[0];
-                                let sheetFromBackEnd = new Sheet(sheetJSON.id, sheetJSON.title, sheetJSON.longTitle, sheetJSON.imageUrl,
-                                sheetJSON.oneMonthReturn, sheetJSON.valueAtRisk, sheetJSON.volatility, sheetJSON.general,
-                                sheetJSON.valueBased, sheetJSON.sector);
-                                sheetFromBackEnd.originalSheetID = sheetJSON.originalSheetID;
-                                sheetFromBackEnd.personalizationComment = sheetJSON.personalizationComment;
-                                sheetFromBackEnd.createdBy = sheetJSON.createdBy;
-                                sheetFromBackEnd.description = sheetJSON.description;
-                                sheetFromBackEnd.oneYearReturn = sheetJSON.oneYearReturn;
-                                sheetFromBackEnd.dailyChange = sheetJSON.dailyChange;
-                                sheetFromBackEnd.benchmark = sheetJSON.benchmark;
-                                let thisArrayOfAssetGroups = new Array<AssetGroup>();
-                                sheetFromBackEnd.assetGroups = thisArrayOfAssetGroups;
-                                for (var i = 0; i < sheetJSON.assetGroupJSONs.length; i++) {
-                                    let thisAssetGroupJSON = sheetJSON.assetGroupJSONs[i];
-                                    let thisArrayOfAssets = new Array<Asset>();
-                                    for (var j = 0; j < thisAssetGroupJSON.assetJSONs.length; j++) {
-                                        let thisAssetJSON = thisAssetGroupJSON.assetJSONs[j];
-                                        let thisAsset = new Asset(thisAssetJSON.name, thisAssetJSON.symbol, thisAssetJSON.weight,
-                                        thisAssetJSON.oneMonthRet, thisAssetJSON.oneYearRet,
-                                        thisAssetJSON.minWeight, thisAssetJSON.maxWeight);
-                                        thisArrayOfAssets.push(thisAsset);
-                                    }
-                                    let thisAssetGroup = new AssetGroup(thisAssetGroupJSON.name, thisAssetGroupJSON.weight,
-                                    thisAssetGroupJSON.oneMonthRet, thisAssetGroupJSON.oneYearRet, thisArrayOfAssets,
-                                    thisAssetGroupJSON.minWeight, thisAssetGroupJSON.maxWeight);
-                                    sheetFromBackEnd.assetGroups.push(thisAssetGroup);
-                                }
-                                inSheetArray[inIndex] = sheetFromBackEnd;
-                            },
-                            err => console.error(err),
-                            () => console.log('getSheetWithDetails completed')
-                        )
-                }*/
+                BackEndRest.prototype.getAllSheets = function () {
+                    var _this = this;
+                    var myUrl = this._environment.baseServiceUrl + 'sheets';
+                    return this._http.get(myUrl)
+                        .map(function (res) { return res.json(); })
+                        .map(function (data) {
+                        var sheetsRetrieved = new Array();
+                        for (var i = 0; i < data.length; i++) {
+                            var sheetJSON = data[i];
+                            sheetsRetrieved.push(_this.createSheet(sheetJSON));
+                        }
+                        return sheetsRetrieved;
+                    })
+                        .catch(this.handleError);
+                };
                 BackEndRest.prototype.getSheetWithDetails = function (inId) {
                     var _this = this;
-                    var myUrl = this._environment.baseServiceUrl + 'sheets/?id=' + inId;
-                    return this._http.get(this._environment.baseServiceUrl + 'sheets/?id=' + inId)
+                    var myUrl = this._environment.baseServiceUrl + 'sheet/?id=' + inId;
+                    return this._http.get(myUrl)
                         .map(function (res) { return res.json(); })
                         .map(function (data) {
                         var sheetJSON = data[0];
-                        var sheetFromBackEnd = new sheet_1.Sheet(sheetJSON.id, sheetJSON.title, sheetJSON.longTitle, sheetJSON.imageUrl, sheetJSON.oneMonthReturn, sheetJSON.valueAtRisk, sheetJSON.volatility, sheetJSON.general, sheetJSON.valueBased, sheetJSON.sector);
-                        sheetFromBackEnd.originalSheetID = sheetJSON.originalSheetID;
-                        sheetFromBackEnd.personalizationComment = sheetJSON.personalizationComment;
-                        sheetFromBackEnd.createdBy = sheetJSON.createdBy;
-                        sheetFromBackEnd.description = sheetJSON.description;
-                        sheetFromBackEnd.oneYearReturn = sheetJSON.oneYearReturn;
-                        sheetFromBackEnd.dailyChange = sheetJSON.dailyChange;
-                        sheetFromBackEnd.benchmark = sheetJSON.benchmark;
+                        var sheetFromBackEnd = _this.createSheet(sheetJSON);
                         var thisArrayOfAssetGroups = new Array();
                         sheetFromBackEnd.assetGroups = thisArrayOfAssetGroups;
                         for (var i = 0; i < sheetJSON.assetGroupJSONs.length; i++) {
@@ -128,6 +92,32 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                         return sheetFromBackEnd;
                     })
                         .catch(this.handleError);
+                };
+                BackEndRest.prototype.getSomeSheets = function (inFromPosition, inMaxNumberOfSheets) {
+                    var _this = this;
+                    var myUrl = this._environment.baseServiceUrl + 'someSheets/?fromId=' + inFromPosition + '&maxNoOfItems=' + inMaxNumberOfSheets;
+                    return this._http.get(myUrl)
+                        .map(function (res) { return res.json(); })
+                        .map(function (data) {
+                        var sheetsRetrieved = new Array();
+                        for (var i = 0; i < data.length; i++) {
+                            var sheetJSON = data[i];
+                            sheetsRetrieved.push(_this.createSheet(sheetJSON));
+                        }
+                        return sheetsRetrieved;
+                    })
+                        .catch(this.handleError);
+                };
+                BackEndRest.prototype.createSheet = function (inSheetJson) {
+                    var sheetFromBackEnd = new sheet_1.Sheet(inSheetJson.id, inSheetJson.title, inSheetJson.longTitle, inSheetJson.imageUrl, inSheetJson.oneMonthReturn, inSheetJson.valueAtRisk, inSheetJson.volatility, inSheetJson.general, inSheetJson.valueBased, inSheetJson.sector);
+                    sheetFromBackEnd.originalSheetID = inSheetJson.originalSheetID;
+                    sheetFromBackEnd.personalizationComment = inSheetJson.personalizationComment;
+                    sheetFromBackEnd.createdBy = inSheetJson.createdBy;
+                    sheetFromBackEnd.description = inSheetJson.description;
+                    sheetFromBackEnd.oneYearReturn = inSheetJson.oneYearReturn;
+                    sheetFromBackEnd.dailyChange = inSheetJson.dailyChange;
+                    sheetFromBackEnd.benchmark = inSheetJson.benchmark;
+                    return sheetFromBackEnd;
                 };
                 BackEndRest.prototype.addSheet = function (inSheet) {
                     var headers = new http_1.Headers();

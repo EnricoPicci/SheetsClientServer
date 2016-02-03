@@ -21,13 +21,25 @@ router.use(function (req, res, next) {
 /*
  * GET one sheet or the entire list of sheets
  */
-router.get('/sheets', function (req, res) {
+router.get('/sheet', function (req, res) {
     var idOfSheetToGet = req.query.id;
-    if (idOfSheetToGet) {
-        SheetRestService.getSheetById(idOfSheetToGet, res);
-    } else {
-        SheetRestService.getSheets(res);
-    }
+    SheetRestService.getSheetById(idOfSheetToGet, res);
+});
+/*
+ * GET the entire list of sheets
+ */
+router.get('/sheets', function (req, res) {
+    SheetRestService.getSheets(res);
+});
+
+/*
+ * GET SOME SHEETS get a list of sheets
+ */
+router.get('/someSheets', function (req, res) {
+    var fromId = req.query.fromId;
+    var maxNoOfItems = req.query.maxNoOfItems;
+    SheetRestService.getSomeSheets(fromId, maxNoOfItems, res);
+    //SheetRestService.getSheets(res);
 });
 
 /*

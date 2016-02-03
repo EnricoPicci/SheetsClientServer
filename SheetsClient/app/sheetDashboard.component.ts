@@ -21,6 +21,8 @@ export class SheetDashboardComponent {
     // the second sheet for comparison is the full object so that I can reset its selection state when a different selection is made
     public secondSheetToCompare: Sheet;
     
+    public errorMessage;
+    
     constructor(
         private _router: Router,
         private _routeParams: RouteParams,
@@ -28,7 +30,13 @@ export class SheetDashboardComponent {
     ) { }
     
     ngOnInit() {
-        this.sheets = this._sheetBackEnd.getSomeSheets(0, 17);
+        //this.sheets = this._sheetBackEnd.getSomeSheets(0, 17);
+        //this._sheetBackEnd.getSomeSheets(0, 17)
+        this._sheetBackEnd.getAllSheets()
+            .subscribe(
+                sheets => this.sheets = sheets,
+                error => this.errorMessage = <any>error
+            );
         this.idOfFirstSheetToCompare = this._routeParams.get('idOfFirstSheetToCompare');
         if (this.idOfFirstSheetToCompare != null) {
             for (var i = 0; i < this.sheets.length; i++) {
@@ -39,6 +47,7 @@ export class SheetDashboardComponent {
             }
         }
     }
+    
 	getSheets() {
 		return this.sheets;
 	}

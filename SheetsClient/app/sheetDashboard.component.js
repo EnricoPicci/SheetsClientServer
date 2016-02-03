@@ -36,7 +36,11 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     this.title = 'Sheets';
                 }
                 SheetDashboardComponent.prototype.ngOnInit = function () {
-                    this.sheets = this._sheetBackEnd.getSomeSheets(0, 17);
+                    var _this = this;
+                    //this.sheets = this._sheetBackEnd.getSomeSheets(0, 17);
+                    //this._sheetBackEnd.getSomeSheets(0, 17)
+                    this._sheetBackEnd.getAllSheets()
+                        .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.errorMessage = error; });
                     this.idOfFirstSheetToCompare = this._routeParams.get('idOfFirstSheetToCompare');
                     if (this.idOfFirstSheetToCompare != null) {
                         for (var i = 0; i < this.sheets.length; i++) {

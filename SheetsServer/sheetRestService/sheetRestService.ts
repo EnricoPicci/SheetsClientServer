@@ -32,6 +32,20 @@ export class SheetRestService {
         )
     }
     
+    public static getSomeSheets(inFromId: string, inMaxNoOfItems: string,inHttpRes: any) {
+        let endId = (parseInt(inFromId) + parseInt(inMaxNoOfItems));
+        console.log(endId);
+        SheetConnectionManager.connectAndOpen();
+        SheetConnectionManager.getSheetModel().find({id: { $gte: inFromId, $lt: endId}}, function (err, sheetModels) {
+                if (err) {
+                    return console.error(err);
+                } else {
+                    inHttpRes.json(sheetModels);
+                }
+            }
+        )
+    }
+    
     public static addSheet(inSheetToAdd: any, inHttpRes: any) {
         SheetConnectionManager.connectAndOpen();
         let SheetModel = SheetConnectionManager.getSheetModel();
@@ -40,7 +54,8 @@ export class SheetRestService {
             let newId = this.getNextSheetID(SheetModel);
             sheetToAdd.id = newId;
         }*/
-        SheetModel.where('id').ne(null).count(function (err, count) {
+        //SheetModel.where('id').ne(null).count(function (err, count) {
+        SheetModel.count({}, function (err, count) {
             if (err) {
                 return console.error(err);
             }
@@ -52,7 +67,8 @@ export class SheetRestService {
                     if (err) {
                         return console.error(err);
                     } else {
-                        inHttpRes.json({result: "OK", inserted: sheetToAdd.title});
+                        inHttpRes.json({result: "OK", inserted: sheetToAdd.title, 
+                            id: sheetToAdd.id, createdBy: sheetToAdd.createdBy});
                     }
                 })
             }
