@@ -1,0 +1,24 @@
+<div id="freeSearchHeader">
+	<h3>Search</h3>
+</div>
+<div id="freeSearchBody">
+	<input type="text" name="query" id="query" placeholder="Company, ticker, or keyword" autocomplete="off">
+	<a id="querySubmit"></a>
+</div>
+<div id="narrowResultHeader">
+	<h3>Refine Selection</h3>
+    <!--div *ngFor="#searchCriteria of sheetSearchCriteria.searchCriteria">
+        <searchCriteria [searchCriteria]="searchCriteria" (selectionCriteriaChanged)="onChange(searchCriteria)">
+        </searchCriteria>
+    </div-->
+    <table *ngFor="#searchCriteria of sheetSearchCriteria.searchCriteria">
+        <tr>
+            <td>
+                <div>
+                    <searchCriteria [searchCriteria]="searchCriteria" (selectionCriteriaChanged)="onChange(searchCriteria)">
+                    </searchCriteria>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

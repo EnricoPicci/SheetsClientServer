@@ -1,0 +1,72 @@
+{
+  "name": "ng2-highcharts",
+  "version": "0.1.2",
+  "scripts": {
+    "test": "tsd reinstall --clean tsc && echo No tests available yet...",
+    "prepublish": "tsd reinstall --clean && tsc",
+    "tsc": "tsd reinstall --clean tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bigous/ng2-highcharts.git"
+  },
+  "author": {
+    "name": "Richard Natal",
+    "email": "Bigous@users.noreply.github.com"
+  },
+  "keywords": [
+    "angular",
+    "angular2",
+    "highcharts"
+  ],
+  "bugs": {
+    "url": "https://github.com/Bigous/ng2-highcharts/issues"
+  },
+  "main": "ng2-highcharts.js",
+  "typings": "./ng2-highcharts.d.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "angular2": "2.0.0-beta.0",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.3",
+    "highcharts": "^4.2.1",
+    "jquery": "^2.1.4",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "typescript": "^1.7.3",
+    "zone.js": "0.5.10"
+  },
+  "peerDependencies": {
+    "angular2": "2.0.0-beta.0",
+    "highcharts": "^4.2.1",
+    "jquery": "^2.1.4"
+  },
+  "engines": {
+    "node": ">=4.2.0"
+  },
+  "license": "MIT",
+  "gitHead": "ac13c7671b15593213b1604892b424d179c657f6",
+  "description": "To install this library, install peer dependencies first:",
+  "homepage": "https://github.com/Bigous/ng2-highcharts#readme",
+  "_id": "ng2-highcharts@0.1.2",
+  "_shasum": "b8190d6a433a2ac96ce1e23c9f0ba6df38a164d3",
+  "_from": "ng2-highcharts@>=0.1.0 <0.2.0",
+  "_npmVersion": "3.3.10",
+  "_nodeVersion": "4.2.4",
+  "_npmUser": {
+    "name": "bigous",
+    "email": "bigous@gmail.com"
+  },
+  "dist": {
+    "shasum": "b8190d6a433a2ac96ce1e23c9f0ba6df38a164d3",
+    "tarball": "http://registry.npmjs.org/ng2-highcharts/-/ng2-highcharts-0.1.2.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "bigous",
+      "email": "bigous@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/ng2-highcharts/-/ng2-highcharts-0.1.2.tgz"
+}

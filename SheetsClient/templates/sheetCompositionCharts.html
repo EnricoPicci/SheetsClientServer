@@ -1,0 +1,8 @@
+<div [ng2-highcharts]="highchartsOptionsForGroups" class="compositionChart" 
+    [style.display]="_isAssetGroupViewShown ? 'block' : 'none'"></div>
+<div [ng2-highcharts]="highchartsOptionsForAssets" class="compositionChart" 
+    [style.display]="_isAssetGroupViewShown ? 'none' : 'block'"></div>
+<div><span id="togglePieViewText" class="togglePieViewText" (click)="togglePieCharView()">{{getTogglePieCharViewText()}}</span></div>
+<div [ng2-highcharts]="highchartsOptionsForValueAtRisk" class="compositionMeter"></div>
+<div [ng2-highcharts]="highchartsOptionsForVolatility" class="compositionMeter"></div>
+

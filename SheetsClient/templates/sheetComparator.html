@@ -1,0 +1,38 @@
+<div id="header" class="header"></div>
+<div id="content" class="content">
+    <div id="pageHeading">
+        <div id="banner"></div>
+    </div>
+    <div id="sheetComparison">
+        <table id="sheetComparisonTable">
+            <thead>
+                <tr>
+                    <th class="sheetToCompare">{{sheet1.title}}</th>
+                    <th class="sheetToCompare">{{sheet2.title}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <sheet-info [sheet]="sheet1"></sheet-info>
+                    </td>
+                    <td>
+                        <sheet-info [sheet]="sheet2"></sheet-info>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <sheet-assetComposition id="assetComposition1" [sheet]="sheet1"></sheet-assetComposition>
+                    </td>
+                    <td>
+                        <sheet-assetComposition id="assetComposition2" [sheet]="sheet2"></sheet-assetComposition>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="performanceChart">
+            <sheet-returnData id="returnData" [sheets]="sheets"></sheet-returnData>
+        </div>
+    </div>
+    <div id="pageFooter"></div>
+</div>

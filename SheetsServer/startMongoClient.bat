@@ -1,0 +1,1 @@
+start cmd /k ""c:\Program Files\mongodb\server\3.2\bin\mongo""

@@ -1,0 +1,9 @@
+.sectionHeader {
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 40px;
+}
+
+.sectionBody {
+    padding-right: 5px;
+}

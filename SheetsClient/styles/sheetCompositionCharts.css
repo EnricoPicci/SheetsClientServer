@@ -1,0 +1,12 @@
+
+.compositionChart {
+    width: 180px;
+    float: right;
+    margin-top: 40px;
+}
+
+.togglePieViewText {
+    cursor: pointer;
+    color: blue;
+    margin-left: 20px;
+}

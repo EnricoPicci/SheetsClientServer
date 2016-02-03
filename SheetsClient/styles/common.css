@@ -1,0 +1,39 @@
+.percentageArrow.large {
+    font-size: 26px;
+    font-weight: normal;
+}
+.percentageArrow.up {
+	background: url(/images/catalogSprite.png) -184px -432px no-repeat;
+    padding-left: 22px;
+    color: #3ba729;
+}
+.percentageArrow.up.small {
+    color: #3ba729;
+    padding: 0 0px 0 14px;
+    background: url(/images/iconsSprite.png) 0px -165px no-repeat;
+    text-align: left;
+}
+
+.arrow {
+    background: url("/images/sprite.png") no-repeat 4px -97px;
+    content: "";
+    float: left;
+    height: 25px;
+    line-height: 25px;
+    margin: 0 5px 0 0;
+    width: 14px;
+}
+
+.arrow.open {
+    background-position: 0 -72px;
+}
+
+.basicButton {
+    height: 20px;
+    width: 110px;
+    float: left;
+    /*position: absolute;*/
+    bottom: 0;
+    left: 0;
+    background-color: azure;
+}

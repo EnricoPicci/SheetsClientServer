@@ -1,0 +1,65 @@
+<html>
+  <head>
+      <base href="/"></base>
+      <!--base href="..."></base-->
+    <title>Sheets on Angular 2</title>
+    <!-- 1. Load libraries -->
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="node_modules/angular2/bundles/router.dev.js"></script>
+    <script src="node_modules/angular2/bundles/http.dev.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script>
+      System.config({
+        packages: {        
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          },
+          utilities: {
+            format: 'register',
+            defaultExtension: 'js'
+          },
+          externalServicesClientMock: {
+            format: 'register',
+            defaultExtension: 'js'
+          },
+          externalServicesRest: {
+            format: 'register',
+            defaultExtension: 'js'
+          },
+          charts: {
+            format: 'register',
+            defaultExtension: 'js'
+          },
+          ng2Highcharts: {
+            format: 'register',
+            defaultExtension: 'js'
+          },
+          environmentSettings: {
+            format: 'register',
+            defaultExtension: 'js'
+          }
+        }
+      });
+      System.import('app/boot')
+            .then(null, console.error.bind(console));
+    </script>
+    <!-- Load specific css -->
+    <link href="./lib/NoUISlider/nouislider.min.css" rel="stylesheet">
+    </head>
+  <!-- 3. Display the application -->
+  <body>
+    <my-app>Loading...</my-app>
+    <!-- Load specific js lib -->
+    <script src="./lib/NoUISlider/nouislider.js"></script>
+    <!--script src="./lib/chart.js/chart2013.js"></script-->
+    <script src="./lib/jquery/dist/jquery.js"></script>
+    <script src="./lib/highcharts/highstock.js"></script>
+    <script src="./lib/highcharts/modules/exporting.js"></script>
+    <script src="./lib/highcharts/highcharts-more.js"></script>
+    <!--script src="./lib/highcharts/highstock.js/highcharts-3d.js"></script-->
+  </body>
+</html>

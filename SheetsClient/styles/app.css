@@ -1,0 +1,26 @@
+.container {
+    width: 970px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#pageHeading {
+    padding: 5px 0;
+}
+
+#sidebarGroup {
+    width: 230px;
+    float: left;
+}
+
+#main {
+    float: right;
+    width: 735px;
+    border: 1px solid #cacaca;
+    background: #fff;
+    border-radius: 3px;
+	position: relative;
+	display: block;
+}
+
+

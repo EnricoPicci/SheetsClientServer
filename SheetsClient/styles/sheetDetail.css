@@ -1,0 +1,227 @@
+#pageHeading {
+    background-color: transparent;
+    border: none !important;
+    box-shadow: none !important;
+    width: 100%;
+    position: absolute;
+    z-index: 100000;
+    height: 80px;
+    transition: all 0.4s ease;
+    font-size: 13px;
+}
+
+#banner {
+background-image: url("https://d1aujam1f2f3cr.cloudfront.net/data/img/motif/12731");
+background-position: 50% 50%;
+background-repeat: no-repeat;
+background-size:cover;
+box-sizing:border-box;
+color:rgb(92, 94, 95);
+display:block;
+filter:none;
+font-family:'Open Sans', arial;
+font-size:12px;
+height:150px;
+margin-bottom:0px;
+margin-left:0px;
+margin-right:0px;
+margin-top:-27px;
+opacity:0.64;
+padding-bottom:0px;
+padding-left:0px;
+padding-right:0px;
+padding-top:0px;
+position: absolute;
+top:0px;
+width:1349px;
+z-index:1;
+-webkit-filter:blur(22px);
+}
+
+#details {
+box-sizing: border-box;
+color: rgb(92, 94, 95);
+display:block;
+font-family: 'Open Sans', arial;
+font-size: 12px;
+height: 1294px;
+line-height: 24px;
+margin-bottom: 0px;
+margin-left: 89.5px;
+margin-right: 89.5px;
+margin-top: 0px;
+max-width: 1170px;
+padding-bottom: 10px;
+padding-left: 0px;
+padding-right: 0px;
+padding-top: 10px;
+position: relative;
+width: 1170px;
+z-index: 100;
+}
+
+#info {
+    color: #5c5e5f;
+    font-size: 12px;
+    box-sizing: border-box;
+    font-family: 'Open Sans', arial;
+}
+
+#image {
+    margin-right: 15px;
+    float: left;
+    position: relative;
+    height: 146px;
+    width: 146px;
+    margin: 0px;
+}
+
+#name {
+    width: calc(96% - 175px);
+    float: left;
+    padding: 30px;
+}
+
+#divider {
+    margin: 5px 0px 5px;
+    border: none;
+    height: 1px;
+    background-color: #ffffff;
+    background: linear-gradient(to right,rgb(92, 94, 95) 10%, rgba(255, 255, 255, 0) 75%);
+}
+
+#performance {
+    display: table;
+    margin: 10px 5px 0px 0px;
+    text-align: center;
+    line-height: 1em;
+}
+
+#perfNumber {
+    margin: 0px 40px 0px 0px;
+    display: inline-block;
+    color: #5c5e5f;
+    text-align: center;
+    line-height: 1em;
+}
+
+#perfNumber label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #5c5e5f;
+    font-weight: 600;
+    line-height: 2.5em;
+    text-align: center;
+}
+
+#assetTable {
+    float: left;
+    width: calc(100% - 180px);
+    margin-bottom: 30px;
+    margin-top: 30px;
+    /*overflow: auto;*/
+    min-width: 475px;
+}
+
+.overviewAssetTable {
+    table-layout: fixed;
+    margin: 0 auto;
+    border: 1px solid #BFBFBF;
+    width: 100%;
+    border-spacing: 0;
+}
+
+#assetTable thead tr {
+    background-color: #E3E3E3;
+}
+
+#assetTable thead tr th {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #626262;
+    font-size: 10px;
+    height: 35px;
+    white-space: normal;
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid #BFBFBF;
+    border-bottom: 1px solid #BFBFBF;
+}
+
+.weightClass {
+    width: 10%;
+}
+
+.nameClass {
+    width: 45%;
+}
+
+.symbolClass {
+    width: 10%;
+}
+
+.returnClass {
+    width: 15%;
+}
+
+.newWeightSliderClass {
+    width: 50%;
+}
+
+.lockClass {
+    height: 25px;
+    width: 5%;
+    cursor: pointer;
+}
+
+.lockClass.unlocked {
+    background: url("/images/unlocked.png") 0 -10px no-repeat;
+}
+
+.lockClass.locked {
+    background: url("/images/locked.png") 0 -7px no-repeat;
+}
+
+.assetGroupClass {
+    background-color: #eeeeee;
+    background: linear-gradient(to bottom, #ffffff 0, #eeeeee 100%);
+    border-bottom: 1px solid #B9B9B9;
+    line-height: 39px;
+}
+
+
+#assetGroupNameClass {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.assetGroupClass th {
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    background-position-y: -1px;
+}
+
+.assetGroupClass td {
+    padding-right: 12px;
+    padding-left: 6px;
+}
+
+.assetClass {
+    background-color: #fff;
+    height: 25px; /*to keep same heigth of the lock symbol of .lockClass.unlocked*/
+}
+
+.assetClass td {
+    border-right: 1px solid #A1A1A1;
+    padding-right: 8px;
+    text-align: right;
+    font-size: smaller;
+    border: 1px solid #A1A1A1;
+}
+

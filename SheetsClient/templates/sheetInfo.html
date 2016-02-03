@@ -1,0 +1,24 @@
+        <div id="info">
+            <div id="image">
+                <img height="146" width="146" src={{sheet?.imageUrl}}>
+            </div>
+            <div id="name">
+                <h1>{{sheet?.title}}</h1>
+                <div id="divider"></div>
+                <h3>Created by: {{sheet?.createdBy}}</h3>
+                <div id="performance">
+                    <div id="perfNumber">
+                        <div><span class="percentageArrow large up"><span></span>{{sheet?.oneYearReturn}}</span></div>
+                        <label>1 Year Return</label>
+                    </div>
+                    <div id="perfNumber">
+                        <div><span class="percentageArrow large up"><span></span>{{sheet?.oneMonthReturn}}</span></div>
+                        <label>1 Month Return</label>
+                    </div>
+                    <div id="perfNumber">
+                        <div><span class="percentageArrow large up"><span></span>{{sheet?.dailyChange}}</span></div>
+                        <label>Daily Performance</label>
+                    </div>
+                </div>
+            </div>
+        </div>

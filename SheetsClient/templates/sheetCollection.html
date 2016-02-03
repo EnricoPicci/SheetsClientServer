@@ -1,0 +1,3 @@
+<div *ngFor="#sheet of sheets" class="floating-box gridCard">
+	<sheet-summary [sheet]=sheet (selectionCriteriaChanged)="selectionCriteriaChanged(sheet)"></sheet-summary>
+</div>

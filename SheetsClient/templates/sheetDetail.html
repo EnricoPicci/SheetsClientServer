@@ -1,0 +1,23 @@
+<div id="header" class="header"></div>
+<div id="content" class="content">
+    <div id="pageHeading">
+        <div id="banner"></div>
+    </div>
+    <div id="details">
+        <div id="assetInfo">
+            <sheet-info id="assetInfo" [sheet]="sheet"></sheet-info>
+        </div>
+        <div id="description">
+            <h2>{{sheet?.longTitle}}</h2>
+            <short-long-text [longText]="sheet?.description" [shortTextLength]="shortDescriptionTextLength"></short-long-text>
+        </div>
+        <button id="compareButton" class="basicButton" type="button" (click)="onClickOverCompareButton()">Confronta</button>
+        <div id="performanceChart">
+            <sheet-returnData id="returnData" [sheets]="sheets"></sheet-returnData>
+        </div>
+        <div id="assetComposition">
+            <sheet-assetComposition id="assetComposition" [sheet]="sheet"></sheet-assetComposition>
+        </div>
+    </div>
+    <div id="pageFooter"></div>
+</div>

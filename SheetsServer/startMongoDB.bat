@@ -1,0 +1,1 @@
+start cmd /k ""c:\Program Files\mongodb\server\3.2\bin\mongod" --dbpath C:\Data\Save\Enrico\CodeSamples\AngularJS2\Sheets\SheetsServer\data"

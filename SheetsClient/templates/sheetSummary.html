@@ -1,0 +1,19 @@
+<a [routerLink]="['SheetDetail', {id:sheet.id}]">
+	<div class="gridImageFrame">
+		<div class="gradient"></div>
+		<img height="230" width="230" src={{sheet.imageUrl}}>
+		<div class="imageOverlay">
+			<span class="name sheetLink">{{sheet.title}}</span>
+			<span class="creatorName">Created By: {{sheet.createdBy}}</span>
+		</div>
+	</div>
+</a>
+	<div class="metrics">
+		<div class="metricLabel">One Month Return</div>
+		<div class="metricValue"><span class="percentageArrow large up"><span>{{sheet.oneMonthReturn}}</span></span></div>
+        <!--input #selectionCb value="seleziona" type="checkbox"
+            (change)="onChangeSelection(selectionCb.checked)"-->
+        <input #selectionCb value="seleziona" type="checkbox" [checked]="sheet.isSelectedForComparison"
+            (change)="onChangeSelection(selectionCb.checked)"
+            [style.display]="sheet.isComparisonCheckboxToBeDisplayed ? 'block' : 'none'">
+	</div>

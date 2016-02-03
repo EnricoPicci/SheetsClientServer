@@ -1,0 +1,21 @@
+.floating-box {
+    display: inline-block;
+    width: 150px;
+    height: 75px;
+    margin: 10px;
+    border: 3px solid #73AD21;  
+}
+
+.gridCard {
+	vertical-align: top;
+    width: 231px;
+    height: 280px;
+    overflow: hidden;
+    float: left;
+    position: relative;
+    border: 1px solid #cacaca;
+    margin: 0 12px 12px 0;
+    text-decoration: none;
+    box-shadow: 0 0 12px 2px #dddddd;
+}
+

@@ -1,0 +1,121 @@
+<div id="header" class="header"></div>
+<div id="content" class="content">
+    <div id="pageHeading">
+        <div id="banner"></div>
+    </div>
+    <div id="details">
+        <div id="info">
+            <div id="image">
+                <img height="146" width="146" src={{sheet.imageUrl}}>
+            </div>
+            <div id="name">
+                <h1>{{sheet.title}}</h1>
+                <div id="divider"></div>
+                <h3>Created by: {{sheet.createdBy}}</h3>
+                <div id="performance">
+                    <div id="perfNumber">
+                        <div><span class="percentageArrow large up"><span></span>{{sheet.oneYearReturn}}</span></div>
+                        <label>1 Year Return</label>
+                    </div>
+                    <div id="perfNumber">
+                        <div><span class="percentageArrow large up"><span></span>{{sheet.oneMonthReturn}}</span></div>
+                        <label>1 Month Return</label>
+                    </div>
+                    <div id="perfNumber">
+                        <div><span class="percentageArrow large up"><span></span>{{sheet.dailyChange}}</span></div>
+                        <label>Daily Performance</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="description">
+            <h2>{{sheet.longTitle}}</h2>
+            <!--span id="desc">{{sheet.description}}</span-->
+            <short-long-text [longText]="sheet.description" [shortTextLength]="shortDescriptionTextLength"></short-long-text>
+        </div>
+        <div id="performanceChart">
+            <sheet-returnData id="returnData" [sheet]="sheet"></sheet-returnData>
+        </div>
+        <div id="assetComposition">
+            <div id="assetTable">
+                <button id="customizeButton" class="basicButton" type="button" (click)="onClickOverCustomizeButton()">{{getCustomizeButtonText()}}</button>
+                <button id="relativeScaleButton" class="basicButton" type="button" (click)="onClickOverRelativeScaleButton()" [style.display]="editStatus ? 'block' : 'none'">{{getRelativeScaleButtonText()}}</button>
+                <table class="overviewAssetTable">
+                    <thead>
+                        <tr>
+                            <th class="weightClass">Weight</th>
+                            <th class="nameClass">Segment &amp; Stocks</th>
+                            <th class="symbolClass">Symbol</th>
+                            <th class="returnClass">
+                                <a class="oneMo">1 MO</a> / <a class="oneYr active">1 YR</a> Return
+                            </th>
+                            <th class="newWeightSliderClass" [style.display]="editStatus ? 'table-cell' : 'none'">New weight</th>
+                            <th class="lockClass" [style.display]="editStatus ? 'table-cell' : 'none'">Lock</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="#assetGroup of sheet.assetGroups">
+                        <tr class="assetGroupClass">
+                            <th class="weightClass">
+                                <span [style.display]="editStatus ? 'none' : 'table-cell'">{{assetGroup.weight.toFixed(2)}}%</span>
+                                <input type="number" [min]="assetGroup.minWeight" [max]="assetGroup.maxWeight" [value]="assetGroup.weight" [style.display]="editStatus ? 'table-cell' : 'none'">
+                            </th>
+                            <th id="assetGroupNameClass" colspan="2" (click)="onAssetGroupClick(assetGroup)">
+                                <span class="arrow" [class.open]="assetGroup.show"></span>
+                                <span>{{assetGroup.name}}</span>
+                            </th>
+                            <th  class="returnClass">
+                                <span style="display: none;" class="percentageArrow up small">{{assetGroup.oneMonthRet}}</span>
+                                <span style="display: inline;" class="percentageArrow up small">{{assetGroup.oneYearRet}}</span>
+                            </th>
+                            <td class="newWeightSliderClass" [style.display]="editStatus ? 'table-cell' : 'none'">
+                                <my-slider [start]="getStart(assetGroup)" [range]="getRange(assetGroup)" [pips]="getPips(assetGroup)" (end)="onEndOnAssetGroup($event, assetGroup)" [newValue]="assetGroup.newWeight" [locked]="assetGroup.locked" [relativeStartOfScale]="startOfScaleRelative ? assetGroup.relativeStartOfScale : '0'"></my-slider>
+                            </td>
+                            <th [style.display]="editStatus ? 'table-cell' : 'none'" [class]="assetGroup.locked ? 'lockClass locked' : 'lockClass unlocked'" (click)="onToggleLock(assetGroup)"></th>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div *ngFor="#asset of assetGroup.assets" [style.display]="assetGroup.show ? 'block' : 'none'">
+                                    <table width=100%>
+                                        <tr class="assetClass">
+                                            <td class="weightClass">
+                                                <span>{{asset.weight.toFixed(2) + '%'}}</span>
+                                            </td>
+                                            <td class="nameClass">
+                                                <span>
+                                                    {{asset.name}}
+                                                </span>
+                                            </td>
+                                            <td class="symbolClass">
+                                                <span>{{asset.symbol}}</span>
+                                            </td>
+                                            <td class="returnClass">
+                                                <span style="display: none;" class="percentageArrow up small">{{asset.oneYearRet}}</span>
+                                                <span style="display: inline;" class="percentageArrow up small">{{asset.oneYearRet}}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                            <td colspan="2" [style.display]="editStatus ? 'table-cell' : 'none'">
+                                <div *ngFor="#asset of assetGroup.assets" [style.display]="assetGroup.show ? 'block' : 'none'">
+                                    <table width=100%>
+                                        <tr class="assetClass">
+                                            <td class="newWeightSliderClass">
+                                                <my-slider [start]="getStart(asset)" [range]="getRange(asset)" [pips]="getPips(asset)" (end)="onEndOnAsset($event, asset, assetGroup)"  [newValue]="asset.newWeight" [locked]="asset.locked" [relativeStartOfScale]="startOfScaleRelative ? asset.relativeStartOfScale : '0'"></my-slider>
+                                            </td>
+                                            <td [class]="asset.locked ? 'lockClass locked' : 'lockClass unlocked'" (click)="onToggleLock(asset)"></td>                                            
+                                        </tr>                                        
+                                    </table>
+                                </div>                                
+                            </td>
+                        </tr>                        
+                    </tbody>
+                </table>
+            </div>
+            <div id="assetChart">
+                <sheet-compositionCharts id="sheetCharts" [sheet]="sheet"></sheet-compositionCharts>
+            </div>
+        </div>
+    </div>
+    <div id="pageFooter"></div>
+</div>

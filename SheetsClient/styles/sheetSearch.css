@@ -1,0 +1,26 @@
+
+#freeSearchHeader {
+    line-height: 40px;
+    position: relative;
+}
+
+#freeSearchBody {
+    line-height: 40px;
+    position: relative;
+}
+
+#query {
+    padding: 2px;
+    display: inline-block;
+    width: 165px;
+    vertical-align: top;
+    height: 20px;
+    margin-right: 8px;
+}
+
+#querySubmit {
+    display: inline-block;
+    width: 29px;
+    height: 26px;
+    background: url(/images/catalogSprite.png) 0 -296px no-repeat;
+}

@@ -1,0 +1,11 @@
+.toggleViewButton {
+    height: 20px;
+    width: 110px;
+    float: left;
+    /*position: absolute;*/
+    bottom: 0;
+    left: 0;
+    background-color: lightslategrey;
+    font-size: 9px;
+    color: white;
+}
