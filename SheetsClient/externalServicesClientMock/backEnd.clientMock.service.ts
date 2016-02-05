@@ -51,38 +51,42 @@ export class BackEndClientMock extends SheetBackEnd {
 		return inSheet;
 	}
 
-	fetchSheets(searchString: string, generalTags: string[], valueBasedTags: string[], sectorsTags: string[]) {
+	selectSheets(searchString: string, publicPersonal: string[], generalTags: string[], valueBasedTags: string[], sectorsTags: string[]) :any {
 		var ret: Array<Sheet> = new Array<Sheet>();
 		var sheets: Sheet[] = this.createSheets();
 		
 		var tempArr : { [key:string]:Sheet; } = { };
-		for (var i= 0; i < sheets.length; i++) {
-			for (var j= 0; j < generalTags.length; j++) {
-				if (sheets[i].general === generalTags[j]) {
-					tempArr[sheets[i].title] = sheets[i];
-				}
-			}
-		}
-		for (var i= 0; i < sheets.length; i++) {
-			for (var j= 0; j < valueBasedTags.length; j++) {
-				if (sheets[i].valueBased === valueBasedTags[j]) {
-					tempArr[sheets[i].title] = sheets[i];
-				}
-			}
-		}
-		for (var i= 0; i < sheets.length; i++) {
-			for (var j= 0; j < sectorsTags.length; j++) {
-				if (sheets[i].sector === sectorsTags[j]) {
-					tempArr[sheets[i].title] = sheets[i];
-				}
-			}
-		}
+        for (var i= 0; i < sheets.length; i++) {
+            for (var j= 0; j < generalTags.length; j++) {
+                if (sheets[i].general === generalTags[j]) {
+                    tempArr[sheets[i].title] = sheets[i];
+                }
+            }
+        }
+        for (var i= 0; i < sheets.length; i++) {
+            for (var j= 0; j < valueBasedTags.length; j++) {
+                if (sheets[i].valueBased === valueBasedTags[j]) {
+                    tempArr[sheets[i].title] = sheets[i];
+                }
+            }
+        }
+        for (var i= 0; i < sheets.length; i++) {
+            for (var j= 0; j < sectorsTags.length; j++) {
+                if (sheets[i].sector === sectorsTags[j]) {
+                    tempArr[sheets[i].title] = sheets[i];
+                }
+            }
+        }
 		
 		var i: number = 0;
 		for (var key in tempArr) {
 			ret[i] = tempArr[key];
 			i++;
 		}
+        // if there are no selections, then we return the entire list
+        if (ret.length == 0) {
+            ret = sheets;
+        }
 		return ret;
 	}
     

@@ -34,6 +34,9 @@ System.register(['angular2/core', './sheetBackEnd.service', '../ng2Highcharts/sr
                     this._subscriptionToSheetCompositionChange = this.sheet.getChangeCompositionEvent().
                         subscribe(function (inSheet) { return _this.generateCharts(); });
                 };
+                SheetCompositionCharts.prototype.ngOnDestroy = function () {
+                    this._subscriptionToSheetCompositionChange = this.sheet.getChangeCompositionEvent().unsubscribe();
+                };
                 SheetCompositionCharts.prototype.generateCharts = function () {
                     this.highchartsOptionsForGroups = this.createNewHighstocksOptionsForPieChart('Composizione per Gruppi');
                     this.highchartsOptionsForGroups.series = this.getSeriesForAssetGroups();

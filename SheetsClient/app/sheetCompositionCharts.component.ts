@@ -37,6 +37,10 @@ export class SheetCompositionCharts {
                                                         subscribe(inSheet => this.generateCharts());
     }
     
+    ngOnDestroy() {
+        this._subscriptionToSheetCompositionChange = this.sheet.getChangeCompositionEvent().unsubscribe();
+    }
+    
     generateCharts() {
         this.highchartsOptionsForGroups = this.createNewHighstocksOptionsForPieChart('Composizione per Gruppi');
         this.highchartsOptionsForGroups.series = this.getSeriesForAssetGroups();

@@ -30,8 +30,6 @@ export class SheetDashboardComponent {
     ) { }
     
     ngOnInit() {
-        //this.sheets = this._sheetBackEnd.getSomeSheets(0, 17);
-        //this._sheetBackEnd.getSomeSheets(0, 17)
         this._sheetBackEnd.getAllSheets()
             .subscribe(
                 sheets => {

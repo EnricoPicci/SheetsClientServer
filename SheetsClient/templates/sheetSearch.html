@@ -7,11 +7,7 @@
 </div>
 <div id="narrowResultHeader">
 	<h3>Refine Selection</h3>
-    <!--div *ngFor="#searchCriteria of sheetSearchCriteria.searchCriteria">
-        <searchCriteria [searchCriteria]="searchCriteria" (selectionCriteriaChanged)="onChange(searchCriteria)">
-        </searchCriteria>
-    </div-->
-    <table *ngFor="#searchCriteria of sheetSearchCriteria.searchCriteria">
+    <table *ngFor="#searchCriteria of searchCriteria">
         <tr>
             <td>
                 <div>

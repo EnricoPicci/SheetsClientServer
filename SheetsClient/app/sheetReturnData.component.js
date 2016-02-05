@@ -47,6 +47,11 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
                     enumerable: true,
                     configurable: true
                 });
+                SheetReturnData.prototype.ngOnDestroy = function () {
+                    for (var i = 0; i < this.sheets.length; i++) {
+                        this._subscriptionToSheetCompositionChange = this.sheets[i].getChangeCompositionEvent().unsubscribe();
+                    }
+                };
                 SheetReturnData.prototype.setLastMonthSeries = function () {
                     var series = new Array();
                     for (var i = 0; i < this.sheets.length; i++) {

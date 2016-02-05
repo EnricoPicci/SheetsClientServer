@@ -45,7 +45,7 @@ System.register(['angular2/core', './searchCriteria'], function(exports_1) {
                     core_1.Component({
                         selector: 'searchCriteria',
                         providers: [],
-                        templateUrl: '../templates/searchCriteria.html',
+                        template: "\n        <div>\n            <div class=\"sectionHeader\" (click)=\"onClickOverHeader()\">\n                <span class=\"arrow\" [class.open]=\"open\"></span>\n                <span>{{searchCriteria.name}}</span>\n            </div>\n            <div class=\"sectionBody\" [style.display]=\"open ? 'block' : 'none'\">\n                <ul *ngFor=\"#criterium of searchCriteria.selections\">\n                    <li>\n                        <input #angularcb value={{criterium.name}} type=\"checkbox\" \n                            (change)=\"onChange(angularcb.checked, criterium)\">\n                        <label>{{criterium.name}}</label>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    ",
                         styleUrls: ['../styles/common.css', '../styles/searchCriteria.css'],
                     }), 
                     __metadata('design:paramtypes', [])

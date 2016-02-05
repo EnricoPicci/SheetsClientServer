@@ -38,6 +38,12 @@ export class SheetReturnData {
         private _sheetBackEnd: SheetBackEnd
     ) { }
     
+    ngOnDestroy() {
+        for (var i = 0; i < this.sheets.length; i++) {
+            this._subscriptionToSheetCompositionChange = this.sheets[i].getChangeCompositionEvent().unsubscribe();
+        }
+    }
+    
     setLastMonthSeries() {
         let series = new Array<any>();
         for (var i = 0; i < this.sheets.length; i++) {

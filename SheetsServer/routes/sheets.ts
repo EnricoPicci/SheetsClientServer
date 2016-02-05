@@ -29,7 +29,7 @@ router.get('/sheet', function (req, res) {
  * GET the entire list of sheets
  */
 router.get('/sheets', function (req, res) {
-    SheetRestService.getSheets(res);
+    SheetRestService.getAllSheets(res);
 });
 
 /*
@@ -48,6 +48,32 @@ router.get('/someSheets', function (req, res) {
 router.post('/addsheet', function(req, res) {
     var sheetToAdd = req.body;
     SheetRestService.addSheet(sheetToAdd, res);
+});
+
+
+/*
+ * GET tags
+ */
+router.get('/generalTags', function(req, res) {
+    SheetRestService.getTags('general', res);
+});
+router.get('/valueBasedTags', function(req, res) {
+    SheetRestService.getTags('valueBased', res);
+});
+router.get('/sectorTags', function(req, res) {
+    SheetRestService.getTags('sector', res);
+});
+
+/*
+ * SELECT SHEETS based on different criteria
+ */
+router.get('/selectSheets', function (req, res) {
+    var searchString = req.query.searchString;
+    var publicPersonal = req.query.publicPersonal;
+    var generalTags = req.query.generalTags;
+    var valueBasedTags = req.query.valueBasedTags;
+    var sectorsTags = req.query.sectorsTags;
+    SheetRestService.selectSheets(searchString, publicPersonal, generalTags, valueBasedTags, sectorsTags, res);
 });
 
 

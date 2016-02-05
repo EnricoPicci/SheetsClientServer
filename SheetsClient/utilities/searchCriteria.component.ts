@@ -6,7 +6,23 @@ import {SearchSelection} from './searchSelection';
 @Component({
     selector: 'searchCriteria',
 	providers: [],
-    templateUrl: '../templates/searchCriteria.html', 
+    template: `
+        <div>
+            <div class="sectionHeader" (click)="onClickOverHeader()">
+                <span class="arrow" [class.open]="open"></span>
+                <span>{{searchCriteria.name}}</span>
+            </div>
+            <div class="sectionBody" [style.display]="open ? 'block' : 'none'">
+                <ul *ngFor="#criterium of searchCriteria.selections">
+                    <li>
+                        <input #angularcb value={{criterium.name}} type="checkbox" 
+                            (change)="onChange(angularcb.checked, criterium)">
+                        <label>{{criterium.name}}</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    `, 
 	styleUrls: ['../styles/common.css', '../styles/searchCriteria.css'],
 })
 export class SearchCriteriaComponent { 

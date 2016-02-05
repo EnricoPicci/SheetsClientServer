@@ -24,7 +24,7 @@ router.get('/sheet', function (req, res) {
  * GET the entire list of sheets
  */
 router.get('/sheets', function (req, res) {
-    sheetRestService_1.SheetRestService.getSheets(res);
+    sheetRestService_1.SheetRestService.getAllSheets(res);
 });
 /*
  * GET SOME SHEETS get a list of sheets
@@ -41,6 +41,29 @@ router.get('/someSheets', function (req, res) {
 router.post('/addsheet', function (req, res) {
     var sheetToAdd = req.body;
     sheetRestService_1.SheetRestService.addSheet(sheetToAdd, res);
+});
+/*
+ * GET tags
+ */
+router.get('/generalTags', function (req, res) {
+    sheetRestService_1.SheetRestService.getTags('general', res);
+});
+router.get('/valueBasedTags', function (req, res) {
+    sheetRestService_1.SheetRestService.getTags('valueBased', res);
+});
+router.get('/sectorTags', function (req, res) {
+    sheetRestService_1.SheetRestService.getTags('sector', res);
+});
+/*
+ * SELECT SHEETS based on different criteria
+ */
+router.get('/selectSheets', function (req, res) {
+    var searchString = req.query.searchString;
+    var publicPersonal = req.query.publicPersonal;
+    var generalTags = req.query.generalTags;
+    var valueBasedTags = req.query.valueBasedTags;
+    var sectorsTags = req.query.sectorsTags;
+    sheetRestService_1.SheetRestService.selectSheets(searchString, publicPersonal, generalTags, valueBasedTags, sectorsTags, res);
 });
 /*
  * DELETE to deletesheet.

@@ -127,6 +127,34 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     var myPost = this._http.post(this._environment.baseServiceUrl + 'addSheet', jsonString, options);
                     return myPost;
                 };
+                BackEndRest.prototype.getGeneralSearchCriteriaDomain = function () { return this.getSearchCriteriaDomain('generalTags'); };
+                BackEndRest.prototype.getValueBasedSearchCriteriaDomain = function () { return this.getSearchCriteriaDomain('valueBasedTags'); };
+                BackEndRest.prototype.getSectorsSearchCriteriaDomain = function () { return this.getSearchCriteriaDomain('sectorTags'); };
+                BackEndRest.prototype.getSearchCriteriaDomain = function (inDomainName) {
+                    var myUrl = this._environment.baseServiceUrl + inDomainName;
+                    return this._http.get(myUrl)
+                        .map(function (res) { return res.json(); })
+                        .catch(this.handleError);
+                };
+                BackEndRest.prototype.selectSheets = function (inSearchString, inPublicPersonal, inGeneralTags, inValueBasedTags, inSectorsTags) {
+                    var _this = this;
+                    var myUrl = this._environment.baseServiceUrl + 'selectSheets/?searchString=' + inSearchString +
+                        '&publicPersonal=' + JSON.stringify(inPublicPersonal) +
+                        '&generalTags=' + JSON.stringify(inGeneralTags) +
+                        '&valueBasedTags=' + JSON.stringify(inValueBasedTags) +
+                        '&sectorsTags=' + JSON.stringify(inSectorsTags);
+                    return this._http.get(myUrl)
+                        .map(function (res) { return res.json(); })
+                        .map(function (data) {
+                        var sheetsRetrieved = new Array();
+                        for (var i = 0; i < data.length; i++) {
+                            var sheetJSON = data[i];
+                            sheetsRetrieved.push(_this.createSheet(sheetJSON));
+                        }
+                        return sheetsRetrieved;
+                    })
+                        .catch(this.handleError);
+                };
                 BackEndRest.prototype.handleError = function (error) {
                     // TODO: add service to send error to the server
                     console.error(error);

@@ -54,12 +54,6 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         _this.sheet = sheet;
                         _this.sheets[0] = _this.sheet;
                     }, function (error) { return _this.errorMessage = error; });
-                    //this._sheetBackEnd.fillDetails(this.sheets[0]);
-                    //this.sheets[0] = this.sheet;
-                    /*let id = +this._routeParams.get('id');
-                    this.sheet = this._sheetBackEnd.getSheet(id);
-                    this._sheetBackEnd.fillDetails(this.sheet);
-                    this.sheets[0] = this.sheet;*/
                 };
                 SheetDetailComponent.prototype.setSheet = function (inSheet) {
                     this.sheet = inSheet;
@@ -78,6 +72,9 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                 };
                 SheetDetailComponent.prototype.onClickOverCompareButton = function () {
                     this._router.navigate(['SheetDashboard', { idOfFirstSheetToCompare: this.sheet.id }]);
+                };
+                SheetDetailComponent.prototype.hasId = function () {
+                    return this.sheet.id != null;
                 };
                 SheetDetailComponent = __decorate([
                     core_1.Component({

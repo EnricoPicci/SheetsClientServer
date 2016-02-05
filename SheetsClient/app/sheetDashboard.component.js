@@ -37,8 +37,6 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                 }
                 SheetDashboardComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    //this.sheets = this._sheetBackEnd.getSomeSheets(0, 17);
-                    //this._sheetBackEnd.getSomeSheets(0, 17)
                     this._sheetBackEnd.getAllSheets()
                         .subscribe(function (sheets) {
                         _this.sheets = sheets;

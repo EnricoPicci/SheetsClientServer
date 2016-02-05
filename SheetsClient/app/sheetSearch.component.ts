@@ -1,9 +1,9 @@
 import {Component, OnInit, Output, EventEmitter} from 'angular2/core';
 
-import {SheetSearchCriteria} from './sheetSearchCriteria';
-import {SearchCriteriaComponent} from './searchCriteria.component';
-import {SearchCriteria} from './searchCriteria';
-import {SearchSelection} from './searchSelection';
+//import {SheetSearchCriteria} from './sheetSearchCriteria';
+import {SearchCriteriaComponent} from '../utilities/searchCriteria.component';
+import {SearchCriteria} from '../utilities/searchCriteria';
+import {SearchSelection} from '../utilities/searchSelection';
 import {SheetBackEnd} from './sheetBackEnd.service';
 import {Sheet} from './sheet';
 
@@ -15,55 +15,117 @@ import {Sheet} from './sheet';
     directives: [SearchCriteriaComponent],
 })
 export class SheetSearchCmp implements OnInit { 
-	sheetSearchCriteria: SheetSearchCriteria;
+	public freeSearchText: string;
+    public searchCriteria: SearchCriteria[] = new Array<SearchCriteria>();    
 	public searchResult: Sheet[];
 	@Output() sheetsRetrieved: EventEmitter<any> = new EventEmitter();
+    
+    /*static publicPersonalizedDomain: string[];
+    static generalDomain: string[];
+	static valueBasedDomain: string[];
+	static sectorsDomain: string[];*/
+    
+    public errorMessage: string;
 
 	constructor(private _backEnd: SheetBackEnd) {
-        this.sheetSearchCriteria = new SheetSearchCriteria(_backEnd);
 	}
     
     ngOnInit() {
-        this.sheetSearchCriteria.initializeSearchCriteria();
-        console.log(this.sheetSearchCriteria);
+        this.initializeSearchCriteria();
     }
+    
+    public initializeSearchCriteria() {
+        if (this.searchCriteria.length == 0) {
+            // initialize at start the selection criteria (so that we go to the server 
+            // only once to retrieve the criteria) and then build the arrays of SearchSelection instance to be passed
+            // to each SearchCriteria component contained in this component
+            let publicPersonalizedDomain = new Array<string>();
+            publicPersonalizedDomain.push('Pubblici');
+            publicPersonalizedDomain.push('Personalizzati');
+            let publicPersonalized = new Array<SearchSelection>();
+            publicPersonalized[0] = new SearchSelection(publicPersonalizedDomain[0]);
+            publicPersonalized[1] = new SearchSelection(publicPersonalizedDomain[1]);
+            this.searchCriteria.push(new SearchCriteria('Publici o Personalizzati', publicPersonalized));
+            
+            this._backEnd.getGeneralSearchCriteriaDomain()
+                .subscribe(
+                    tags => {
+                        let general = new Array<SearchSelection>();
+                        for (var i = 0; i < tags.length; i++) {
+                            general[i] = new SearchSelection(tags[i]);
+                        }
+                        this.searchCriteria.push(new SearchCriteria('General', general));
+                    },
+                error => this.errorMessage = <any>error
+            );
+            this._backEnd.getValueBasedSearchCriteriaDomain()
+                .subscribe(
+                    tags => {
+                        let valueBased = new Array<SearchSelection>();
+                        for (var i = 0; i < tags.length; i++) {
+                            valueBased[i] = new SearchSelection(tags[i]);
+                        }
+                        this.searchCriteria.push(new SearchCriteria('Value Based', valueBased));
+                    },
+                error => this.errorMessage = <any>error
+            );
+            this._backEnd.getSectorsSearchCriteriaDomain()
+                .subscribe(
+                    tags => {
+                        let sectors = new Array<SearchSelection>();
+                        for (var i = 0; i < tags.length; i++) {
+                            sectors[i] = new SearchSelection(tags[i]);
+                        }
+                        this.searchCriteria.push(new SearchCriteria('Sectors', sectors));
+                },
+                error => this.errorMessage = <any>error
+            );
+        }
+
+		return this.searchCriteria;
+	}
 
 	onChange(inSearchCriteria: SearchCriteria) {
 		let criteria: SearchCriteria;
         
-        criteria = this.sheetSearchCriteria.searchCriteria[0];
+        criteria = this.searchCriteria[0];
 		var publicPersonal: string[] = new Array<string>();
 		this.retrieveSelectedCriteria(criteria, publicPersonal);
 		console.log('publicPersonal');
 		console.log(publicPersonal);
 		
-		criteria = this.sheetSearchCriteria.searchCriteria[1];
+		criteria = this.searchCriteria[1];
 		var generalTags: string[] = new Array<string>();
 		this.retrieveSelectedCriteria(criteria, generalTags);
 		console.log('generalTags');
 		console.log(generalTags);
 
-		criteria = this.sheetSearchCriteria.searchCriteria[2];
+		criteria = this.searchCriteria[2];
 		var valueBasedTags: string[] = new Array<string>();
 		this.retrieveSelectedCriteria(criteria, valueBasedTags);
 		console.log('valueBasedTags');
 		console.log(valueBasedTags);
 		
-		criteria = this.sheetSearchCriteria.searchCriteria[3];;
+		criteria = this.searchCriteria[3];;
 		var sectorsTags: string[] = new Array<string>();
 		this.retrieveSelectedCriteria(criteria, sectorsTags);
 		console.log('sectorsTags');
 		console.log(sectorsTags);
 		
-		this.searchResult = this._backEnd.fetchSheets(null, generalTags, valueBasedTags, sectorsTags);
-		this.sheetsRetrieved.next(this.searchResult);
+		this.searchResult = this._backEnd.selectSheets(null, publicPersonal, generalTags, valueBasedTags, sectorsTags)
+            .subscribe(
+                sheets => {
+                    this.searchResult = sheets;
+                    this.sheetsRetrieved.next(this.searchResult);
+                },
+                error => this.errorMessage = <any>error
+            );
 	}
 	
 	retrieveSelectedCriteria(inCriteria: SearchCriteria, inTags: string[]) {
 		for (var i = 0; i < inCriteria.selections.length; i++) {
 			if (inCriteria.selections[i].selected) {
 				inTags[i] = inCriteria.selections[i].name;
-				//console.log(inCriteria[i].name + ' ' + inCriteria[i].selected);
 			}
 		}
 	}

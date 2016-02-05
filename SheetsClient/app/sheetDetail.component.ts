@@ -39,12 +39,6 @@ export class SheetDetailComponent {
                             this.sheets[0] = this.sheet},
                 error => this.errorMessage = <any>error
             );
-        //this._sheetBackEnd.fillDetails(this.sheets[0]);
-        //this.sheets[0] = this.sheet;
-        /*let id = +this._routeParams.get('id');
-        this.sheet = this._sheetBackEnd.getSheet(id);
-        this._sheetBackEnd.fillDetails(this.sheet);
-        this.sheets[0] = this.sheet;*/
     }
     
     setSheet(inSheet: Sheet) {
@@ -66,5 +60,9 @@ export class SheetDetailComponent {
     
     onClickOverCompareButton() {
         this._router.navigate( ['SheetDashboard', { idOfFirstSheetToCompare: this.sheet.id }]  );
+    }
+    
+    hasId() {
+        return this.sheet.id != null;
     }
 }

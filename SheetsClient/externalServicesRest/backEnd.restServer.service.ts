@@ -107,6 +107,37 @@ export class BackEndRest extends BackEndClientMock {
         return myPost;
 	}
     
+    getGeneralSearchCriteriaDomain() {return this.getSearchCriteriaDomain('generalTags')}
+	getValueBasedSearchCriteriaDomain() {return this.getSearchCriteriaDomain('valueBasedTags')}
+	getSectorsSearchCriteriaDomain() {return this.getSearchCriteriaDomain('sectorTags')}
+    getSearchCriteriaDomain(inDomainName: string) {
+        let myUrl = this._environment.baseServiceUrl + inDomainName;
+        return this._http.get(myUrl)
+            .map(res => res.json())
+            .catch(this.handleError)
+    }
+    
+    selectSheets(inSearchString: string, inPublicPersonal: string[], inGeneralTags: string[], inValueBasedTags: string[], inSectorsTags: string[]) {
+        let myUrl = this._environment.baseServiceUrl + 'selectSheets/?searchString=' + inSearchString +
+            '&publicPersonal=' + JSON.stringify(inPublicPersonal) +
+            '&generalTags=' + JSON.stringify(inGeneralTags) +
+            '&valueBasedTags=' + JSON.stringify(inValueBasedTags) +
+            '&sectorsTags=' + JSON.stringify(inSectorsTags);
+        return this._http.get(myUrl)
+            .map(res => res.json())
+            .map(
+                data => {
+                    let sheetsRetrieved = new Array<Sheet>();
+                    for (var i = 0; i < data.length; i++) {
+                        let sheetJSON = data[i];
+                        sheetsRetrieved.push(this.createSheet(sheetJSON));
+                    }
+                    return sheetsRetrieved;
+                }
+            )
+            .catch(this.handleError)
+    }
+    
     private handleError (error: Response) {
         // TODO: add service to send error to the server
         console.error(error);

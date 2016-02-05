@@ -16,7 +16,8 @@ undefined-->
             <h2>{{sheet.longTitle}}</h2>
             <short-long-text [longText]="sheet.description" [shortTextLength]="shortDescriptionTextLength"></short-long-text>
         </div>
-        <button id="compareButton" class="basicButton" type="button" (click)="onClickOverCompareButton()">Confronta</button>
+        <button id="compareButton" class="basicButton" type="button" (click)="onClickOverCompareButton()"
+            [style.display]="hasId() ? 'block' : 'none'">Confronta</button>
         <div id="performanceChart">
             <sheet-returnData id="returnData" [sheets]="sheets"></sheet-returnData>
         </div>

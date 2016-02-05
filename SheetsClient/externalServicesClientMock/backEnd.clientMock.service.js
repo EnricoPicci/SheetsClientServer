@@ -68,7 +68,7 @@ System.register(['../app/sheet', '../app/sheetBackEnd.service', '../app/asset', 
                     this.fillReturnData(inSheet, returnPeriod_1.ReturnPeriod.lastMonth);
                     return inSheet;
                 };
-                BackEndClientMock.prototype.fetchSheets = function (searchString, generalTags, valueBasedTags, sectorsTags) {
+                BackEndClientMock.prototype.selectSheets = function (searchString, publicPersonal, generalTags, valueBasedTags, sectorsTags) {
                     var ret = new Array();
                     var sheets = this.createSheets();
                     var tempArr = {};
@@ -97,6 +97,10 @@ System.register(['../app/sheet', '../app/sheetBackEnd.service', '../app/asset', 
                     for (var key in tempArr) {
                         ret[i] = tempArr[key];
                         i++;
+                    }
+                    // if there are no selections, then we return the entire list
+                    if (ret.length == 0) {
+                        ret = sheets;
                     }
                     return ret;
                 };
