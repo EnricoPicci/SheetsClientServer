@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './sheetDashboard.component', './sheetSummary.component', './sheetDetail.component', './SheetComparator.component', './userLogin.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './sheetDashboard.component', './sheetCollection.component', './sheetSummary.component', './sheetDetail.component', './SheetComparator.component', './userLogin.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './sheetDashboard.component
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetDashboard_component_1, sheetSummary_component_1, sheetDetail_component_1, SheetComparator_component_1, userLogin_component_1;
+    var core_1, router_1, sheetDashboard_component_1, sheetCollection_component_1, sheetSummary_component_1, sheetDetail_component_1, SheetComparator_component_1, userLogin_component_1;
     var AppComponent;
     return {
         setters:[
@@ -20,6 +20,9 @@ System.register(['angular2/core', 'angular2/router', './sheetDashboard.component
             },
             function (sheetDashboard_component_1_1) {
                 sheetDashboard_component_1 = sheetDashboard_component_1_1;
+            },
+            function (sheetCollection_component_1_1) {
+                sheetCollection_component_1 = sheetCollection_component_1_1;
             },
             function (sheetSummary_component_1_1) {
                 sheetSummary_component_1 = sheetSummary_component_1_1;
@@ -47,7 +50,7 @@ System.register(['angular2/core', 'angular2/router', './sheetDashboard.component
                     router_1.RouteConfig([
                         { path: '/Login/', name: 'UserLogin', component: userLogin_component_1.UserLoginComponent, useAsDefault: true },
                         { path: '/Dashboard/', name: 'SheetDashboard', component: sheetDashboard_component_1.SheetDashboardComponent },
-                        //{path: '/Dashboard/:idOfFirstSheetToCompare', name: 'SheetDashboard', component: SheetDashboardComponent},
+                        { path: '/SheetCollection/', name: 'SheetCollection', component: sheetCollection_component_1.SheetCollection },
                         { path: '/Sheet/:id', name: 'SheetSummary', component: sheetSummary_component_1.SheetSummaryComponent },
                         { path: '/SheetDetail/:id', name: 'SheetDetail', component: sheetDetail_component_1.SheetDetailComponent },
                         { path: '/SheetComparator/', name: 'SheetComparator', component: SheetComparator_component_1.SheetComparatorComponent },

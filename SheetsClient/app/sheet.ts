@@ -81,12 +81,12 @@ export class Sheet {
     }
     
     personalized(inUser: UserLogged) {
+        if (!this.originalSheetID) {
+            this.originalSheetID = this.id.toString();
+        }
         // the new id for the new personalized Sheet is going to be provided when the personalized Sheet is saved
         this.id = null;
         this.createdBy = inUser.name;
-        if (this.id) {
-            this.originalSheetID = this.id.toString();
-        }
     }
     
     jsonStringForBackEnd() {

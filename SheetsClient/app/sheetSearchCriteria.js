@@ -17,6 +17,16 @@ System.register(['./searchCriteria', './searchSelection'], function(exports_1) {
                     this._sheetBackEnd = inSheetBackEnd;
                 }
                 SheetSearchCriteria.prototype.initializeSearchCriteria = function () {
+                    if (SheetSearchCriteria.publicPersonalizedDomain == null) {
+                        SheetSearchCriteria.publicPersonalizedDomain = new Array();
+                        SheetSearchCriteria.publicPersonalizedDomain.push('Pubblici');
+                        SheetSearchCriteria.publicPersonalizedDomain.push('Personalizzati da te');
+                    }
+                    var publicPersonalized = new Array();
+                    for (var i = 0; i < SheetSearchCriteria.publicPersonalizedDomain.length; i++) {
+                        publicPersonalized[i] = new searchSelection_1.SearchSelection(SheetSearchCriteria.publicPersonalizedDomain[i]);
+                    }
+                    this.searchCriteria.push(new searchCriteria_1.SearchCriteria('Publici o Personalizzati', publicPersonalized));
                     if (SheetSearchCriteria.generalDomain == null) {
                         SheetSearchCriteria.generalDomain = this._sheetBackEnd.getGeneralSearchCriteriaDomain();
                     }
@@ -24,7 +34,7 @@ System.register(['./searchCriteria', './searchSelection'], function(exports_1) {
                     for (var i = 0; i < SheetSearchCriteria.generalDomain.length; i++) {
                         general[i] = new searchSelection_1.SearchSelection(SheetSearchCriteria.generalDomain[i]);
                     }
-                    this.searchCriteria[0] = new searchCriteria_1.SearchCriteria('General', general);
+                    this.searchCriteria.push(new searchCriteria_1.SearchCriteria('General', general));
                     if (SheetSearchCriteria.valueBasedDomain == null) {
                         SheetSearchCriteria.valueBasedDomain = this._sheetBackEnd.getValueBasedSearchCriteriaDomain();
                     }
@@ -32,7 +42,7 @@ System.register(['./searchCriteria', './searchSelection'], function(exports_1) {
                     for (var i = 0; i < SheetSearchCriteria.valueBasedDomain.length; i++) {
                         valueBased[i] = new searchSelection_1.SearchSelection(SheetSearchCriteria.valueBasedDomain[i]);
                     }
-                    this.searchCriteria[1] = new searchCriteria_1.SearchCriteria('Value Based', valueBased);
+                    this.searchCriteria.push(new searchCriteria_1.SearchCriteria('Value Based', valueBased));
                     if (SheetSearchCriteria.sectorsDomain == null) {
                         SheetSearchCriteria.sectorsDomain = this._sheetBackEnd.getSectorsSearchCriteriaDomain();
                     }
@@ -40,7 +50,7 @@ System.register(['./searchCriteria', './searchSelection'], function(exports_1) {
                     for (var i = 0; i < SheetSearchCriteria.sectorsDomain.length; i++) {
                         sectors[i] = new searchSelection_1.SearchSelection(SheetSearchCriteria.sectorsDomain[i]);
                     }
-                    this.searchCriteria[2] = new searchCriteria_1.SearchCriteria('Sectors', sectors);
+                    this.searchCriteria.push(new searchCriteria_1.SearchCriteria('Sectors', sectors));
                     return this.searchCriteria;
                 };
                 return SheetSearchCriteria;

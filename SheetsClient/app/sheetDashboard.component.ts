@@ -34,18 +34,20 @@ export class SheetDashboardComponent {
         //this._sheetBackEnd.getSomeSheets(0, 17)
         this._sheetBackEnd.getAllSheets()
             .subscribe(
-                sheets => this.sheets = sheets,
+                sheets => {
+                    this.sheets = sheets;
+                    this.idOfFirstSheetToCompare = this._routeParams.get('idOfFirstSheetToCompare');
+                    if (this.idOfFirstSheetToCompare != null) {
+                        for (var i = 0; i < this.sheets.length; i++) {
+                            let oneSheet = this.sheets[i];
+                            if (oneSheet.id.toString() != this.idOfFirstSheetToCompare) {
+                                this.sheets[i].isComparisonCheckboxToBeDisplayed = true;
+                            }
+                        }
+                    }                    
+                },
                 error => this.errorMessage = <any>error
             );
-        this.idOfFirstSheetToCompare = this._routeParams.get('idOfFirstSheetToCompare');
-        if (this.idOfFirstSheetToCompare != null) {
-            for (var i = 0; i < this.sheets.length; i++) {
-                let oneSheet = this.sheets[i];
-                if (oneSheet.id.toString() != this.idOfFirstSheetToCompare) {
-                    this.sheets[i].isComparisonCheckboxToBeDisplayed = true;
-                }
-            }
-        }
     }
     
 	getSheets() {

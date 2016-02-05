@@ -1,3 +1,8 @@
+<!-- Need to protect with the following *ngIf because back end services are async and
+there are situations when sheet has not been fully loaded while the template gets evaluated;
+in these cases, if we do not protect with *ngIf the whole thing crashes since sheet is still
+undefined-->
+<div *ngIf="sheet">
 <a [routerLink]="['SheetDetail', {id:sheet.id}]">
 	<div class="gridImageFrame">
 		<div class="gradient"></div>
@@ -17,3 +22,4 @@
             (change)="onChangeSelection(selectionCb.checked)"
             [style.display]="sheet.isComparisonCheckboxToBeDisplayed ? 'block' : 'none'">
 	</div>
+</div>

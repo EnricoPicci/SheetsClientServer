@@ -30,20 +30,26 @@ export class SheetSearchCmp implements OnInit {
 
 	onChange(inSearchCriteria: SearchCriteria) {
 		let criteria: SearchCriteria;
+        
+        criteria = this.sheetSearchCriteria.searchCriteria[0];
+		var publicPersonal: string[] = new Array<string>();
+		this.retrieveSelectedCriteria(criteria, publicPersonal);
+		console.log('publicPersonal');
+		console.log(publicPersonal);
 		
-		criteria = this.sheetSearchCriteria.searchCriteria[0];
+		criteria = this.sheetSearchCriteria.searchCriteria[1];
 		var generalTags: string[] = new Array<string>();
 		this.retrieveSelectedCriteria(criteria, generalTags);
 		console.log('generalTags');
 		console.log(generalTags);
 
-		criteria = this.sheetSearchCriteria.searchCriteria[1];
+		criteria = this.sheetSearchCriteria.searchCriteria[2];
 		var valueBasedTags: string[] = new Array<string>();
 		this.retrieveSelectedCriteria(criteria, valueBasedTags);
 		console.log('valueBasedTags');
 		console.log(valueBasedTags);
 		
-		criteria = this.sheetSearchCriteria.searchCriteria[2];;
+		criteria = this.sheetSearchCriteria.searchCriteria[3];;
 		var sectorsTags: string[] = new Array<string>();
 		this.retrieveSelectedCriteria(criteria, sectorsTags);
 		console.log('sectorsTags');

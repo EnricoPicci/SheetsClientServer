@@ -30,14 +30,14 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service'], 
                     this.selectionCriteriaChanged = new core_1.EventEmitter();
                 }
                 SheetSummaryComponent.prototype.ngOnInit = function () {
+                    var _this = this;
                     var id = +this._routeParams.get('id');
-                    console.log(id);
                     // only if the routeParameter is not null we go to the service
                     // this is because if the routeParameter is not null, it means we have been called via routing (or url on the browser)
                     // if id is null it means we have been called within the single-page (and we hope we have been passed the full Sheet instance)
                     if (id) {
-                        this.sheet = this._sheetBackEnd.getSomeSheets(id, 1)[0];
-                        console.log(this.sheet);
+                        this._sheetBackEnd.getSomeSheets(id, 1)
+                            .subscribe(function (sheets) { return _this.sheet = sheets[0]; }, function (error) { return _this.errorMessage = error; });
                     }
                 };
                 /*onMouseDown() {

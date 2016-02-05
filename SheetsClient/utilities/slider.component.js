@@ -22,6 +22,7 @@ System.register(['angular2/core'], function(exports_1) {
                     var _this = this;
                     this.locked = false;
                     this.relativeStartOfScale = 0;
+                    this.isGroup = false; // not yet used; maybe we ca use this to drive different appereance or behavior on the sliders attached to AssetGroups
                     this.end = new core_1.EventEmitter();
                     this.onEnd = function (inValues) {
                         _this.values = inValues;
@@ -114,13 +115,18 @@ System.register(['angular2/core'], function(exports_1) {
                     __metadata('design:type', Number)
                 ], Slider.prototype, "relativeStartOfScale", void 0);
                 __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Boolean)
+                ], Slider.prototype, "isGroup", void 0);
+                __decorate([
+                    // not yet used; maybe we ca use this to drive different appereance or behavior on the sliders attached to AssetGroups
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], Slider.prototype, "end", void 0);
                 Slider = __decorate([
                     core_1.Component({
                         selector: 'my-slider',
-                        template: "\n    <div id=\"preSlider\" class=\"slider back noUi-base\" [style.width]=\"getWidthFromZero()\" [style.left]=\"getLeftForPreDiv()\">\n        <div class=\"noUi-marker noUi-marker-horizontal noUi-marker-large\"></div>\n        <div class=\"noUi-value noUi-value-horizontal noUi-value-large\">0</div>\n    </div>\n    <div #sliderDomElement id=\"slider\" class=\"slider\" [style.left]=\"getLeft()\" [style.width]=\"getWidth()\"></div>\n    <div id=\"postSlider\"></div>\n  ",
+                        template: "\n    <div id=\"preSlider\" class=\"slider back\" [style.width]=\"getWidthFromZero()\" [style.left]=\"getLeftForPreDiv()\">\n        <div class=\"noUi-marker noUi-marker-horizontal noUi-marker-large\"></div>\n        <div class=\"noUi-value noUi-value-horizontal noUi-value-large\"></div>\n    </div>\n    <div #sliderDomElement id=\"slider\" class=\"slider\" [style.left]=\"getLeft()\" [style.width]=\"getWidth()\"></div>\n    <div id=\"postSlider\"></div>\n  ",
                     }), 
                     __metadata('design:paramtypes', [])
                 ], Slider);

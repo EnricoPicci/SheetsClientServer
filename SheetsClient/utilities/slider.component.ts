@@ -5,9 +5,9 @@ import {Component, ViewChild, AfterViewInit, OnChanges, Input, Output, EventEmit
 @Component({
   selector: 'my-slider',
   template: `
-    <div id="preSlider" class="slider back noUi-base" [style.width]="getWidthFromZero()" [style.left]="getLeftForPreDiv()">
+    <div id="preSlider" class="slider back" [style.width]="getWidthFromZero()" [style.left]="getLeftForPreDiv()">
         <div class="noUi-marker noUi-marker-horizontal noUi-marker-large"></div>
-        <div class="noUi-value noUi-value-horizontal noUi-value-large">0</div>
+        <div class="noUi-value noUi-value-horizontal noUi-value-large"></div>
     </div>
     <div #sliderDomElement id="slider" class="slider" [style.left]="getLeft()" [style.width]="getWidth()"></div>
     <div id="postSlider"></div>
@@ -23,6 +23,7 @@ export class Slider {
     @Input() newValue: any;
     @Input() locked: boolean = false;
     @Input() relativeStartOfScale: number = 0;
+    @Input() isGroup: boolean = false;  // not yet used; maybe we ca use this to drive different appereance or behavior on the sliders attached to AssetGroups
     @Output() end: EventEmitter<any> = new EventEmitter();
     public values: any[];
     

@@ -47,12 +47,12 @@ System.register(['angular2/core', './returnData', './sheetJSON'], function(expor
                     return this._changeCompositionEventEmitter;
                 };
                 Sheet.prototype.personalized = function (inUser) {
+                    if (!this.originalSheetID) {
+                        this.originalSheetID = this.id.toString();
+                    }
                     // the new id for the new personalized Sheet is going to be provided when the personalized Sheet is saved
                     this.id = null;
                     this.createdBy = inUser.name;
-                    if (this.id) {
-                        this.originalSheetID = this.id.toString();
-                    }
                 };
                 Sheet.prototype.jsonStringForBackEnd = function () {
                     var sheetJSON = new sheetJSON_1.SheetJSON();

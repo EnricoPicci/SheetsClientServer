@@ -40,16 +40,18 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     //this.sheets = this._sheetBackEnd.getSomeSheets(0, 17);
                     //this._sheetBackEnd.getSomeSheets(0, 17)
                     this._sheetBackEnd.getAllSheets()
-                        .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.errorMessage = error; });
-                    this.idOfFirstSheetToCompare = this._routeParams.get('idOfFirstSheetToCompare');
-                    if (this.idOfFirstSheetToCompare != null) {
-                        for (var i = 0; i < this.sheets.length; i++) {
-                            var oneSheet = this.sheets[i];
-                            if (oneSheet.id.toString() != this.idOfFirstSheetToCompare) {
-                                this.sheets[i].isComparisonCheckboxToBeDisplayed = true;
+                        .subscribe(function (sheets) {
+                        _this.sheets = sheets;
+                        _this.idOfFirstSheetToCompare = _this._routeParams.get('idOfFirstSheetToCompare');
+                        if (_this.idOfFirstSheetToCompare != null) {
+                            for (var i = 0; i < _this.sheets.length; i++) {
+                                var oneSheet = _this.sheets[i];
+                                if (oneSheet.id.toString() != _this.idOfFirstSheetToCompare) {
+                                    _this.sheets[i].isComparisonCheckboxToBeDisplayed = true;
+                                }
                             }
                         }
-                    }
+                    }, function (error) { return _this.errorMessage = error; });
                 };
                 SheetDashboardComponent.prototype.getSheets = function () {
                     return this.sheets;

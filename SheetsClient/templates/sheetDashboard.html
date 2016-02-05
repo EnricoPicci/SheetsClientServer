@@ -1,16 +1,15 @@
-		<div id="header" class="header"></div>
-        <div id="content" class="container">
-			<div id="pageHeading"></div>
-			<div id="sidebarGroup">
-                <button id="compareButton" class="basicButton" type="button" (click)="onCompareClick()"
-                    [style.display]="isReadyToLaunchCompare() ? 'block' : 'none'">Confronta</button>
-				<sheetSearchCmp #search (sheetsRetrieved)="updateSheets(search.searchResult)"></sheetSearchCmp>
-			</div>
-            <!-->(selectionCriteriaChanged) is an event raised by SheetSummaryComponent which is included in 'sheetCollectionCmp'<-->
-			<div id="main">
-				<sheetCollectionCmp [sheets]="sheets" (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp>
-			</div>
-			<div id="pageFooter"></div>
-		</div>
+<div id="header" class="header"></div>
+<div id="content" class="container">
+    <div id="pageHeading"></div>
+    <div id="sidebarGroup">
+        <button id="compareButton" class="basicButton" type="button" (click)="onCompareClick()"
+            [style.display]="isReadyToLaunchCompare() ? 'block' : 'none'">Confronta</button>
+        <sheetSearchCmp #search (sheetsRetrieved)="updateSheets(search.searchResult)"></sheetSearchCmp>
+    </div>
+    <div id="main">
+        <sheetCollectionCmp [sheets]="sheets" (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp>
+    </div>
+    <div id="pageFooter"></div>
+</div>
 		
 		

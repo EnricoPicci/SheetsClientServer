@@ -18,6 +18,8 @@ export class SheetSummaryComponent implements OnInit {
     public selected: boolean;
     @Output() selectionCriteriaChanged: EventEmitter<any> = new EventEmitter();
     
+    public errorMessage: string;
+    
     constructor(
         private _router: Router,
         private _routeParams: RouteParams,
@@ -26,13 +28,15 @@ export class SheetSummaryComponent implements OnInit {
     
     ngOnInit() {
         let id = +this._routeParams.get('id');
-        console.log(id);
         // only if the routeParameter is not null we go to the service
         // this is because if the routeParameter is not null, it means we have been called via routing (or url on the browser)
         // if id is null it means we have been called within the single-page (and we hope we have been passed the full Sheet instance)
         if (id) {
-            this.sheet = this._sheetBackEnd.getSomeSheets(id, 1)[0];
-            console.log(this.sheet);
+            this._sheetBackEnd.getSomeSheets(id, 1)
+            .subscribe(
+                sheets => this.sheet = sheets[0],
+                error => this.errorMessage = <any>error
+            );
         }
     }
     
