@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Output, EventEmitter} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
 import {Sheet} from './sheet';
@@ -16,33 +16,42 @@ import {SheetInfoComponent} from './sheetInfo.component';
     templateUrl: '../templates/sheetDetail.html',
     styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
 	directives: [ShortLongTextComponent, SheetAssetCompositionComponent, SheetReturnData, SheetCompositionCharts, SheetInfoComponent],
-    inputs: ['sheet'],
+    inputs: ['sheet', 'editMode'],
 })
 export class SheetDetailComponent { 
     public sheet: Sheet;
     // the array is needed to feed the sheetReturnData component
     public sheets: Sheet[] = new Array<Sheet>();
+    //public sheets: Sheet[];
     public shortDescriptionTextLength: number = 250;
     public errorMessage: string;
+    //public sendProposalMessage: string;
+    @Output() sheetRetrieved: EventEmitter<any> = new EventEmitter();
+    @Output() prepareProposal: EventEmitter<any> = new EventEmitter();
+    
+    public editMode = true;
     
     constructor(
         private _router: Router,
         private _routeParams: RouteParams,
-        private _sheetBackEnd: SheetBackEnd
+        private _backEnd: SheetBackEnd
     ) { }
     
     ngOnInit() {
         let id = +this._routeParams.get('id');
-        this._sheetBackEnd.getSheetWithDetails(id)
+        this._backEnd.getSheetWithDetails(id)
             .subscribe(
                 sheet => {this.sheet = sheet;
-                            this.sheets[0] = this.sheet},
+                            this.sheets[0] = this.sheet;
+                            this.sheetRetrieved.next(this.sheet);
+                        },
                 error => this.errorMessage = <any>error
             );
     }
     
     setSheet(inSheet: Sheet) {
         this.sheet = inSheet;
+        this.sheets = new Array<Sheet>();
         this.sheets[0] = this.sheet;
         console.log('inSheet --- ');
         console.log(inSheet);
@@ -60,6 +69,10 @@ export class SheetDetailComponent {
     
     onClickOverCompareButton() {
         this._router.navigate( ['SheetDashboard', { idOfFirstSheetToCompare: this.sheet.id }]  );
+    }
+    
+    onPrepareProposal() {
+        this.prepareProposal.next(this.sheet);
     }
     
     hasId() {

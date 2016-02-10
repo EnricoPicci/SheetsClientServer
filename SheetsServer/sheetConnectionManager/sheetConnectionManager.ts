@@ -10,6 +10,7 @@ import SheetDBBuilder = require('../sheetDBBuilder/sheetDBBuilder');
 export class SheetConnectionManager { 
     public static db: mongoose.Connection;
     public static sheetModel: mongoose.Model<any>;
+    public static proposalModel: mongoose.Model<any>;
    
     static connectAndOpen() {
         if (!this.db) {
@@ -31,5 +32,14 @@ export class SheetConnectionManager {
             this.sheetModel = mongoose.model('SheetModel', sheetSchema);
         }
         return this.sheetModel;
+    }
+    
+    static getProposalModel() {
+        if (!this.proposalModel) {
+            let dbBuilder = new SheetDBBuilder();
+            let proposalSchema = new mongoose.Schema(dbBuilder.getProposalSchema());
+            this.proposalModel = mongoose.model('ProposalModel', proposalSchema);
+        }
+        return this.proposalModel;
     }
 }

@@ -11,12 +11,14 @@ import {SheetDetailComponent} from './sheetDetail.component';
     templateUrl: '../templates/sheetSummary.html',
     styleUrls: ['../styles/common.css', '../styles/sheetSummary.css'],
 	directives: [ROUTER_DIRECTIVES],
-    inputs: ['sheet', 'sheetId'],
+    //inputs: ['sheet', 'sheetId'],
+    inputs: ['sheet', 'isIconized'],
 })
 export class SheetSummaryComponent implements OnInit { 
     public sheet: Sheet;
     public selected: boolean;
     @Output() selectionCriteriaChanged: EventEmitter<any> = new EventEmitter();
+    public isIconized = false;
     
     public errorMessage: string;
     

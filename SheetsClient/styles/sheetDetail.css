@@ -164,6 +164,10 @@ z-index: 100;
     width: 15%;
 }
 
+.investedAmountClass {
+    width: 15%;
+}
+
 .newWeightSliderClass {
     width: 50%;
 }

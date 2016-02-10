@@ -28,6 +28,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service'], 
                     this._routeParams = _routeParams;
                     this._sheetBackEnd = _sheetBackEnd;
                     this.selectionCriteriaChanged = new core_1.EventEmitter();
+                    this.isIconized = false;
                 }
                 SheetSummaryComponent.prototype.ngOnInit = function () {
                     var _this = this;
@@ -60,7 +61,8 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service'], 
                         templateUrl: '../templates/sheetSummary.html',
                         styleUrls: ['../styles/common.css', '../styles/sheetSummary.css'],
                         directives: [router_1.ROUTER_DIRECTIVES],
-                        inputs: ['sheet', 'sheetId'],
+                        //inputs: ['sheet', 'sheetId'],
+                        inputs: ['sheet', 'isIconized'],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd])
                 ], SheetSummaryComponent);

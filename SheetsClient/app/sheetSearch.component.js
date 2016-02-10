@@ -40,8 +40,8 @@ System.register(['angular2/core', '../utilities/searchCriteria.component', '../u
                 SheetSearchCmp.prototype.initializeSearchCriteria = function () {
                     var _this = this;
                     if (this.searchCriteria.length == 0) {
-                        // initialize at start the selection criteria (so that we go to the server 
-                        // only once to retrieve the criteria) and then build the arrays of SearchSelection instance to be passed
+                        // initialize at start the selection criteria 
+                        // and then build the arrays of SearchSelection instance to be passed
                         // to each SearchCriteria component contained in this component
                         var publicPersonalizedDomain = new Array();
                         publicPersonalizedDomain.push('Pubblici');
@@ -49,14 +49,14 @@ System.register(['angular2/core', '../utilities/searchCriteria.component', '../u
                         var publicPersonalized = new Array();
                         publicPersonalized[0] = new searchSelection_1.SearchSelection(publicPersonalizedDomain[0]);
                         publicPersonalized[1] = new searchSelection_1.SearchSelection(publicPersonalizedDomain[1]);
-                        this.searchCriteria.push(new searchCriteria_1.SearchCriteria('Publici o Personalizzati', publicPersonalized));
+                        this.searchCriteria[0] = new searchCriteria_1.SearchCriteria('Publici o Personalizzati', publicPersonalized);
                         this._backEnd.getGeneralSearchCriteriaDomain()
                             .subscribe(function (tags) {
                             var general = new Array();
                             for (var i = 0; i < tags.length; i++) {
                                 general[i] = new searchSelection_1.SearchSelection(tags[i]);
                             }
-                            _this.searchCriteria.push(new searchCriteria_1.SearchCriteria('General', general));
+                            _this.searchCriteria[1] = new searchCriteria_1.SearchCriteria('General', general);
                         }, function (error) { return _this.errorMessage = error; });
                         this._backEnd.getValueBasedSearchCriteriaDomain()
                             .subscribe(function (tags) {
@@ -64,7 +64,7 @@ System.register(['angular2/core', '../utilities/searchCriteria.component', '../u
                             for (var i = 0; i < tags.length; i++) {
                                 valueBased[i] = new searchSelection_1.SearchSelection(tags[i]);
                             }
-                            _this.searchCriteria.push(new searchCriteria_1.SearchCriteria('Value Based', valueBased));
+                            _this.searchCriteria[2] = new searchCriteria_1.SearchCriteria('Value Based', valueBased);
                         }, function (error) { return _this.errorMessage = error; });
                         this._backEnd.getSectorsSearchCriteriaDomain()
                             .subscribe(function (tags) {
@@ -72,7 +72,7 @@ System.register(['angular2/core', '../utilities/searchCriteria.component', '../u
                             for (var i = 0; i < tags.length; i++) {
                                 sectors[i] = new searchSelection_1.SearchSelection(tags[i]);
                             }
-                            _this.searchCriteria.push(new searchCriteria_1.SearchCriteria('Sectors', sectors));
+                            _this.searchCriteria[3] = new searchCriteria_1.SearchCriteria('Sectors', sectors);
                         }, function (error) { return _this.errorMessage = error; });
                     }
                     return this.searchCriteria;
@@ -101,7 +101,7 @@ System.register(['angular2/core', '../utilities/searchCriteria.component', '../u
                     this.retrieveSelectedCriteria(criteria, sectorsTags);
                     console.log('sectorsTags');
                     console.log(sectorsTags);
-                    this.searchResult = this._backEnd.selectSheets(null, publicPersonal, generalTags, valueBasedTags, sectorsTags)
+                    this.searchResult = this._backEnd.selectSheets(publicPersonal, generalTags, valueBasedTags, sectorsTags)
                         .subscribe(function (sheets) {
                         _this.searchResult = sheets;
                         _this.sheetsRetrieved.next(_this.searchResult);
@@ -113,6 +113,14 @@ System.register(['angular2/core', '../utilities/searchCriteria.component', '../u
                             inTags[i] = inCriteria.selections[i].name;
                         }
                     }
+                };
+                SheetSearchCmp.prototype.onQuerySubmitClick = function (inKeyword) {
+                    var _this = this;
+                    this.searchResult = this._backEnd.searchSheetsByKeyword(inKeyword)
+                        .subscribe(function (sheets) {
+                        _this.searchResult = sheets;
+                        _this.sheetsRetrieved.next(_this.searchResult);
+                    }, function (error) { return _this.errorMessage = error; });
                 };
                 __decorate([
                     core_1.Output(), 

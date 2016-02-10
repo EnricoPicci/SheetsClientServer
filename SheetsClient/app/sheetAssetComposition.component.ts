@@ -19,14 +19,26 @@ import {SheetBackEnd} from './sheetBackEnd.service';
     templateUrl: '../templates/sheetAssetComposition.html',
     styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
 	directives: [Slider, SheetReturnData, SheetCompositionCharts],
-    inputs: ['sheet'],
+    inputs: ['sheet', 'editMode', 'showCharts', 'showInvestmentAmounts'],
 })
 export class SheetAssetCompositionComponent { 
     public sheet: Sheet;
     
+    // editMode and editStatus are different
+    // editMode tells whether or not show the customize button (and therefore gives the possibility to customize)
+    // editStatus tells whether the user has decided to customize a Sheet
+    public editMode = true;
     public editStatus = false;
+    
+    public showCharts = true;
+    public showInvestmentAmounts = false;
+    
     public isChanged = false;
-    public startOfScaleRelative = false;  // if false, all sliders start from ZERO, otherwise their starting position increases based on the sum of the range of the previous assets
+    // if false, all sliders start from ZERO, otherwise their starting position increases based on the sum of the range of the previous assets
+    public startOfScaleRelative = false;  
+    
+    public errorMessage: string;
+    public sheetMessage: string;
     
     constructor(
         private _sheetWeightAdjuster: SheetWeightAdjuster, 
@@ -105,15 +117,22 @@ export class SheetAssetCompositionComponent {
     }
     
     onClickOverSaveButton() {
+        this.resetMessages();
         this._sheetBackEnd.addSheet(this.sheet)
             .subscribe(
                 data => {this.isChanged= false; 
                     let retJson = data.json();
                     this.sheet.id = retJson.id;
+                    this.sheetMessage = 'Sheet personalized no: ' + retJson.id + ' has been saved';
                     console.log('Data received after Save --- ' + JSON.stringify(retJson))},
                 err => console.error(err),
                 () => console.log('Save Complete')
             );
+    }
+    
+    private resetMessages() {
+        this.sheetMessage = null;
+        this.errorMessage = null;
     }
      
 }

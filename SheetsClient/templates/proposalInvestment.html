@@ -1,0 +1,41 @@
+<div id="investmentComposition" style="float: none;">
+   <table class="investmentTable">
+        <thead>
+            <tr>
+                <th class="sourceType">Conto o Dossier</th>
+                <th class="id">ID</th>
+                <th class="maxCapacity">Massimo</th>
+                <th class="investmentAmount">Ammontare da investire</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="#investmentElement of proposal.investmentElements">
+            <tr class="investmentElement">
+                <td class="sourceType">
+                    <span>{{investmentElement.source.type}}</span>
+                </td>
+                <td class="id">
+                    <span>{{investmentElement.source.id}}</span>
+                </td>
+                <td  class="maxCapacity">
+                    <span>{{investmentElement.source.maxCapacity}}</span>
+                </td>
+                <td  class="investmentAmount">
+                    <!--input type="number" [max]="investmentElement.source.maxCapacity" 
+                        [(ngModel)]="investmentElement.amount" style="width: 100%;"-->
+                    <input #investmentInput type="number" [max]="investmentElement.source.maxCapacity" 
+                        (change)="onInvestmentChange(investmentElement, investmentInput)" style="width: 100%;">
+                </td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <th class="sourceType">Totale</th>
+                <th class="id"></th>
+                <th class="maxCapacity"></th>
+                <th class="investmentAmount">{{proposal.getTotalInvestment()}}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

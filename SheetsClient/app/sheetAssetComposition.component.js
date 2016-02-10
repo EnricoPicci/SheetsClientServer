@@ -39,9 +39,16 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                     this._sheetWeightAdjuster = _sheetWeightAdjuster;
                     this._userLogged = _userLogged;
                     this._sheetBackEnd = _sheetBackEnd;
+                    // editMode and editStatus are different
+                    // editMode tells whether or not show the customize button (and therefore gives the possibility to customize)
+                    // editStatus tells whether the user has decided to customize a Sheet
+                    this.editMode = true;
                     this.editStatus = false;
+                    this.showCharts = true;
+                    this.showInvestmentAmounts = false;
                     this.isChanged = false;
-                    this.startOfScaleRelative = false; // if false, all sliders start from ZERO, otherwise their starting position increases based on the sum of the range of the previous assets
+                    // if false, all sliders start from ZERO, otherwise their starting position increases based on the sum of the range of the previous assets
+                    this.startOfScaleRelative = false;
                 }
                 SheetAssetCompositionComponent.prototype.onAssetGroupClick = function (inAssetGroup) {
                     inAssetGroup.show = !inAssetGroup.show;
@@ -105,13 +112,19 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                 };
                 SheetAssetCompositionComponent.prototype.onClickOverSaveButton = function () {
                     var _this = this;
+                    this.resetMessages();
                     this._sheetBackEnd.addSheet(this.sheet)
                         .subscribe(function (data) {
                         _this.isChanged = false;
                         var retJson = data.json();
                         _this.sheet.id = retJson.id;
+                        _this.sheetMessage = 'Sheet personalized no: ' + retJson.id + ' has been saved';
                         console.log('Data received after Save --- ' + JSON.stringify(retJson));
                     }, function (err) { return console.error(err); }, function () { return console.log('Save Complete'); });
+                };
+                SheetAssetCompositionComponent.prototype.resetMessages = function () {
+                    this.sheetMessage = null;
+                    this.errorMessage = null;
                 };
                 SheetAssetCompositionComponent = __decorate([
                     core_1.Component({
@@ -120,7 +133,7 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                         templateUrl: '../templates/sheetAssetComposition.html',
                         styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
                         directives: [slider_component_1.Slider, sheetReturnData_component_1.SheetReturnData, sheetCompositionCharts_component_1.SheetCompositionCharts],
-                        inputs: ['sheet'],
+                        inputs: ['sheet', 'editMode', 'showCharts', 'showInvestmentAmounts'],
                     }), 
                     __metadata('design:paramtypes', [sheetWeightAdjuster_service_1.SheetWeightAdjuster, userLogged_1.UserLogged, sheetBackEnd_service_1.SheetBackEnd])
                 ], SheetAssetCompositionComponent);

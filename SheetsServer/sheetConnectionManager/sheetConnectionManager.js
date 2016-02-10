@@ -26,6 +26,14 @@ var SheetConnectionManager = (function () {
         }
         return this.sheetModel;
     };
+    SheetConnectionManager.getProposalModel = function () {
+        if (!this.proposalModel) {
+            var dbBuilder = new SheetDBBuilder();
+            var proposalSchema = new mongoose.Schema(dbBuilder.getProposalSchema());
+            this.proposalModel = mongoose.model('ProposalModel', proposalSchema);
+        }
+        return this.proposalModel;
+    };
     return SheetConnectionManager;
 })();
 exports.SheetConnectionManager = SheetConnectionManager;

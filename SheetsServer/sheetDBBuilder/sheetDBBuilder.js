@@ -84,6 +84,26 @@ var SheetDBBuilder = (function () {
             assetGroupJSONs: [assetGroupSchema]
         };
     };
+    SheetDBBuilder.prototype.getProposalSchema = function () {
+        var assetSchema = new mongoose.Schema({
+            name: String,
+            weight: Number,
+            symbol: String,
+            investmentAmount: Number
+        });
+        var assetGroupSchema = new mongoose.Schema({
+            name: String,
+            weight: Number,
+            investmentAmount: Number,
+            assetJSONs: [assetSchema]
+        });
+        return {
+            id: Number,
+            sheetId: Number,
+            customerId: String,
+            assetGroupJSONs: [assetGroupSchema]
+        };
+    };
     SheetDBBuilder.prototype.getSheetJSONs = function () {
         return [
             {

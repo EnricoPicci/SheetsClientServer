@@ -3,17 +3,24 @@ there are situations when sheet has not been fully loaded while the template get
 in these cases, if we do not protect with *ngIf the whole thing crashes since sheet is still
 undefined-->
 <div *ngIf="sheet">
-<a [routerLink]="['SheetDetail', {id:sheet.id}]">
-	<div class="gridImageFrame">
-		<div class="gradient"></div>
-		<img height="230" width="230" src={{sheet.imageUrl}}>
-		<div class="imageOverlay">
-			<span class="name sheetLink">{{sheet.title}}</span>
-			<span class="creatorName">Created By: {{sheet.createdBy}}</span>
-		</div>
-	</div>
-</a>
-	<div class="metrics">
+    <a [routerLink]="['SheetDetail', {id:sheet.id}]">
+        <div class="gridImageFrame" [style.display]="isIconized ? 'none' : 'block'">
+            <div class="gradient"></div>
+            <img height="230" width="230" src={{sheet.imageUrl}}>
+            <div class="imageOverlay">
+                <span class="name sheetLink">{{sheet.title}}</span>
+                <span class="creatorName">Created By: {{sheet.createdBy}}</span>
+            </div>
+            <div class="imageOverlayTop" [style.display]="sheet.isPersonalized() ? 'block' : 'none'">
+                <span class="name sheetLink">Personalizzato</span>
+            </div>
+        </div>
+        <div class="iconFrame" [style.display]="isIconized ? 'block' : 'none'">
+            <img height="40" width="40" src={{sheet.imageUrl}}>
+            <span class="name sheetLink">{{sheet.title}}</span>
+        </div>
+    </a>
+	<div class="metrics" [style.display]="isIconized ? 'none' : 'block'">
 		<div class="metricLabel">One Month Return</div>
 		<div class="metricValue"><span class="percentageArrow large up"><span>{{sheet.oneMonthReturn}}</span></span></div>
         <!--input #selectionCb value="seleziona" type="checkbox"

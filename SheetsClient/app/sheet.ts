@@ -10,8 +10,6 @@ import {ReturnData} from './returnData';
 
 import {UserLogged} from './userLogged';
 
-import {SheetJSON} from './sheetJSON';
-
 export class Sheet { 
 	public id: number;
     public title: string;
@@ -86,13 +84,11 @@ export class Sheet {
         }
         // the new id for the new personalized Sheet is going to be provided when the personalized Sheet is saved
         this.id = null;
-        this.createdBy = inUser.name;
+        this.createdBy = inUser.pbId;
     }
     
-    jsonStringForBackEnd() {
-        let sheetJSON = new SheetJSON();
-        sheetJSON.fill(this);
-        return JSON.stringify(sheetJSON);
+    isPersonalized() {
+        return this.originalSheetID != null;
     }
 
 }

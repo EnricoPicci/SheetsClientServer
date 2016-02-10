@@ -12,8 +12,11 @@ export abstract class AssetAbstract {
     
     public pips: any;
     public relativeStartOfScale: number = 0;
-    
+    // new weight is used only when wieghts are adjusted by user while configuring
+    // the real weight of the asset is in the weight property
     public newWeight: any;
+    
+    public investmentAmount: number;
     
     constructor(inName: string, 
                         inWeight: number, 

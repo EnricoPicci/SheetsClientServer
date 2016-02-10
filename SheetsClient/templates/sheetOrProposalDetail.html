@@ -1,0 +1,18 @@
+<!--div *ngIf="!showProposal">
+    <sheet-detail id="sheetDetail" [sheet]="sheet" (prepareProposal)="switchToProposal()"></sheet-detail>
+</div>
+<div *ngIf="showProposal">
+    <proposalCmp id="proposalDetail" [sheet]="sheet"></proposalCmp>
+</div>
+
+<div *ngIf="sheet">
+    <sheet-detail id="sheetDetail" [sheet]="sheet" (prepareProposal)="switchToProposal()" 
+        (sheetRetrieved)="sheetRetrieved($event)" [hidden]="showProposal"></sheet-detail>
+    <proposalCmp id="proposalDetail" [sheet]="sheet" [hidden]="!showProposal"></proposalCmp>
+</div-->
+
+<sheet-detail id="sheetDetail" [sheet]="sheet" (prepareProposal)="switchToProposal()" 
+    (sheetRetrieved)="sheetRetrieved($event)" [hidden]="showProposal"></sheet-detail>
+<div *ngIf="sheet">    
+    <proposalCmp id="proposalDetail" [sheet]="sheet" [hidden]="!showProposal"></proposalCmp>
+</div>

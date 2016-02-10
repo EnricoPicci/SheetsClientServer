@@ -91,6 +91,31 @@ export class SheetDBBuilder {
         }
     }
     
+    getProposalSchema() {
+        let assetSchema = new mongoose.Schema(
+            {
+                name: String,
+                weight: Number,
+                symbol: String,
+                investmentAmount: Number
+            }
+        );
+        let assetGroupSchema = new mongoose.Schema(
+            {
+                name: String,
+                weight: Number,
+                investmentAmount: Number,
+                assetJSONs: [assetSchema] 
+            }
+        );
+        return {
+            id: Number,
+            sheetId: Number,
+            customerId: String,
+            assetGroupJSONs: [assetGroupSchema]
+        }
+    }
+    
     getSheetJSONs() {
         return [
                 {

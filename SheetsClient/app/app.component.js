@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './sheetDashboard.component', './sheetCollection.component', './sheetSummary.component', './sheetDetail.component', './SheetComparator.component', './userLogin.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './sheetDashboard.component', './sheetCollection.component', './sheetSummary.component', './SheetComparator.component', './userLogin.component', './sheetOrProposalDetail.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './sheetDashboard.component
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetDashboard_component_1, sheetCollection_component_1, sheetSummary_component_1, sheetDetail_component_1, SheetComparator_component_1, userLogin_component_1;
+    var core_1, router_1, sheetDashboard_component_1, sheetCollection_component_1, sheetSummary_component_1, SheetComparator_component_1, userLogin_component_1, sheetOrProposalDetail_component_1;
     var AppComponent;
     return {
         setters:[
@@ -27,14 +27,14 @@ System.register(['angular2/core', 'angular2/router', './sheetDashboard.component
             function (sheetSummary_component_1_1) {
                 sheetSummary_component_1 = sheetSummary_component_1_1;
             },
-            function (sheetDetail_component_1_1) {
-                sheetDetail_component_1 = sheetDetail_component_1_1;
-            },
             function (SheetComparator_component_1_1) {
                 SheetComparator_component_1 = SheetComparator_component_1_1;
             },
             function (userLogin_component_1_1) {
                 userLogin_component_1 = userLogin_component_1_1;
+            },
+            function (sheetOrProposalDetail_component_1_1) {
+                sheetOrProposalDetail_component_1 = sheetOrProposalDetail_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -52,7 +52,9 @@ System.register(['angular2/core', 'angular2/router', './sheetDashboard.component
                         { path: '/Dashboard/', name: 'SheetDashboard', component: sheetDashboard_component_1.SheetDashboardComponent },
                         { path: '/SheetCollection/', name: 'SheetCollection', component: sheetCollection_component_1.SheetCollection },
                         { path: '/Sheet/:id', name: 'SheetSummary', component: sheetSummary_component_1.SheetSummaryComponent },
-                        { path: '/SheetDetail/:id', name: 'SheetDetail', component: sheetDetail_component_1.SheetDetailComponent },
+                        //{path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetDetailComponent},
+                        { path: '/SheetDetail/:id', name: 'SheetDetail', component: sheetOrProposalDetail_component_1.SheetOrProposalDetailComponent },
+                        //{path: '/SheetDetailReload/:id', name: 'SheetDetailReload', component: SheetOrProposalDetailComponent},
                         { path: '/SheetComparator/', name: 'SheetComparator', component: SheetComparator_component_1.SheetComparatorComponent },
                     ]), 
                     __metadata('design:paramtypes', [])

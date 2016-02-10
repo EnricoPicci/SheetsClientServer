@@ -2,6 +2,7 @@ import {Observable}     from 'rxjs/Observable';
 
 import {Sheet} from './sheet';
 import {ReturnPeriod} from './returnPeriod';
+import {Proposal} from './proposal';
 
 export abstract class SheetBackEnd {
 	getSheet(inId?: number) : any {return null}
@@ -14,7 +15,8 @@ export abstract class SheetBackEnd {
 	getValueBasedSearchCriteriaDomain() : any {return null}
 	getSectorsSearchCriteriaDomain() : any {return null}
 	
-	selectSheets(searchString: string, publicPersonal: string[], generalTags: string[], valueBasedTags: string[], sectorsTags: string[]) : any {return null}
+	selectSheets(publicPersonal: string[], generalTags: string[], valueBasedTags: string[], sectorsTags: string[]) : any {return null}
+    searchSheetsByKeyword(inSearchString: string) : any {return null}
     
     fillReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) {}
     updateReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) {}
@@ -23,4 +25,7 @@ export abstract class SheetBackEnd {
     updateVolatility(inSheet: Sheet) {};
     
     addSheet(inSheet: Sheet) : any {}
+    getAccountAndPortfolioCapacityForInvestment(inCustomerId) : any {}
+    saveProposal(inProposal: Proposal) : any {}
+    sendProposal(inProposal: Proposal) : any {}
 }

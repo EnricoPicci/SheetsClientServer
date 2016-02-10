@@ -43,15 +43,6 @@ router.get('/someSheets', function (req, res) {
 });
 
 /*
- * POST to add one sheet.
- */
-router.post('/addsheet', function(req, res) {
-    var sheetToAdd = req.body;
-    SheetRestService.addSheet(sheetToAdd, res);
-});
-
-
-/*
  * GET tags
  */
 router.get('/generalTags', function(req, res) {
@@ -65,30 +56,64 @@ router.get('/sectorTags', function(req, res) {
 });
 
 /*
- * SELECT SHEETS based on different criteria
+ * GET to SELECT SHEETS based on different criteria
  */
 router.get('/selectSheets', function (req, res) {
-    var searchString = req.query.searchString;
     var publicPersonal = req.query.publicPersonal;
     var generalTags = req.query.generalTags;
     var valueBasedTags = req.query.valueBasedTags;
     var sectorsTags = req.query.sectorsTags;
-    SheetRestService.selectSheets(searchString, publicPersonal, generalTags, valueBasedTags, sectorsTags, res);
+    SheetRestService.selectSheets(publicPersonal, generalTags, valueBasedTags, sectorsTags, res);
 });
-
 
 /*
- * DELETE to deletesheet.
+ * GET to SELECT SHEETS based on a keyword
  */
-router.delete('/deleteuser/:id', function(req, res) {
-    var db = req.db;
-    var collection = db.get('userlist');
-    console.log(req.params);
-    var userToDelete = req.params.id;
-    collection.remove({ '_id' : userToDelete }, function(err) {
-        res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
-    });
+router.get('/searchSheetsByKeyword', function (req, res) {
+    var searchString = req.query.keyword;
+    SheetRestService.selectSheetsByKeyword(searchString, res);
 });
+
+/*
+ * GET information about the capacity of accounts and portfolio of a customer
+ */
+router.get('/getAccountAndPortfolioCapacityForInvestment', function (req, res) {
+    var customerId = req.query.customerId;
+    SheetRestService.getAccountAndPortfolioCapacityForInvestment(customerId, res);
+});
+
+/*
+ * GET proposals of a customer
+ */
+router.get('/getProposals', function (req, res) {
+    var customerId = req.query.customerId;
+    SheetRestService.getProposals(customerId, res);
+});
+
+/*
+ * POST to add one sheet.
+ */
+router.post('/addsheet', function(req, res) {
+    var sheetToAdd = req.body;
+    SheetRestService.addSheet(sheetToAdd, res);
+});
+
+/*
+ * POST to save one proposal.
+ */
+router.post('/saveProposal', function(req, res) {
+    var proposalToSave = req.body;
+    SheetRestService.saveProposal(proposalToSave, res);
+});
+
+/*
+ * POST to send one proposal to a customer
+ */
+router.post('/sendProposal', function(req, res) {
+    var proposalToSend = req.body;
+    SheetRestService.sendProposal(proposalToSend, res);
+});
+
 
 
 module.exports = router;

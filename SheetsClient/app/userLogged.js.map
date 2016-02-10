@@ -1,1 +1,1 @@
-{"version":3,"file":"userLogged.js","sourceRoot":"","sources":["userLogged.ts"],"names":["UserLogged","UserLogged.constructor"],"mappings":";;;;;YAAA;gBAGIA;gBAAeC,CAACA;gBAEpBD,iBAACA;YAADA,CAACA,AALD,IAKC;YALD,mCAKC,CAAA"}
+{"version":3,"file":"userLogged.js","sourceRoot":"","sources":["userLogged.ts"],"names":["UserLogged","UserLogged.constructor","UserLogged.isCustomer"],"mappings":";;;;;YAAA;gBAIIA;gBAAeC,CAACA;gBAEhBD,+BAAUA,GAAVA;oBACIE,MAAMA,CAACA,IAAIA,CAACA,IAAIA,IAAIA,IAAIA,CAACA;gBAC7BA,CAACA;gBAELF,iBAACA;YAADA,CAACA,AAVD,IAUC;YAVD,mCAUC,CAAA"}

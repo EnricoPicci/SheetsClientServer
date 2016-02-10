@@ -6,7 +6,7 @@ import {Sheet} from './sheet';
     selector: 'sheet-info',
 	providers: [],
     templateUrl: '../templates/sheetInfo.html',
-    styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
+    styleUrls: ['../styles/common.css', '../styles/sheetDetail.css', '../styles/sheetSummary.css'],
 	directives: [],
     inputs: ['sheet'],
 })

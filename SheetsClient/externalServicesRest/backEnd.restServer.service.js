@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sheet', '../app/assetGroup', '../app/asset', '../app/returnPeriod', '../externalServicesClientMock/backEnd.clientMock.service', '../environmentSettings/environment.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sheet', './sheetJSON', '../app/assetGroup', '../app/asset', '../app/returnPeriod', './proposalJSON', '../externalServicesClientMock/backEnd.clientMock.service', '../environmentSettings/environment.service'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -13,7 +13,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, Observable_1, sheet_1, assetGroup_1, asset_1, returnPeriod_1, backEnd_clientMock_service_1, environment_service_1;
+    var core_1, http_1, Observable_1, sheet_1, sheetJSON_1, assetGroup_1, asset_1, returnPeriod_1, proposalJSON_1, backEnd_clientMock_service_1, environment_service_1;
     var BackEndRest;
     return {
         setters:[
@@ -29,6 +29,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
             function (sheet_1_1) {
                 sheet_1 = sheet_1_1;
             },
+            function (sheetJSON_1_1) {
+                sheetJSON_1 = sheetJSON_1_1;
+            },
             function (assetGroup_1_1) {
                 assetGroup_1 = assetGroup_1_1;
             },
@@ -37,6 +40,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
             },
             function (returnPeriod_1_1) {
                 returnPeriod_1 = returnPeriod_1_1;
+            },
+            function (proposalJSON_1_1) {
+                proposalJSON_1 = proposalJSON_1_1;
             },
             function (backEnd_clientMock_service_1_1) {
                 backEnd_clientMock_service_1 = backEnd_clientMock_service_1_1;
@@ -120,10 +126,8 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     return sheetFromBackEnd;
                 };
                 BackEndRest.prototype.addSheet = function (inSheet) {
-                    var headers = new http_1.Headers();
-                    headers.append('Content-Type', 'application/json');
-                    var options = new http_1.RequestOptions({ headers: headers });
-                    var jsonString = inSheet.jsonStringForBackEnd();
+                    var options = this.getOpionsForPost();
+                    var jsonString = this.getJsonSheetStringForBackEnd(inSheet);
                     var myPost = this._http.post(this._environment.baseServiceUrl + 'addSheet', jsonString, options);
                     return myPost;
                 };
@@ -136,10 +140,10 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };
-                BackEndRest.prototype.selectSheets = function (inSearchString, inPublicPersonal, inGeneralTags, inValueBasedTags, inSectorsTags) {
+                BackEndRest.prototype.selectSheets = function (inPublicPersonal, inGeneralTags, inValueBasedTags, inSectorsTags) {
                     var _this = this;
-                    var myUrl = this._environment.baseServiceUrl + 'selectSheets/?searchString=' + inSearchString +
-                        '&publicPersonal=' + JSON.stringify(inPublicPersonal) +
+                    var myUrl = this._environment.baseServiceUrl + 'selectSheets/' +
+                        '?publicPersonal=' + JSON.stringify(inPublicPersonal) +
                         '&generalTags=' + JSON.stringify(inGeneralTags) +
                         '&valueBasedTags=' + JSON.stringify(inValueBasedTags) +
                         '&sectorsTags=' + JSON.stringify(inSectorsTags);
@@ -155,10 +159,63 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     })
                         .catch(this.handleError);
                 };
+                BackEndRest.prototype.searchSheetsByKeyword = function (inSearchInput) {
+                    var _this = this;
+                    var myUrl = this._environment.baseServiceUrl + 'searchSheetsByKeyword/?keyword=' + inSearchInput.value;
+                    return this._http.get(myUrl)
+                        .map(function (res) { return res.json(); })
+                        .map(function (data) {
+                        var sheetsRetrieved = new Array();
+                        for (var i = 0; i < data.length; i++) {
+                            var sheetJSON = data[i];
+                            sheetsRetrieved.push(_this.createSheet(sheetJSON));
+                        }
+                        return sheetsRetrieved;
+                    })
+                        .catch(this.handleError);
+                };
+                BackEndRest.prototype.saveProposal = function (inProposal) {
+                    var options = this.getOpionsForPost();
+                    var jsonString = this.getJsonProposalStringForBackEnd(inProposal);
+                    console.log('save proposal -- json --  ');
+                    console.log(jsonString);
+                    var myPost = this._http.post(this._environment.baseServiceUrl + 'saveProposal', jsonString, options)
+                        .map(function (res) { return res.json(); });
+                    return myPost;
+                };
+                BackEndRest.prototype.sendProposal = function (inProposal) {
+                    var options = this.getOpionsForPost();
+                    var jsonString = this.getJsonProposalStringForBackEnd(inProposal);
+                    var myPost = this._http.post(this._environment.baseServiceUrl + 'sendProposal', jsonString, options)
+                        .map(function (res) { return res.json(); });
+                    return myPost;
+                };
+                BackEndRest.prototype.getAccountAndPortfolioCapacityForInvestment = function (inCustomerId) {
+                    var myUrl = this._environment.baseServiceUrl + 'getAccountAndPortfolioCapacityForInvestment/?customerId=' + inCustomerId;
+                    return this._http.get(myUrl)
+                        .map(function (res) { return res.json(); })
+                        .catch(this.handleError);
+                };
                 BackEndRest.prototype.handleError = function (error) {
                     // TODO: add service to send error to the server
+                    console.error('the error');
                     console.error(error);
                     return Observable_1.Observable.throw(error.json().error || 'Server error');
+                };
+                BackEndRest.prototype.getOpionsForPost = function () {
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return new http_1.RequestOptions({ headers: headers });
+                };
+                BackEndRest.prototype.getJsonSheetStringForBackEnd = function (inSheet) {
+                    var sheetJSON = new sheetJSON_1.SheetJSON();
+                    sheetJSON.fill(inSheet);
+                    return JSON.stringify(sheetJSON);
+                };
+                BackEndRest.prototype.getJsonProposalStringForBackEnd = function (inProposal) {
+                    var proposalJSON = new proposalJSON_1.ProposalJSON();
+                    proposalJSON.fill(inProposal);
+                    return JSON.stringify(proposalJSON);
                 };
                 BackEndRest = __decorate([
                     core_1.Injectable(), 

@@ -68,7 +68,7 @@ System.register(['../app/sheet', '../app/sheetBackEnd.service', '../app/asset', 
                     this.fillReturnData(inSheet, returnPeriod_1.ReturnPeriod.lastMonth);
                     return inSheet;
                 };
-                BackEndClientMock.prototype.selectSheets = function (searchString, publicPersonal, generalTags, valueBasedTags, sectorsTags) {
+                BackEndClientMock.prototype.selectSheets = function (publicPersonal, generalTags, valueBasedTags, sectorsTags) {
                     var ret = new Array();
                     var sheets = this.createSheets();
                     var tempArr = {};
@@ -107,7 +107,7 @@ System.register(['../app/sheet', '../app/sheetBackEnd.service', '../app/asset', 
                 BackEndClientMock.prototype.addSheet = function (inSheet) {
                     console.log('Add Sheet function not available in clientMock');
                     console.log('JSON sent to back end:');
-                    console.log(inSheet.jsonStringForBackEnd());
+                    //console.log(inSheet.jsonStringForBackEnd());
                 };
                 BackEndClientMock.prototype.getGeneralSearchCriteriaDomain = function () {
                     var ret = new Array();
@@ -349,18 +349,6 @@ System.register(['../app/sheet', '../app/sheetBackEnd.service', '../app/asset', 
                             break;
                         default:
                             console.error('Series of return data not present in local mock -- Series Id requested: ' + randomIdForReturnDataSeries);
-                    }
-                };
-                BackEndClientMock.prototype.stringifyToJSON = function (inSheets) {
-                    /*let sheetJSONs: Array<SheetJSON> = new Array<SheetJSON>();
-                    for (var i = 0; i < inSheets.length; i++) {
-                        let sheetJSON = new SheetJSON();
-                        sheetJSON.fill(inSheets[i]);
-                        sheetJSONs.push(sheetJSON);
-                    }
-                    console.log( JSON.stringify(sheetJSONs, null, "    ") );*/
-                    for (var i = 0; i < inSheets.length; i++) {
-                        console.log(inSheets[i].jsonStringForBackEnd());
                     }
                 };
                 return BackEndClientMock;

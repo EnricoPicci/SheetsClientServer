@@ -1,9 +1,14 @@
         <div id="info">
             <div id="image">
                 <img height="146" width="146" src={{sheet?.imageUrl}}>
+                <div class="imageOverlayTop" [style.display]="sheet.isPersonalized() ? 'block' : 'none'">
+                    <span class="name sheetLink">Personalizzato</span>
+                </div>
             </div>
             <div id="name">
-                <h1>{{sheet?.title}}</h1>
+                <h1>{{sheet?.title}}
+                    <span [style.display]="sheet.isPersonalized() ? 'block' : 'none'">  -- Personalizzato</span>
+                </h1>
                 <div id="divider"></div>
                 <h3>Created by: {{sheet?.createdBy}}</h3>
                 <div id="performance">

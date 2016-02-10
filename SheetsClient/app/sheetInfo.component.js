@@ -24,7 +24,7 @@ System.register(['angular2/core'], function(exports_1) {
                         selector: 'sheet-info',
                         providers: [],
                         templateUrl: '../templates/sheetInfo.html',
-                        styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
+                        styleUrls: ['../styles/common.css', '../styles/sheetDetail.css', '../styles/sheetSummary.css'],
                         directives: [],
                         inputs: ['sheet'],
                     }), 

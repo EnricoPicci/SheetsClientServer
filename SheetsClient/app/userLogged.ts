@@ -1,6 +1,11 @@
 export class UserLogged { 
-    public name: string;
+    public pbId: string;
+    public customerId: string;
     
     constructor() {}
+    
+    isCustomer() {
+        return this.pbId == null;
+    }
     
 }

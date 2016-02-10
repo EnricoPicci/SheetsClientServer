@@ -1,5 +1,5 @@
-System.register(['angular2/core', './returnData', './sheetJSON'], function(exports_1) {
-    var core_1, returnData_1, sheetJSON_1;
+System.register(['angular2/core', './returnData'], function(exports_1) {
+    var core_1, returnData_1;
     var Sheet;
     return {
         setters:[
@@ -8,9 +8,6 @@ System.register(['angular2/core', './returnData', './sheetJSON'], function(expor
             },
             function (returnData_1_1) {
                 returnData_1 = returnData_1_1;
-            },
-            function (sheetJSON_1_1) {
-                sheetJSON_1 = sheetJSON_1_1;
             }],
         execute: function() {
             Sheet = (function () {
@@ -52,12 +49,10 @@ System.register(['angular2/core', './returnData', './sheetJSON'], function(expor
                     }
                     // the new id for the new personalized Sheet is going to be provided when the personalized Sheet is saved
                     this.id = null;
-                    this.createdBy = inUser.name;
+                    this.createdBy = inUser.pbId;
                 };
-                Sheet.prototype.jsonStringForBackEnd = function () {
-                    var sheetJSON = new sheetJSON_1.SheetJSON();
-                    sheetJSON.fill(this);
-                    return JSON.stringify(sheetJSON);
+                Sheet.prototype.isPersonalized = function () {
+                    return this.originalSheetID != null;
                 };
                 return Sheet;
             })();

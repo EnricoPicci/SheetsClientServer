@@ -30,10 +30,10 @@ export class SheetCollection {
         let maxNumOfSheets = +this._routeParams.get('maxNumOfSheets');
         console.log(startId);
         console.log(maxNumOfSheets);
-        // only if the routeParameters are not null we go to the service
+        // only if the routeParameter maxNumOfSheets is not null (i.e. is greater than 0) we go to the service
         // this is because if the routeParameter is not null, it means we have been called via routing (or url on the browser)
-        // if id is null it means we have been called within the single-page (and we hope we have been passed the full Sheet instance)
-        if (startId && maxNumOfSheets) {
+        // if it is null it means we have been called within the single-page (and we hope we have been passed the full Sheet instance)
+        if (maxNumOfSheets) {
             this._sheetBackEnd.getSomeSheets(startId, maxNumOfSheets)
             .subscribe(
                 sheets => this.sheets = sheets,

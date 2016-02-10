@@ -7,6 +7,8 @@ import {SheetSummaryComponent} from './sheetSummary.component';
 import {SheetDetailComponent} from './sheetDetail.component';
 import {SheetComparatorComponent} from './SheetComparator.component';
 import {UserLoginComponent} from './userLogin.component';
+import {SheetOrProposalDetailComponent} from './sheetOrProposalDetail.component';
+import {ProposalComponent} from './proposal.component';
 
 @Component({
     selector: 'my-app',
@@ -21,7 +23,10 @@ import {UserLoginComponent} from './userLogin.component';
     {path: '/Dashboard/', name: 'SheetDashboard', component: SheetDashboardComponent},
     {path: '/SheetCollection/', name: 'SheetCollection', component: SheetCollection},
     {path: '/Sheet/:id', name: 'SheetSummary', component: SheetSummaryComponent},
-    {path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetDetailComponent},
+    //{path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetDetailComponent},
+    {path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetOrProposalDetailComponent},
+    //{path: '/SheetDetailReload/:id', name: 'SheetDetailReload', component: SheetOrProposalDetailComponent},
     {path: '/SheetComparator/', name: 'SheetComparator', component: SheetComparatorComponent},
+    //{path: '/Proposal/', name: 'Proposal', component: ProposalComponent},
 ])
 export class AppComponent { }

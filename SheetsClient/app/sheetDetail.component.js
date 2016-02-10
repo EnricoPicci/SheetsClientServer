@@ -38,25 +38,32 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
             }],
         execute: function() {
             SheetDetailComponent = (function () {
-                function SheetDetailComponent(_router, _routeParams, _sheetBackEnd) {
+                function SheetDetailComponent(_router, _routeParams, _backEnd) {
                     this._router = _router;
                     this._routeParams = _routeParams;
-                    this._sheetBackEnd = _sheetBackEnd;
+                    this._backEnd = _backEnd;
                     // the array is needed to feed the sheetReturnData component
                     this.sheets = new Array();
+                    //public sheets: Sheet[];
                     this.shortDescriptionTextLength = 250;
+                    //public sendProposalMessage: string;
+                    this.sheetRetrieved = new core_1.EventEmitter();
+                    this.prepareProposal = new core_1.EventEmitter();
+                    this.editMode = true;
                 }
                 SheetDetailComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     var id = +this._routeParams.get('id');
-                    this._sheetBackEnd.getSheetWithDetails(id)
+                    this._backEnd.getSheetWithDetails(id)
                         .subscribe(function (sheet) {
                         _this.sheet = sheet;
                         _this.sheets[0] = _this.sheet;
+                        _this.sheetRetrieved.next(_this.sheet);
                     }, function (error) { return _this.errorMessage = error; });
                 };
                 SheetDetailComponent.prototype.setSheet = function (inSheet) {
                     this.sheet = inSheet;
+                    this.sheets = new Array();
                     this.sheets[0] = this.sheet;
                     console.log('inSheet --- ');
                     console.log(inSheet);
@@ -73,9 +80,20 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                 SheetDetailComponent.prototype.onClickOverCompareButton = function () {
                     this._router.navigate(['SheetDashboard', { idOfFirstSheetToCompare: this.sheet.id }]);
                 };
+                SheetDetailComponent.prototype.onPrepareProposal = function () {
+                    this.prepareProposal.next(this.sheet);
+                };
                 SheetDetailComponent.prototype.hasId = function () {
                     return this.sheet.id != null;
                 };
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], SheetDetailComponent.prototype, "sheetRetrieved", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], SheetDetailComponent.prototype, "prepareProposal", void 0);
                 SheetDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'sheet-detail',
@@ -83,7 +101,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         templateUrl: '../templates/sheetDetail.html',
                         styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
                         directives: [shortLongText_component_1.ShortLongTextComponent, sheetAssetComposition_component_1.SheetAssetCompositionComponent, sheetReturnData_component_1.SheetReturnData, sheetCompositionCharts_component_1.SheetCompositionCharts, sheetInfo_component_1.SheetInfoComponent],
-                        inputs: ['sheet'],
+                        inputs: ['sheet', 'editMode'],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd])
                 ], SheetDetailComponent);

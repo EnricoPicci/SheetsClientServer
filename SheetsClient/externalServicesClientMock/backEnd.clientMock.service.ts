@@ -1,7 +1,7 @@
 declare var jQuery: any;
 
 import {Sheet} from '../app/sheet';
-import {SheetJSON} from '../app/sheetJSON'
+import {SheetJSON} from '../externalServicesRest/sheetJSON'
 import {SheetBackEnd} from '../app/sheetBackEnd.service';
 
 import{Asset} from '../app/asset';
@@ -51,7 +51,7 @@ export class BackEndClientMock extends SheetBackEnd {
 		return inSheet;
 	}
 
-	selectSheets(searchString: string, publicPersonal: string[], generalTags: string[], valueBasedTags: string[], sectorsTags: string[]) :any {
+	selectSheets(publicPersonal: string[], generalTags: string[], valueBasedTags: string[], sectorsTags: string[]) :any {
 		var ret: Array<Sheet> = new Array<Sheet>();
 		var sheets: Sheet[] = this.createSheets();
 		
@@ -93,17 +93,17 @@ export class BackEndClientMock extends SheetBackEnd {
     addSheet(inSheet: Sheet) {
         console.log('Add Sheet function not available in clientMock');
         console.log('JSON sent to back end:');
-        console.log(inSheet.jsonStringForBackEnd());
+        //console.log(inSheet.jsonStringForBackEnd());
     }
 
-	getGeneralSearchCriteriaDomain() {
+	getGeneralSearchCriteriaDomain() :any {
 		var ret: string[] = new Array<string>();
 		ret[0] = 'New';
 		ret[1] = 'Popular';
 		ret[2] = 'Brands u know';
 		return ret;
 	};
-	getValueBasedSearchCriteriaDomain() {
+	getValueBasedSearchCriteriaDomain() :any {
 		var ret: string[] = new Array<string>();
 		ret[0] = 'Green';
 		ret[1] = 'Social';
@@ -111,7 +111,7 @@ export class BackEndClientMock extends SheetBackEnd {
 		ret[3] = 'Current';
 		return ret;
 	};
-	getSectorsSearchCriteriaDomain() {
+	getSectorsSearchCriteriaDomain() :any {
 		var ret: string[] = new Array<string>();
 		ret[0] = 'Energy';
 		ret[1] = 'Health';
@@ -346,17 +346,10 @@ private description: string = 'The morning has the sun in its mouth. The morning
         }
     }
     
-    stringifyToJSON(inSheets: Sheet[]) {
-        /*let sheetJSONs: Array<SheetJSON> = new Array<SheetJSON>();
-        for (var i = 0; i < inSheets.length; i++) { 
-            let sheetJSON = new SheetJSON();
-            sheetJSON.fill(inSheets[i]);
-            sheetJSONs.push(sheetJSON);
-        }
-        console.log( JSON.stringify(sheetJSONs, null, "    ") );*/
+    /*stringifyToJSON(inSheets: Sheet[]) {
         for (var i = 0; i < inSheets.length; i++) { 
             console.log( inSheets[i].jsonStringForBackEnd() );
         }
-    }
+    }*/
     
 }

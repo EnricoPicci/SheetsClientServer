@@ -27,15 +27,23 @@ System.register(['angular2/core', 'angular2/router', './userLogged'], function(e
                     this._router = _router;
                     this._user = _user;
                 }
-                UserLoginComponent.prototype.onClick = function (inButton) {
-                    console.log('user name --- ' + this._user.name);
+                UserLoginComponent.prototype.onSubmit = function () {
+                    console.log('pb id --- ' + this._user.pbId);
+                    console.log('customer id --- ' + this._user.customerId);
                     this._router.navigate(['SheetDashboard']);
                 };
                 UserLoginComponent = __decorate([
                     core_1.Component({
                         selector: 'my-userLogin',
                         providers: [],
-                        template: "\n         <h2 width=\"100%\">User name</h2>\n         <input type=\"text\" [(ngModel)]=\"_user.name\">\n         <button #button type=\"button\" (click)=\"onClick(button)\">LOGIN</button>\n         \n    "
+                        /*template: `
+                             <h2 width="100%">User name</h2>
+                             <input type="text" [(ngModel)]="_user.name">
+                             <button #button type="button" (click)="onClick(button)">LOGIN</button>
+                             
+                        `*/
+                        template: "\n         <div class=\"container\" style=\"width: 30%;\">\n            <h1>Login Form</h1>\n            <form (ngSubmit)=\"onSubmit()\" #loginForm=\"ngForm\">\n            <div class=\"form-group\" style=\"width: 100%;\">\n                <label for=\"PBId\" style=\"width: 25%; float: left\">ID PB</label>\n                <input type=\"text\" class=\"form-control\"\n                    [(ngModel)]=\"_user.pbId\" ngControl=\"pbId\" #pbId=\"ngForm\" style=\"width: 50%;\">\n            </div>\n            <div [hidden]=\"pbId.valid || pbId.pristine\" class=\"alert alert-danger\" style=\"width: 100%;\">\n                Id PB obbligatorio\n            </div>\n            <div class=\"form-group\" style=\"width: 100%;\">\n                <label for=\"CustomerId\" style=\"width: 25%; float: left\">ID Cliente</label>\n                <input type=\"text\" class=\"form-control\" required\n                    [(ngModel)]=\"_user.customerId\" ngControl=\"customerId\" #customerId=\"ngForm\" style=\"width: 50%;\">\n            </div>\n            <div [hidden]=\"pbId.valid || pbId.pristine\" class=\"alert alert-danger\" style=\"width: 100%;\">\n                Id cliente obbligatorio\n            </div>\n            <button type=\"submit\" class=\"btn btn-default\" [disabled]=\"!loginForm.form.valid\">Invia</button>\n            </form>\n        </div>\n    ",
+                        styleUrls: ['../styles/common.css'],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, userLogged_1.UserLogged])
                 ], UserLoginComponent);

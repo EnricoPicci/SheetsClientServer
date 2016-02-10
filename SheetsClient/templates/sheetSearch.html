@@ -2,8 +2,9 @@
 	<h3>Search</h3>
 </div>
 <div id="freeSearchBody">
-	<input type="text" name="query" id="query" placeholder="Company, ticker, or keyword" autocomplete="off">
-	<a id="querySubmit"></a>
+	<input type="text" name="query" id="query" placeholder="Keyword" autocomplete="off" #keywordField>
+	<!--a id="querySubmit"></a-->
+    <input type="button" name="queryButton" id="querySubmit" (click)="onQuerySubmitClick(keywordField)">
 </div>
 <div id="narrowResultHeader">
 	<h3>Refine Selection</h3>

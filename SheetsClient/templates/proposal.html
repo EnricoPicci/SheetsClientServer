@@ -1,0 +1,42 @@
+<!-- Need to protect with the following *ngIf because back end services are async and
+there may be situations when proposal has not been fully loaded while the template gets evaluated
+(in the first version we do not go to back end);
+in these cases, if we do not protect with *ngIf the whole thing crashes since proposal is still
+undefined-->
+<div *ngIf="proposal">
+    <div id="header" class="header"></div>
+    <div id="content" class="content">
+        <div id="pageHeading">
+            <div id="banner"></div>
+        </div>
+        <div id="details">
+            <!--sheet-summary [sheet]="sheet"  [isIconized]="true"></sheet-summary>
+            <div id="investmentTitle" class="sectionTitle" style="float: none;">
+                <h3>Proposta per Foglio</h3>
+            </div-->
+            <div id="investmentHeading" style="width: 100%;">
+                <div id="investmentTitle" class="sectionTitle">
+                    <h3>Proposta per Foglio</h3>
+                </div>
+                <sheet-summary [sheet]="sheet"  [isIconized]="true" style="float: left; padding-left: 30;"></sheet-summary>
+            </div>
+            <div id="investment">
+                <proposalInvestmentCmp id="proposalInvestment" [proposal]="proposal"></proposalInvestmentCmp>
+            </div>
+            <div id="buttons" class="buttonRoster">
+                <button id="saveButton" class="basicButton" type="button" (click)="onSaveProposal()">Salva</button>
+                <button id="sendButton" class="basicButton" type="button" (click)="onSendProposal()">Invia</button>
+            </div>
+            <div id="message" class="message" [hidden]="!proposalMessage">{{proposalMessage}}</div>
+            <div id="errorMessage" class="errorMessage" [hidden]="!errorMessage">{{errorMessage}}</div>
+            <div id="assetCompositionTitle" class="sectionTitle">
+                <h3>Composizione dell'investimento</h3>
+            </div>
+            <div id="assetComposition">
+                <sheet-assetComposition id="assetComposition" [sheet]="sheet"  [editMode]="false"  
+                    [showCharts]="false" [showInvestmentAmounts]="true"></sheet-assetComposition>
+            </div>
+        </div>
+        <div id="pageFooter"></div>
+    </div>
+</div>

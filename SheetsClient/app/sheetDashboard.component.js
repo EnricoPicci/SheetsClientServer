@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetCollection.component', './sheetSearch.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetCollection.component', './sheetSearch.component', './userLogged'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetBackEnd_service_1, sheetCollection_component_1, sheetSearch_component_1;
+    var core_1, router_1, sheetBackEnd_service_1, sheetCollection_component_1, sheetSearch_component_1, userLogged_1;
     var SheetDashboardComponent;
     return {
         setters:[
@@ -26,13 +26,17 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
             },
             function (sheetSearch_component_1_1) {
                 sheetSearch_component_1 = sheetSearch_component_1_1;
+            },
+            function (userLogged_1_1) {
+                userLogged_1 = userLogged_1_1;
             }],
         execute: function() {
             SheetDashboardComponent = (function () {
-                function SheetDashboardComponent(_router, _routeParams, _sheetBackEnd) {
+                function SheetDashboardComponent(_router, _routeParams, _sheetBackEnd, _user) {
                     this._router = _router;
                     this._routeParams = _routeParams;
                     this._sheetBackEnd = _sheetBackEnd;
+                    this._user = _user;
                     this.title = 'Sheets';
                 }
                 SheetDashboardComponent.prototype.ngOnInit = function () {
@@ -96,7 +100,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         styleUrls: ['../styles/common.css', '../styles/app.css'],
                         directives: [sheetCollection_component_1.SheetCollection, sheetSearch_component_1.SheetSearchCmp],
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd])
+                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd, userLogged_1.UserLogged])
                 ], SheetDashboardComponent);
                 return SheetDashboardComponent;
             })();

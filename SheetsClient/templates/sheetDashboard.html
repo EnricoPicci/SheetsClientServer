@@ -5,6 +5,10 @@
         <button id="compareButton" class="basicButton" type="button" (click)="onCompareClick()"
             [style.display]="isReadyToLaunchCompare() ? 'block' : 'none'">Confronta</button>
         <sheetSearchCmp #search (sheetsRetrieved)="updateSheets(search.searchResult)"></sheetSearchCmp>
+        <div id="buttons" class="buttonRoster" [style.display]="_user.isCustomer() ? 'block' : 'none'">
+            <button id="proposalsButton" class="basicButton" type="button" (click)="onProposals()">Proposte</button>
+            <button id="inPortfolioButton" class="basicButton" type="button" (click)="onInPortfolio()">In portafoglio</button>
+        </div>
     </div>
     <div id="main">
         <sheetCollectionCmp [sheets]="sheets" (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp>

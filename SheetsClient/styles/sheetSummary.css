@@ -42,6 +42,14 @@
     bottom: 12px;
 }
 
+.imageOverlayTop {
+    position: absolute;
+    left: 15px;
+    width: 210px;
+    z-index: 4;
+    top: 12px;
+}
+
 .name.sheetLink {
     color: #FFF;
     font-size: 18px;

@@ -5,6 +5,7 @@ import {SheetBackEnd} from './sheetBackEnd.service';
 import {Sheet} from './sheet';
 import {SheetCollection} from './sheetCollection.component';
 import {SheetSearchCmp} from './sheetSearch.component';
+import {UserLogged} from './userLogged';
 
 @Component({
     selector: 'sheet-dashboard',
@@ -26,7 +27,8 @@ export class SheetDashboardComponent {
     constructor(
         private _router: Router,
         private _routeParams: RouteParams,
-        private _sheetBackEnd: SheetBackEnd
+        private _sheetBackEnd: SheetBackEnd,
+        private _user: UserLogged
     ) { }
     
     ngOnInit() {

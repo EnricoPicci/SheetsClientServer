@@ -20,11 +20,6 @@ export class SheetSearchCmp implements OnInit {
 	public searchResult: Sheet[];
 	@Output() sheetsRetrieved: EventEmitter<any> = new EventEmitter();
     
-    /*static publicPersonalizedDomain: string[];
-    static generalDomain: string[];
-	static valueBasedDomain: string[];
-	static sectorsDomain: string[];*/
-    
     public errorMessage: string;
 
 	constructor(private _backEnd: SheetBackEnd) {
@@ -36,8 +31,8 @@ export class SheetSearchCmp implements OnInit {
     
     public initializeSearchCriteria() {
         if (this.searchCriteria.length == 0) {
-            // initialize at start the selection criteria (so that we go to the server 
-            // only once to retrieve the criteria) and then build the arrays of SearchSelection instance to be passed
+            // initialize at start the selection criteria 
+            // and then build the arrays of SearchSelection instance to be passed
             // to each SearchCriteria component contained in this component
             let publicPersonalizedDomain = new Array<string>();
             publicPersonalizedDomain.push('Pubblici');
@@ -45,7 +40,7 @@ export class SheetSearchCmp implements OnInit {
             let publicPersonalized = new Array<SearchSelection>();
             publicPersonalized[0] = new SearchSelection(publicPersonalizedDomain[0]);
             publicPersonalized[1] = new SearchSelection(publicPersonalizedDomain[1]);
-            this.searchCriteria.push(new SearchCriteria('Publici o Personalizzati', publicPersonalized));
+            this.searchCriteria[0] = new SearchCriteria('Publici o Personalizzati', publicPersonalized);
             
             this._backEnd.getGeneralSearchCriteriaDomain()
                 .subscribe(
@@ -54,7 +49,7 @@ export class SheetSearchCmp implements OnInit {
                         for (var i = 0; i < tags.length; i++) {
                             general[i] = new SearchSelection(tags[i]);
                         }
-                        this.searchCriteria.push(new SearchCriteria('General', general));
+                        this.searchCriteria[1] = new SearchCriteria('General', general);
                     },
                 error => this.errorMessage = <any>error
             );
@@ -65,7 +60,7 @@ export class SheetSearchCmp implements OnInit {
                         for (var i = 0; i < tags.length; i++) {
                             valueBased[i] = new SearchSelection(tags[i]);
                         }
-                        this.searchCriteria.push(new SearchCriteria('Value Based', valueBased));
+                        this.searchCriteria[2] = new SearchCriteria('Value Based', valueBased);
                     },
                 error => this.errorMessage = <any>error
             );
@@ -76,7 +71,7 @@ export class SheetSearchCmp implements OnInit {
                         for (var i = 0; i < tags.length; i++) {
                             sectors[i] = new SearchSelection(tags[i]);
                         }
-                        this.searchCriteria.push(new SearchCriteria('Sectors', sectors));
+                        this.searchCriteria[3] = new SearchCriteria('Sectors', sectors);
                 },
                 error => this.errorMessage = <any>error
             );
@@ -112,7 +107,7 @@ export class SheetSearchCmp implements OnInit {
 		console.log('sectorsTags');
 		console.log(sectorsTags);
 		
-		this.searchResult = this._backEnd.selectSheets(null, publicPersonal, generalTags, valueBasedTags, sectorsTags)
+		this.searchResult = this._backEnd.selectSheets(publicPersonal, generalTags, valueBasedTags, sectorsTags)
             .subscribe(
                 sheets => {
                     this.searchResult = sheets;
@@ -129,6 +124,17 @@ export class SheetSearchCmp implements OnInit {
 			}
 		}
 	}
+    
+    onQuerySubmitClick(inKeyword: string) {
+        this.searchResult = this._backEnd.searchSheetsByKeyword(inKeyword)
+            .subscribe(
+                sheets => {
+                    this.searchResult = sheets;
+                    this.sheetsRetrieved.next(this.searchResult);
+                },
+                error => this.errorMessage = <any>error
+            );
+    }
 	
 }
 
