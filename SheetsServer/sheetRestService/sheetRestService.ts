@@ -84,27 +84,58 @@ export class SheetRestService {
         )
     }
     
-    public static saveProposal(inProposalToSave: any, inHttpRes: any) {
-        SheetConnectionManager.connectAndOpen();
-        let ProposalModel = SheetConnectionManager.getProposalModel();
-        let proposalToSave = new ProposalModel(inProposalToSave);
-        ProposalModel.count({}, function (err, count) {
-            if (err) {
-                return console.error(err);
-            }
-            else {
-                if (proposalToSave.id == null) { 
-                    proposalToSave.id = count;
-                };
-                proposalToSave.save(function (err) { 
-                    if (err) {
-                        return console.error(err);
-                    } else {
-                        inHttpRes.json({result: "OK", id: proposalToSave.id});
+    public static validateAndSaveProposal(inProposal: any, inHttpRes: any) {
+        let validationResults = this.validateProposal(inProposal);
+        if (inProposal.isValid) {
+            SheetConnectionManager.connectAndOpen();
+            let ProposalModel = SheetConnectionManager.getProposalModel();
+            let proposalToSave = new ProposalModel(inProposal);
+            ProposalModel.count({}, function (err, count) {
+                if (err) {
+                    return console.error(err);
+                }
+                else {
+                    if (proposalToSave.id == null) { 
+                        proposalToSave.id = count;
+                    };
+                    proposalToSave.save(function (err) { 
+                        if (err) {
+                            return console.error(err);
+                        } else {
+                            inHttpRes.json({result: "OK", id: proposalToSave.id});
+                        }
+                    })
+                }
+            })
+        } else{
+            inHttpRes.json({result: "KO", validationResults: validationResults});
+        }
+    }
+    
+    private static validateProposal(inProposal: any) {
+        // mock logic for simulation purposes
+        // if any investment in any asset is greater than a certain threshold, then the proposal is not valid 
+        // One error message per investment over the threshold is sent back to the client
+        let investmentThreshold = 10000;
+        let isProposalValid = true;
+        let validationResults = new Array<any>();
+        for (var i = 0; i < inProposal.assetGroupJSONs.length; i++) {
+            let assetGroupJSON = inProposal.assetGroupJSONs[i];
+            for (var j = 0; j < assetGroupJSON.assetJSONs.length; j++) {
+                let assetJSON = assetGroupJSON.assetJSONs[j];
+                if (assetJSON.investmentAmount > investmentThreshold) {
+                    isProposalValid = false; 
+                    let validationResult = {
+                        symbol: assetJSON.symbol,
+                        validationCode: '001',
+                        message: 'Investment ' + assetJSON.investmentAmount.toLocaleString('it') + ' higher than acceptable'
                     }
-                })
+                    validationResults.push(validationResult);
+                }
             }
-        })
+        }
+        inProposal.isValid = isProposalValid;
+        return validationResults;
     }
     
     public static sendProposal(inProposalToSend, res) {

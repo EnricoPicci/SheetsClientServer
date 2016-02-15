@@ -10,6 +10,8 @@ import {ReturnPeriod} from '../app/returnPeriod';
 import {SheetBackEnd} from '../app/sheetBackEnd.service';
 import {Proposal} from '../app/proposal';
 import {ProposalJSON} from './proposalJSON';
+import {ProposalInvestment} from '../app/proposalInvestment';
+import {ProposalInvestmentSource} from '../app/proposalInvestmentSource';
 
 import {BackEndClientMock} from '../externalServicesClientMock/backEnd.clientMock.service';
 import {Environment} from '../environmentSettings/environment.service';
@@ -86,20 +88,6 @@ export class BackEndRest extends BackEndClientMock {
             .catch(this.handleError)
 	}
     
-    private createSheet(inSheetJson: any) {
-        let sheetFromBackEnd = new Sheet(inSheetJson.id, inSheetJson.title, inSheetJson.longTitle, inSheetJson.imageUrl,
-        inSheetJson.oneMonthReturn, inSheetJson.valueAtRisk, inSheetJson.volatility, inSheetJson.general,
-        inSheetJson.valueBased, inSheetJson.sector);
-        sheetFromBackEnd.originalSheetID = inSheetJson.originalSheetID;
-        sheetFromBackEnd.personalizationComment = inSheetJson.personalizationComment;
-        sheetFromBackEnd.createdBy = inSheetJson.createdBy;
-        sheetFromBackEnd.description = inSheetJson.description;
-        sheetFromBackEnd.oneYearReturn = inSheetJson.oneYearReturn;
-        sheetFromBackEnd.dailyChange = inSheetJson.dailyChange;
-        sheetFromBackEnd.benchmark = inSheetJson.benchmark;
-        return sheetFromBackEnd;
-    }
-    
     addSheet(inSheet: Sheet) {
         let options = this.getOpionsForPost();
         let jsonString = this.getJsonSheetStringForBackEnd(inSheet);
@@ -155,12 +143,12 @@ export class BackEndRest extends BackEndClientMock {
             .catch(this.handleError)
     }
     
-    saveProposal(inProposal: Proposal) {
+    validateAndSaveProposal(inProposal: Proposal) {
         let options = this.getOpionsForPost();
         let jsonString = this.getJsonProposalStringForBackEnd(inProposal);
         console.log('save proposal -- json --  ');
         console.log(jsonString);
-        let myPost = this._http.post(this._environment.baseServiceUrl + 'saveProposal', jsonString, options)
+        let myPost = this._http.post(this._environment.baseServiceUrl + 'validateAndSaveProposal', jsonString, options)
             .map(res => res.json());
         return myPost;
     }
@@ -177,6 +165,59 @@ export class BackEndRest extends BackEndClientMock {
         let myUrl = this._environment.baseServiceUrl + 'getAccountAndPortfolioCapacityForInvestment/?customerId=' + inCustomerId;
         return this._http.get(myUrl)
             .map(res => res.json())
+            .catch(this.handleError)
+    }
+    
+    getProposalsForCustomer(inCustomerId: string) {
+        let myUrl = this._environment.baseServiceUrl + 'getProposals/?customerId=' + inCustomerId;
+        return this._http.get(myUrl)
+            .map(res => res.json())
+            .map(
+                data => {
+                    let proposalsRetrieved = new Array<Proposal>();
+                    for (var i = 0; i < data.length; i++) {
+                        let proposalJSON = data[i];
+                        let proposalFromBackEnd = this.createProposal(proposalJSON);
+                        proposalFromBackEnd.id = proposalJSON.id;
+                        proposalFromBackEnd.comment = proposalJSON.comment;
+                        let thisArrayOfAssetGroups = new Array<AssetGroup>();
+                        proposalFromBackEnd.assetGroups = thisArrayOfAssetGroups;
+                        // the assetGroups of the sheet referenced by the newly created proposal are 
+                        // set so that we can use components originally designed for sheets also with 
+                        // proposals (e.g. SheetAssetCompositionComponent
+                        proposalFromBackEnd.sheet.assetGroups = thisArrayOfAssetGroups;
+                        for (var j = 0; j < proposalJSON.assetGroupJSONs.length; j++) {
+                            let thisAssetGroupJSON = proposalJSON.assetGroupJSONs[j];
+                            let thisArrayOfAssets = new Array<Asset>();
+                            for (var k = 0; k < thisAssetGroupJSON.assetJSONs.length; k++) {
+                                let thisAssetJSON = thisAssetGroupJSON.assetJSONs[k];
+                                // the min and max values of the asset are set because they are required by SheetAssetCompositionComponent
+                                let thisAsset = new Asset(thisAssetJSON.name, thisAssetJSON.symbol, thisAssetJSON.weight,
+                                null, null, 0, 1);
+                                thisAsset.investmentAmount = thisAssetJSON.investmentAmount;
+                                thisArrayOfAssets.push(thisAsset);
+                            }
+                            // the min and max values of the asset are set because they are required by SheetAssetCompositionComponent
+                            let thisAssetGroup = new AssetGroup(thisAssetGroupJSON.name, thisAssetGroupJSON.weight,
+                                                                    null, null, thisArrayOfAssets, 0, 1);
+                            thisAssetGroup.investmentAmount = thisAssetGroupJSON.investmentAmount;
+                            proposalFromBackEnd.assetGroups.push(thisAssetGroup);
+                        }
+                        let thisArrayOfProposalInvestments = new Array<ProposalInvestment>();
+                        proposalFromBackEnd.investmentElements = thisArrayOfProposalInvestments;
+                        for (var j = 0; j < proposalJSON.proposalInvestmentJSONs.length; j++) { 
+                            let thisProposalInvestmentJSON = proposalJSON.proposalInvestmentJSONs[j];
+                            let thisProposalInvestmentSource = new ProposalInvestmentSource(thisProposalInvestmentJSON.source.type,
+                                                                        thisProposalInvestmentJSON.source.id, null)
+                            let thisProposalInvestment = new ProposalInvestment(thisProposalInvestmentSource);
+                            thisProposalInvestment.amount = thisProposalInvestmentJSON.amount;
+                            proposalFromBackEnd.investmentElements.push(thisProposalInvestment);
+                        }
+                        proposalsRetrieved.push(proposalFromBackEnd);
+                    }
+                    return proposalsRetrieved;
+                }
+            )
             .catch(this.handleError)
     }
     
@@ -204,5 +245,35 @@ export class BackEndRest extends BackEndClientMock {
         let proposalJSON = new ProposalJSON();
         proposalJSON.fill(inProposal);
         return JSON.stringify(proposalJSON);
+    }
+     
+    private createSheet(inSheetJson: any) {
+        let sheetFromBackEnd = new Sheet(inSheetJson.id, inSheetJson.title, inSheetJson.longTitle, inSheetJson.imageUrl,
+        inSheetJson.oneMonthReturn, inSheetJson.valueAtRisk, inSheetJson.volatility, inSheetJson.general,
+        inSheetJson.valueBased, inSheetJson.sector);
+        sheetFromBackEnd.originalSheetID = inSheetJson.originalSheetID;
+        sheetFromBackEnd.shortNote = inSheetJson.shortNote;
+        sheetFromBackEnd.personalizationComment = inSheetJson.personalizationComment;
+        sheetFromBackEnd.createdBy = inSheetJson.createdBy;
+        sheetFromBackEnd.description = inSheetJson.description;
+        sheetFromBackEnd.oneYearReturn = inSheetJson.oneYearReturn;
+        sheetFromBackEnd.dailyChange = inSheetJson.dailyChange;
+        sheetFromBackEnd.benchmark = inSheetJson.benchmark;
+        return sheetFromBackEnd;
+    }
+    
+    private createProposal(inProposalJSON: any) {
+        let skinnySheetFromBackEnd = new Sheet(inProposalJSON.sheetId, inProposalJSON.title, null, inProposalJSON.imageUrl,
+        null, null, null, null, null, null);
+        //skinnySheetFromBackEnd.originalSheetID = inProposalJSON.originalSheetID;
+        let proposal = new Proposal(null, inProposalJSON.customerId, skinnySheetFromBackEnd);
+        proposal.isValid = inProposalJSON.isValid;
+        return proposal;
+    }
+    
+    buildBuyMessageForTheBackEnd(inProposal: Proposal) {
+        let proposalJSON = new ProposalJSON();
+        proposalJSON.fillForBuyOrder(inProposal);
+        return JSON.stringify(proposalJSON, null, 4);
     }
 }

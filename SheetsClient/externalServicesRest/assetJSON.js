@@ -25,6 +25,10 @@ System.register(['./assetAbstractJSON'], function(exports_1) {
                     _super.prototype.fillForProposal.call(this, inAsset);
                     this.symbol = inAsset.symbol;
                 };
+                AssetJSON.prototype.fillForBuyOrder = function (inAsset) {
+                    this.symbol = inAsset.symbol;
+                    this.investmentAmount = inAsset.investmentAmount;
+                };
                 return AssetJSON;
             })(assetAbstractJSON_1.AssetAbstractJSON);
             exports_1("AssetJSON", AssetJSON);

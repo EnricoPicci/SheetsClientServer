@@ -17,7 +17,7 @@ export class ProposalInvestmentComponent {
     public proposal: Proposal;
     
     onInvestmentChange(inInvestmentElement: ProposalInvestment, inInvestmentInput: any) {
-        inInvestmentElement.amount = inInvestmentInput.valueAsNumber;
+        inInvestmentElement.amount = parseFloat(inInvestmentInput.value);
         this.proposal.updateInvestment();
     }
 }

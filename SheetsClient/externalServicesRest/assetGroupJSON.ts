@@ -22,4 +22,12 @@ export class AssetGroupJSON extends AssetAbstractJSON {
             this.assetJSONs.push(assetJSON);
         }
     }
+    
+    fillForBuyOrder(inAssetGroup: AssetGroup) {
+        for (var i = 0; i < inAssetGroup.assets.length; i++) {
+            let assetJSON = new AssetJSON();
+            assetJSON.fillForBuyOrder(inAssetGroup.assets[i]);
+            this.assetJSONs.push(assetJSON);
+        }
+    }
 }

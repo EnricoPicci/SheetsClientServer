@@ -14,4 +14,9 @@ export class AssetJSON extends AssetAbstractJSON {
         this.symbol = inAsset.symbol;
     }
     
+    fillForBuyOrder(inAsset: Asset) {
+        this.symbol = inAsset.symbol;
+        this.investmentAmount = inAsset.investmentAmount;
+    }
+    
 }

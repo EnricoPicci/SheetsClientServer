@@ -4,11 +4,12 @@ System.register([], function(exports_1) {
         setters:[],
         execute: function() {
             Proposal = (function () {
-                function Proposal(inAssets, inCustomerId, inSheetId) {
+                function Proposal(inAssets, inCustomerId, inSheet) {
                     this.investmentElements = new Array();
+                    this.isValid = false;
                     this.assetGroups = inAssets;
                     this.customerId = inCustomerId;
-                    this.sheetId = inSheetId;
+                    this.sheet = inSheet;
                 }
                 Proposal.prototype.getTotalInvestment = function () {
                     var ret = 0;
@@ -16,6 +17,9 @@ System.register([], function(exports_1) {
                         ret = ret + this.investmentElements[i].amount;
                     }
                     return ret;
+                };
+                Proposal.prototype.getTotalInvestmentFormatted = function () {
+                    return this.getTotalInvestment().toLocaleString('it') + ' €';
                 };
                 Proposal.prototype.updateInvestment = function () {
                     var totalInvestment = this.getTotalInvestment();
@@ -32,6 +36,14 @@ System.register([], function(exports_1) {
                             asset.investmentAmount = inInvestment * assetWeight;
                         }
                     }
+                };
+                Proposal.prototype.getCommentShortText = function () {
+                    var commentShortText = this.comment;
+                    var commentTextLength = this.comment.length;
+                    if (commentTextLength > 100) {
+                        commentShortText = this.comment.substring(0, 100) + '...';
+                    }
+                    return commentShortText;
                 };
                 return Proposal;
             })();

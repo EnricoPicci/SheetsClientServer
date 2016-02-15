@@ -9,6 +9,9 @@ System.register([], function(exports_1) {
                     this.id = inId;
                     this.maxCapacity = inMaxCapacity;
                 }
+                ProposalInvestmentSource.prototype.getMaxCapacityFormatted = function () {
+                    return this.maxCapacity.toLocaleString() + ' €';
+                };
                 return ProposalInvestmentSource;
             })();
             exports_1("ProposalInvestmentSource", ProposalInvestmentSource);

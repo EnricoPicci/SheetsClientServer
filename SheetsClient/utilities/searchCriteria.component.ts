@@ -7,19 +7,25 @@ import {SearchSelection} from './searchSelection';
     selector: 'searchCriteria',
 	providers: [],
     template: `
-        <div>
-            <div class="sectionHeader" (click)="onClickOverHeader()">
-                <span class="arrow" [class.open]="open"></span>
-                <span>{{searchCriteria.name}}</span>
-            </div>
-            <div class="sectionBody" [style.display]="open ? 'block' : 'none'">
-                <ul *ngFor="#criterium of searchCriteria.selections">
-                    <li>
-                        <input #angularcb value={{criterium.name}} type="checkbox" 
-                            (change)="onChange(angularcb.checked, criterium)">
-                        <label>{{criterium.name}}</label>
-                    </li>
-                </ul>
+        <!-- Need to protect with the following *ngIf because back end services are async and
+        there are situations when searchCriteria has not been fully loaded while the template gets evaluated;
+        in these cases, if we do not protect with *ngIf the whole thing crashes since searchCriteria is still
+        undefined-->
+        <div *ngIf="searchCriteria">
+            <div>
+                <div class="sectionHeader" (click)="onClickOverHeader()">
+                    <span class="arrow" [class.open]="open"></span>
+                    <span>{{searchCriteria.name}}</span>
+                </div>
+                <div class="sectionBody" [style.display]="open ? 'block' : 'none'">
+                    <ul *ngFor="#criterium of searchCriteria.selections">
+                        <li>
+                            <input #angularcb value={{criterium.name}} type="checkbox" 
+                                (change)="onChange(angularcb.checked, criterium)">
+                            <label>{{criterium.name}}</label>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     `, 

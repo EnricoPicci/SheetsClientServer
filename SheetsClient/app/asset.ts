@@ -4,6 +4,7 @@ import{AssetAbstract} from './assetAbstract';
 export class Asset extends AssetAbstract {
     public symbol: string;
     //public assetGroup: AssetGroup;
+    public isValidated = true;
 
     public constructor(inName: string, 
                         inSymbol: string,

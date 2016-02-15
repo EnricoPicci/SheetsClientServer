@@ -9,4 +9,8 @@ export class ProposalInvestmentSource {
         this.maxCapacity = inMaxCapacity;
     }
     
+    getMaxCapacityFormatted() {
+        return this.maxCapacity.toLocaleString() + ' €';
+    }
+    
 }

@@ -101,9 +101,9 @@ router.post('/addsheet', function(req, res) {
 /*
  * POST to save one proposal.
  */
-router.post('/saveProposal', function(req, res) {
+router.post('/validateAndSaveProposal', function(req, res) {
     var proposalToSave = req.body;
-    SheetRestService.saveProposal(proposalToSave, res);
+    SheetRestService.validateAndSaveProposal(proposalToSave, res);
 });
 
 /*

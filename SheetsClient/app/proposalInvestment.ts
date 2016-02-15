@@ -7,4 +7,12 @@ export class ProposalInvestment {
     constructor(inSource: ProposalInvestmentSource) {
         this.source = inSource;
     }
+    
+    getAmountFormatted() {
+        let formattedString = '';
+        if (this.amount != 0) {
+            formattedString = this.amount.toLocaleString('it');
+        }
+        return formattedString;
+    }
 }

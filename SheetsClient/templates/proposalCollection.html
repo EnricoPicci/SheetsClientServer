@@ -1,0 +1,37 @@
+<div *ngIf="proposals">
+    <div id="header" class="header"></div>
+    <div id="content" class="container">
+        <div id="pageHeading"></div>
+        <div id="proposalListTitle" style="width: 100%;">
+            <h3>Le proposte per te</h3>
+        </div>
+        <div id="listOfProposals" style="float: none;">
+            <table class="proposalTable">
+                <thead>
+                    <tr>
+                        <th class="iconClass"></th>
+                        <th class="proposalIdClass">Num Proposta</th>
+                        <th class="titleClass">Foglio</th>
+                        <th class="commentInCellClass">Nota</th>
+                        <th class="investedAmountClass">Valore investito</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="#proposal of proposals">
+                    <tr class="proposalClass">
+                        <td class="iconClass">
+                            <sheet-summary [sheet]="proposal.sheet"  [isIconized]="true"></sheet-summary>
+                        </td>
+                        <td class="proposalIdClass" (click)="onProposalSelected(proposal)" style="cursor: pointer;">{{proposal.id}}</td>
+                        <td class="titleClass" (click)="onProposalSelected(proposal)" style="cursor: pointer;">{{proposal.sheet.getTitle()}}</td>
+                        <td class="commentInCellClass">{{proposal.getCommentShortText()}}</td>
+                        <td class="investedAmountClass">{{proposal.getTotalInvestment()}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="currentProposal">
+            <proposalCmp [proposal]="currentProposal"></proposalCmp>
+        </div>
+        <div id="pageFooter"></div>
+    </div>
+</div>

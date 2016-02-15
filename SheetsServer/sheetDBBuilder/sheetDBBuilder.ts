@@ -86,6 +86,7 @@ export class SheetDBBuilder {
             description: String,
             benchmark: String,
             originalSheetID: String,
+            shortNote: String,
             personalizationComment: String,
             assetGroupJSONs: [assetGroupSchema]
         }
@@ -108,11 +109,31 @@ export class SheetDBBuilder {
                 assetJSONs: [assetSchema] 
             }
         );
+        let proposalInvestmentSourceSchema = new mongoose.Schema(
+            {
+                type: String,
+                id: String
+            }
+        );
+        let proposalInvestmentSchema = new mongoose.Schema(
+            {
+                amount: Number,
+                source: proposalInvestmentSourceSchema
+            }
+        );
         return {
             id: Number,
             sheetId: Number,
             customerId: String,
-            assetGroupJSONs: [assetGroupSchema]
+            title: String,
+            personalized: Boolean,
+            originalSheetID: String,
+            imageUrl: String,
+            totalInvestmentAmount: Number,
+            comment: String,
+            assetGroupJSONs: [assetGroupSchema],
+            proposalInvestmentJSONs: [proposalInvestmentSchema],
+            isValid: Boolean
         }
     }
     

@@ -9,6 +9,7 @@ import {SheetComparatorComponent} from './SheetComparator.component';
 import {UserLoginComponent} from './userLogin.component';
 import {SheetOrProposalDetailComponent} from './sheetOrProposalDetail.component';
 import {ProposalComponent} from './proposal.component';
+import {ProposalCollectionComponent} from './proposalCollection.component';
 
 @Component({
     selector: 'my-app',
@@ -25,8 +26,7 @@ import {ProposalComponent} from './proposal.component';
     {path: '/Sheet/:id', name: 'SheetSummary', component: SheetSummaryComponent},
     //{path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetDetailComponent},
     {path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetOrProposalDetailComponent},
-    //{path: '/SheetDetailReload/:id', name: 'SheetDetailReload', component: SheetOrProposalDetailComponent},
     {path: '/SheetComparator/', name: 'SheetComparator', component: SheetComparatorComponent},
-    //{path: '/Proposal/', name: 'Proposal', component: ProposalComponent},
+    {path: '/Proposals/', name: 'ProposalCollection', component: ProposalCollectionComponent},
 ])
 export class AppComponent { }

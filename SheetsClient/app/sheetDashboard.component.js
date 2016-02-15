@@ -92,6 +92,9 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     this.secondSheetToCompare.isSelectedForComparison = false;
                     this._router.navigate(['SheetComparator', { idSheetToCompare1: firstSheetId, idSheetToCompare2: this.secondSheetToCompare.id }]);
                 };
+                SheetDashboardComponent.prototype.onProposals = function () {
+                    this._router.navigate(['ProposalCollection', { customerId: this._user.customerId }]);
+                };
                 SheetDashboardComponent = __decorate([
                     core_1.Component({
                         selector: 'sheet-dashboard',

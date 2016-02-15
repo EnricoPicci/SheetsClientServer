@@ -1,6 +1,4 @@
-
-
-#investmentComposition {
+#listOfProposals {
     float: left;
     width: calc(100% - 180px);
     margin-bottom: 30px;
@@ -9,7 +7,7 @@
     min-width: 475px;
 }
 
-.investmentTable {
+.proposalTable {
     table-layout: fixed;
     margin: 0 auto;
     border: 1px solid #BFBFBF;
@@ -18,12 +16,12 @@
 }
 
 
-.investmentElement {
+.proposalClass {
     background-color: #fff;
     height: 25px; /*to keep same heigth of the lock symbol of .lockClass.unlocked*/
 }
 
-.investmentElement td {
+.proposalClass td {
     border-right: 1px solid #A1A1A1;
     padding-right: 8px;
     text-align: right;
@@ -31,11 +29,11 @@
     border: 1px solid #A1A1A1;
 }
 
-#investmentComposition thead tr {
+#listOfProposals thead tr {
     background-color: #E3E3E3;
 }
 
-#investmentComposition thead tr th {
+#listOfProposals thead tr th {
     font-weight: 600;
     text-transform: uppercase;
     color: #626262;
@@ -48,18 +46,21 @@
     border-bottom: 1px solid #BFBFBF;
 }
 
-.sourceType {
-    width: 15%;
+.iconClass {
+    width: 10%;
 }
 
-.id {
-    width: 15%;
+.proposalIdClass {
+    width: 10%;
 }
 
-.maxCapacity {
+.titleClass {
     width: 20%;
 }
 
-.investmentAmount {
-    width: 20%;
+.commentInCellClass {
+    width: 50%;
+}
+.investedAmountClass {
+    width: 10%;
 }

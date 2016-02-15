@@ -1,18 +1,22 @@
+import {Sheet} from './sheet';
 import {AssetGroup} from './assetGroup';
 import {ProposalInvestment} from './proposalInvestment';
 
 export class Proposal { 
     public id: number;
-    public sheetId: number;
+    //public sheetId: number;
+    public sheet: Sheet;
     public assetGroups: Array<AssetGroup>;
     public customerId: string;
     public investmentElements = new Array<ProposalInvestment>();
+    public comment: string;
+    public isValid = false;
     
-    constructor(inAssets: Array<AssetGroup>, inCustomerId: string, inSheetId: number
+    constructor(inAssets: Array<AssetGroup>, inCustomerId: string, inSheet: Sheet
     ) { 
         this.assetGroups = inAssets;
         this.customerId = inCustomerId;
-        this.sheetId = inSheetId;
+        this.sheet = inSheet;
     }
     
     getTotalInvestment() {
@@ -21,6 +25,10 @@ export class Proposal {
             ret = ret + this.investmentElements[i].amount;
         }
         return ret;
+    }
+    
+    getTotalInvestmentFormatted() {
+        return this.getTotalInvestment().toLocaleString('it') + ' €';
     }
     
     updateInvestment() {
@@ -39,6 +47,15 @@ export class Proposal {
                 asset.investmentAmount = inInvestment*assetWeight;
             }
         }
+    }
+        
+    getCommentShortText() {
+        let commentShortText = this.comment;
+        let commentTextLength = this.comment.length;
+        if (commentTextLength > 100) {
+            commentShortText = this.comment.substring(0, 100) + '...';
+        }
+        return commentShortText;
     }
     
 }

@@ -15,9 +15,10 @@ System.register(['./assetAbstract'], function(exports_1) {
             //import{AssetGroup} from './assetGroup';
             Asset = (function (_super) {
                 __extends(Asset, _super);
-                //public assetGroup: AssetGroup;
                 function Asset(inName, inSymbol, inWeight, inOneMonthRet, inOneYearRet, inMinWeigth, inMaxWeigth) {
                     _super.call(this, inName, inWeight, inOneMonthRet, inOneYearRet, inMinWeigth, inMaxWeigth);
+                    //public assetGroup: AssetGroup;
+                    this.isValidated = true;
                     this.symbol = inSymbol;
                 }
                 return Asset;

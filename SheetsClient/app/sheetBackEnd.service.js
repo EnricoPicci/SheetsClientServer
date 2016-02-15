@@ -23,8 +23,13 @@ System.register([], function(exports_1) {
                 ;
                 SheetBackEnd.prototype.addSheet = function (inSheet) { };
                 SheetBackEnd.prototype.getAccountAndPortfolioCapacityForInvestment = function (inCustomerId) { };
-                SheetBackEnd.prototype.saveProposal = function (inProposal) { };
+                SheetBackEnd.prototype.getProposalsForCustomer = function (inCustomerId) { };
+                SheetBackEnd.prototype.validateAndSaveProposal = function (inProposal) { };
                 SheetBackEnd.prototype.sendProposal = function (inProposal) { };
+                // this is a method for demo purposes only
+                // it creates a message to show what could be sent to a back end system when
+                // an order to buy a sheet is issued from the front end
+                SheetBackEnd.prototype.buildBuyMessageForTheBackEnd = function (inProposal) { };
                 return SheetBackEnd;
             })();
             exports_1("SheetBackEnd", SheetBackEnd);

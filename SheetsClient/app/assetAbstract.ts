@@ -58,5 +58,13 @@ export abstract class AssetAbstract {
         let ret = this.range.max - this.range.min;
         return ret;
     }
+    
+    getInvestmentAmountFormatted() {
+        let amountFormatted = '';
+        if (this.investmentAmount) {
+            amountFormatted = this.investmentAmount.toLocaleString('it-IT') + ' €';
+        } 
+        return amountFormatted;
+    }
    
 }

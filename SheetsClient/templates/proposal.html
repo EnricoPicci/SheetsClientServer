@@ -23,18 +23,28 @@ undefined-->
             <div id="investment">
                 <proposalInvestmentCmp id="proposalInvestment" [proposal]="proposal"></proposalInvestmentCmp>
             </div>
+            <div id="comment" class="comment">Nota
+                <!--input type="text" id="commentText" [(ngModel)]="proposal.comment" [disabled]="_userLogged.isCustomer()"/-->
+                <textarea id="commentText" rows="3" cols="120" 
+                        [(ngModel)]="proposal.comment" [disabled]="_userLogged.isCustomer()"></textarea>
+            </div>
             <div id="buttons" class="buttonRoster">
-                <button id="saveButton" class="basicButton" type="button" (click)="onSaveProposal()">Salva</button>
-                <button id="sendButton" class="basicButton" type="button" (click)="onSendProposal()">Invia</button>
+                <button id="saveButton" class="basicButton" type="button" (click)="onSaveProposal()" [hidden]="_userLogged.isCustomer()">Salva</button>
+                <!--button id="sendButton" class="basicButton" type="button" (click)="onSendProposal()">Invia</button-->
+                <button id="buyButton" class="basicButton" type="button" (mouseup)="onBuyProposal()" [hidden]="!_userLogged.isCustomer() || buyOrderSent">Acquista</button>
             </div>
             <div id="message" class="message" [hidden]="!proposalMessage">{{proposalMessage}}</div>
-            <div id="errorMessage" class="errorMessage" [hidden]="!errorMessage">{{errorMessage}}</div>
+            <div id="errorMessage" class="errorMessage" [hidden]="!errorMessage" class="alert alert-danger">{{errorMessage}}</div>
             <div id="assetCompositionTitle" class="sectionTitle">
                 <h3>Composizione dell'investimento</h3>
             </div>
             <div id="assetComposition">
                 <sheet-assetComposition id="assetComposition" [sheet]="sheet"  [editMode]="false"  
                     [showCharts]="false" [showInvestmentAmounts]="true"></sheet-assetComposition>
+            </div>
+            <div id="messageToTheBackEnd" [hidden]="!buyMessageForTheBackEnd"  style="float: left">
+                <h3>This is an example of a message that could be sent to the back end to fire the buy process</h3>
+                <textarea #buyMessage id="buyMessage" rows="30" cols="140">{{buyMessageForTheBackEnd}}</textarea>
             </div>
         </div>
         <div id="pageFooter"></div>

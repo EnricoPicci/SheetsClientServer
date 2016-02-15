@@ -6,8 +6,8 @@
                 </div>
             </div>
             <div id="name">
-                <h1>{{sheet?.title}}
-                    <span [style.display]="sheet.isPersonalized() ? 'block' : 'none'">  -- Personalizzato</span>
+                <h1>{{sheet?.getTitle()}}
+                    <!--span [style.display]="sheet.isPersonalized() ? 'block' : 'none'">  -- Personalizzato</span-->
                 </h1>
                 <div id="divider"></div>
                 <h3>Created by: {{sheet?.createdBy}}</h3>

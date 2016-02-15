@@ -44,17 +44,16 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                 function ProposalComponent(_userLogged, _backEnd) {
                     this._userLogged = _userLogged;
                     this._backEnd = _backEnd;
+                    this.buyOrderSent = false;
                 }
                 ProposalComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    var assets = this.sheet.assetGroups;
-                    if (assets.length < 1) {
-                        console.error('No assets passed to build the proposal');
-                    }
-                    else {
+                    // if the input passed is sheet, then we need to create a proposal starting from the sheet passed
+                    if (this.sheet) {
+                        var assets = this.sheet.assetGroups;
                         this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
                             .subscribe(function (investmentSources) {
-                            _this.proposal = new proposal_1.Proposal(assets, _this._userLogged.customerId, _this.sheet.id);
+                            _this.proposal = new proposal_1.Proposal(assets, _this._userLogged.customerId, _this.sheet);
                             for (var i = 0; i < investmentSources.length; i++) {
                                 var investmentSourcesFromBackEnd = investmentSources[i];
                                 var investmentSource = new proposalInvestmentSource_1.ProposalInvestmentSource(investmentSourcesFromBackEnd.type, investmentSourcesFromBackEnd.id, investmentSourcesFromBackEnd.maxCapacity);
@@ -63,12 +62,57 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                             }
                         }, function (error) { return _this.errorMessage = error; });
                     }
+                    else {
+                        if (!this.proposal) {
+                            console.error('either sheet or proposal has to be passed as input');
+                        }
+                        else {
+                            this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
+                                .subscribe(function (investmentSources) {
+                                for (var i = 0; i < investmentSources.length; i++) {
+                                    var investmentSourcesFromBackEnd = investmentSources[i];
+                                    _this.proposal.investmentElements[i].source.maxCapacity = investmentSourcesFromBackEnd.maxCapacity;
+                                }
+                                // the sheet property is set so that we can use components originally designed for sheets also with 
+                                // proposals (e.g. SheetAssetCompositionComponent)
+                                _this.sheet = _this.proposal.sheet;
+                            }, function (error) { return _this.errorMessage = error; });
+                        }
+                    }
                 };
                 ProposalComponent.prototype.onSaveProposal = function () {
                     var _this = this;
                     this.resetMessages();
-                    this._backEnd.saveProposal(this.proposal)
-                        .subscribe(function (backEndResponse) { return _this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved'; }, function (error) { return _this.errorMessage = error; });
+                    this._backEnd.validateAndSaveProposal(this.proposal)
+                        .subscribe(function (backEndResponse) {
+                        if (backEndResponse.result == 'OK') {
+                            _this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved';
+                        }
+                        else {
+                            // first of all clean the situation for all assets in the proposal
+                            for (var j = 0; j < _this.proposal.assetGroups.length; j++) {
+                                var assetGroup = _this.proposal.assetGroups[j];
+                                for (var k = 0; k < assetGroup.assets.length; k++) {
+                                    assetGroup.assets[k].isValidated = true;
+                                }
+                            }
+                            // all assets are valid at the beginning of the loop that defines
+                            // which ones are not valid
+                            for (var i = 0; i < backEndResponse.validationResults.length; i++) {
+                                var invalidAssetSymbol = backEndResponse.validationResults[i].symbol;
+                                for (var j = 0; j < _this.proposal.assetGroups.length; j++) {
+                                    var assetGroup = _this.proposal.assetGroups[j];
+                                    for (var k = 0; k < assetGroup.assets.length; k++) {
+                                        var asset = assetGroup.assets[k];
+                                        if (asset.symbol == invalidAssetSymbol) {
+                                            asset.isValidated = false;
+                                        }
+                                    }
+                                }
+                            }
+                            _this.errorMessage = 'Proposta non valida. Ridurre gli investimenti segnalati sotto';
+                        }
+                    }, function (error) { return _this.errorMessage = error; });
                 };
                 ProposalComponent.prototype.onSendProposal = function () {
                     var _this = this;
@@ -76,10 +120,25 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                     this._backEnd.sendProposal(this.proposal)
                         .subscribe(function (backEndResponse) { return _this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' sent'; }, function (error) { return _this.errorMessage = error; });
                 };
+                ProposalComponent.prototype.onBuyProposal = function () {
+                    this.buyMessageForTheBackEnd = this._backEnd.buildBuyMessageForTheBackEnd(this.proposal);
+                    this.buyOrderSent = true;
+                    var element = this.buyMessageElementRef.nativeElement;
+                    setTimeout(function () {
+                        element.focus();
+                        element.setSelectionRange(0, 0);
+                        element.scrollTop = 0;
+                        element.disabled = "true";
+                    }, 0);
+                };
                 ProposalComponent.prototype.resetMessages = function () {
                     this.proposalMessage = null;
                     this.errorMessage = null;
                 };
+                __decorate([
+                    core_1.ViewChild('buyMessage'), 
+                    __metadata('design:type', Object)
+                ], ProposalComponent.prototype, "buyMessageElementRef", void 0);
                 ProposalComponent = __decorate([
                     core_1.Component({
                         selector: 'proposalCmp',
@@ -87,7 +146,7 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                         templateUrl: '../templates/proposal.html',
                         styleUrls: ['../styles/common.css', '../styles/proposal.css'],
                         directives: [sheetAssetComposition_component_1.SheetAssetCompositionComponent, proposalInvestment_component_1.ProposalInvestmentComponent, sheetSummary_component_1.SheetSummaryComponent],
-                        inputs: ['sheet'],
+                        inputs: ['sheet', 'proposal'],
                     }), 
                     __metadata('design:paramtypes', [userLogged_1.UserLogged, sheetBackEnd_service_1.SheetBackEnd])
                 ], ProposalComponent);

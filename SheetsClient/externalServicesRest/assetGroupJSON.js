@@ -37,6 +37,13 @@ System.register(['./assetAbstractJSON', './assetJSON'], function(exports_1) {
                         this.assetJSONs.push(assetJSON);
                     }
                 };
+                AssetGroupJSON.prototype.fillForBuyOrder = function (inAssetGroup) {
+                    for (var i = 0; i < inAssetGroup.assets.length; i++) {
+                        var assetJSON = new assetJSON_1.AssetJSON();
+                        assetJSON.fillForBuyOrder(inAssetGroup.assets[i]);
+                        this.assetJSONs.push(assetJSON);
+                    }
+                };
                 return AssetGroupJSON;
             })(assetAbstractJSON_1.AssetAbstractJSON);
             exports_1("AssetGroupJSON", AssetGroupJSON);

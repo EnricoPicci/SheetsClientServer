@@ -40,6 +40,7 @@ export class Sheet {
     
     // attributes that are filled if the Sheet represents a personalization of an original sheet
     public originalSheetID: string = null;
+    public shortNote: string = null;
     public personalizationComment: string = null;
     
     // add en EventEmmiter to communicate when sheet composition changes to all components that may be interested
@@ -89,6 +90,14 @@ export class Sheet {
     
     isPersonalized() {
         return this.originalSheetID != null;
+    }
+    
+    getTitle() {
+        let ret = this.title;
+        if (this.isPersonalized()) {
+            ret = ret + ' - personalizzato'
+        }
+        return ret;
     }
 
 }

@@ -12,6 +12,7 @@ System.register(['./assetGroupJSON'], function(exports_1) {
                     this.assetGroupJSONs = new Array();
                     // attributes that are filled if the Sheet represents a personalization of an original sheet
                     this.originalSheetID = null;
+                    this.shortNote = null;
                     this.personalizationComment = null;
                 }
                 SheetJSON.prototype.fill = function (inSheet) {
@@ -33,6 +34,7 @@ System.register(['./assetGroupJSON'], function(exports_1) {
                     this.sector = inSheet.sector;
                     // attributes that are filled if the Sheet represents a personalization of an original sheet
                     this.originalSheetID = inSheet.originalSheetID;
+                    this.shortNote = inSheet.shortNote;
                     this.personalizationComment = inSheet.personalizationComment;
                     for (var i = 0; i < inSheet.assetGroups.length; i++) {
                         var assetGroupJSON = new assetGroupJSON_1.AssetGroupJSON();

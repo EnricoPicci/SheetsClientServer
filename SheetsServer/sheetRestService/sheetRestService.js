@@ -77,29 +77,60 @@ var SheetRestService = (function () {
             }
         });
     };
-    SheetRestService.saveProposal = function (inProposalToSave, inHttpRes) {
-        sheetConnectionManager_1.SheetConnectionManager.connectAndOpen();
-        var ProposalModel = sheetConnectionManager_1.SheetConnectionManager.getProposalModel();
-        var proposalToSave = new ProposalModel(inProposalToSave);
-        ProposalModel.count({}, function (err, count) {
-            if (err) {
-                return console.error(err);
-            }
-            else {
-                if (proposalToSave.id == null) {
-                    proposalToSave.id = count;
+    SheetRestService.validateAndSaveProposal = function (inProposal, inHttpRes) {
+        var validationResults = this.validateProposal(inProposal);
+        if (inProposal.isValid) {
+            sheetConnectionManager_1.SheetConnectionManager.connectAndOpen();
+            var ProposalModel = sheetConnectionManager_1.SheetConnectionManager.getProposalModel();
+            var proposalToSave = new ProposalModel(inProposal);
+            ProposalModel.count({}, function (err, count) {
+                if (err) {
+                    return console.error(err);
                 }
-                ;
-                proposalToSave.save(function (err) {
-                    if (err) {
-                        return console.error(err);
+                else {
+                    if (proposalToSave.id == null) {
+                        proposalToSave.id = count;
                     }
-                    else {
-                        inHttpRes.json({ result: "OK", id: proposalToSave.id });
-                    }
-                });
+                    ;
+                    proposalToSave.save(function (err) {
+                        if (err) {
+                            return console.error(err);
+                        }
+                        else {
+                            inHttpRes.json({ result: "OK", id: proposalToSave.id });
+                        }
+                    });
+                }
+            });
+        }
+        else {
+            inHttpRes.json({ result: "KO", validationResults: validationResults });
+        }
+    };
+    SheetRestService.validateProposal = function (inProposal) {
+        // mock logic for simulation purposes
+        // if any investment in any asset is greater than a certain threshold, then the proposal is not valid 
+        // One error message per investment over the threshold is sent back to the client
+        var investmentThreshold = 10000;
+        var isProposalValid = true;
+        var validationResults = new Array();
+        for (var i = 0; i < inProposal.assetGroupJSONs.length; i++) {
+            var assetGroupJSON = inProposal.assetGroupJSONs[i];
+            for (var j = 0; j < assetGroupJSON.assetJSONs.length; j++) {
+                var assetJSON = assetGroupJSON.assetJSONs[j];
+                if (assetJSON.investmentAmount > investmentThreshold) {
+                    isProposalValid = false;
+                    var validationResult = {
+                        symbol: assetJSON.symbol,
+                        validationCode: '001',
+                        message: 'Investment ' + assetJSON.investmentAmount.toLocaleString('it') + ' higher than acceptable'
+                    };
+                    validationResults.push(validationResult);
+                }
             }
-        });
+        }
+        inProposal.isValid = isProposalValid;
+        return validationResults;
     };
     SheetRestService.sendProposal = function (inProposalToSend, res) {
         sheetConnectionManager_1.SheetConnectionManager.connectAndOpen();

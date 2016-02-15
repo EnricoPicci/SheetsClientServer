@@ -5,6 +5,8 @@ System.register([], function(exports_1) {
         execute: function() {
             UserLogged = (function () {
                 function UserLogged() {
+                    this.pbId = null;
+                    this.customerId = null;
                 }
                 UserLogged.prototype.isCustomer = function () {
                     return this.pbId == null;

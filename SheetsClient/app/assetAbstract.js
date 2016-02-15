@@ -38,6 +38,13 @@ System.register([], function(exports_1) {
                     var ret = this.range.max - this.range.min;
                     return ret;
                 };
+                AssetAbstract.prototype.getInvestmentAmountFormatted = function () {
+                    var amountFormatted = '';
+                    if (this.investmentAmount) {
+                        amountFormatted = this.investmentAmount.toLocaleString('it-IT') + ' €';
+                    }
+                    return amountFormatted;
+                };
                 return AssetAbstract;
             })();
             exports_1("AssetAbstract", AssetAbstract);

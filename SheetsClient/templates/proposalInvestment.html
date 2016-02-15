@@ -17,13 +17,18 @@
                     <span>{{investmentElement.source.id}}</span>
                 </td>
                 <td  class="maxCapacity">
-                    <span>{{investmentElement.source.maxCapacity}}</span>
+                    <span>{{investmentElement.source.getMaxCapacityFormatted()}}</span>
                 </td>
                 <td  class="investmentAmount">
                     <!--input type="number" [max]="investmentElement.source.maxCapacity" 
                         [(ngModel)]="investmentElement.amount" style="width: 100%;"-->
-                    <input #investmentInput type="number" [max]="investmentElement.source.maxCapacity" 
-                        (change)="onInvestmentChange(investmentElement, investmentInput)" style="width: 100%;">
+                    <!--input #investmentInput type="number" [max]="investmentElement.source.maxCapacity" 
+                        [value]="investmentElement.getAmountFormatted()" pattern="(^\d+(\.|\,)\d{2})"
+                        (change)="onInvestmentChange(investmentElement, investmentInput)" style="width: 100%;"-->
+                    <input #investmentInput type="text" 
+                        [value]="investmentElement.getAmountFormatted()" 
+                        (change)="onInvestmentChange(investmentElement, investmentInput)" style="width: 95%; text-align: right;">
+                    <span>€</span>
                 </td>
             </tr>
         </tbody>
@@ -32,7 +37,7 @@
                 <th class="sourceType">Totale</th>
                 <th class="id"></th>
                 <th class="maxCapacity"></th>
-                <th class="investmentAmount">{{proposal.getTotalInvestment()}}</th>
+                <th class="investmentAmount">{{proposal.getTotalInvestmentFormatted()}}</th>
             </tr>
         </tbody>
     </table>

@@ -20,6 +20,7 @@ System.register(['angular2/core', './returnData'], function(exports_1) {
                     this.returnDataBenchmarkAll = new returnData_1.ReturnData();
                     // attributes that are filled if the Sheet represents a personalization of an original sheet
                     this.originalSheetID = null;
+                    this.shortNote = null;
                     this.personalizationComment = null;
                     // add en EventEmmiter to communicate when sheet composition changes to all components that may be interested
                     this._changeCompositionEventEmitter = new core_1.EventEmitter();
@@ -53,6 +54,13 @@ System.register(['angular2/core', './returnData'], function(exports_1) {
                 };
                 Sheet.prototype.isPersonalized = function () {
                     return this.originalSheetID != null;
+                };
+                Sheet.prototype.getTitle = function () {
+                    var ret = this.title;
+                    if (this.isPersonalized()) {
+                        ret = ret + ' - personalizzato';
+                    }
+                    return ret;
                 };
                 return Sheet;
             })();

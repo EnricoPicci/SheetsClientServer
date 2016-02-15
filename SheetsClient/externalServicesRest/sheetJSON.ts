@@ -25,6 +25,7 @@ export class SheetJSON {
     
     // attributes that are filled if the Sheet represents a personalization of an original sheet
     public originalSheetID: string = null;
+    public shortNote: string = null;
     public personalizationComment: string = null;
     
     fill(inSheet: Sheet) {
@@ -50,6 +51,7 @@ export class SheetJSON {
         
         // attributes that are filled if the Sheet represents a personalization of an original sheet
         this.originalSheetID = inSheet.originalSheetID;
+        this.shortNote = inSheet.shortNote;
         this.personalizationComment = inSheet.personalizationComment;
         
         for (var i = 0; i < inSheet.assetGroups.length; i++) {

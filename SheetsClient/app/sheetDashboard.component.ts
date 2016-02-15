@@ -90,6 +90,10 @@ export class SheetDashboardComponent {
         this.secondSheetToCompare.isSelectedForComparison = false;
         this._router.navigate( ['SheetComparator', { idSheetToCompare1: firstSheetId, idSheetToCompare2: this.secondSheetToCompare.id }]  );
     }
+    
+    onProposals() {
+        this._router.navigate( ['ProposalCollection', { customerId: this._user.customerId }]  );
+    }
 
 }
 
