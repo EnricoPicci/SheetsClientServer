@@ -1,17 +1,17 @@
-<div id="freeSearchHeader">
+<div id="freeSearchHeader" class="searchCriteriaDiv">
 	<h3>Search</h3>
 </div>
-<div id="freeSearchBody">
+<div id="freeSearchBody" class="searchCriteriaDiv">
 	<input type="text" name="query" id="query" placeholder="Keyword" autocomplete="off" #keywordField>
 	<!--a id="querySubmit"></a-->
     <input type="button" name="queryButton" id="querySubmit" (click)="onQuerySubmitClick(keywordField)">
 </div>
-<div id="narrowResultHeader">
+<div id="narrowResultHeader" class="searchCriteriaDiv">
 	<h3>Refine Selection</h3>
     <table *ngFor="#searchCriteria of searchCriteria">
         <tr>
             <td>
-                <div>
+                <div class="searchCriteriaDiv">
                     <searchCriteria [searchCriteria]="searchCriteria" (selectionCriteriaChanged)="onChange(searchCriteria)">
                     </searchCriteria>
                 </div>

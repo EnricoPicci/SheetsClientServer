@@ -19,3 +19,18 @@
     box-shadow: 0 0 12px 2px #dddddd;
 }
 
+.nameClass {
+    width: 30%;
+}
+.oneMonthReturnClass {
+    width: 10%;
+}
+.oneYearReturnClass {
+    width: 10%;
+}
+.dailyChange {
+    width: 10%;
+}
+.selectForComparisonClass {
+    width: 10%;
+}

@@ -9,8 +9,12 @@
 }
 
 #sidebarGroup {
-    width: 200px;
+    width: 230px;
     float: left;
+    /*box-shadow: 0 0 12px 2px #dddddd;
+    border: 1px solid #cacaca;
+    border-collapse: collapse;
+    border-spacing: 0;*/
 }
 
 #main {
@@ -23,4 +27,106 @@
 	display: block;
 }
 
+#publicPersonalSwitcher {
+    background: #EFF0F3;
+    border: 1px solid #D4D4D4;
+    overflow-x: visible;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 17px;
+}
 
+.publicPersonalChoice {
+    height: 35px;
+    line-height: 35px;
+    display: block;
+    padding: 0 10px 0 10px;
+    position: relative;
+    z-index: 2;
+    font-weight: 600;
+}
+
+.activePublicPersonalChoice {
+    color: #FFF;
+    cursor: default;
+    filter: none;
+    background: url(/images/catalogNavSprite.png) -4px -50px no-repeat;
+    width: 219px;
+    margin-left: -10px;
+}
+
+#topControlBar {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    box-shadow: 0 0 12px 2px #dddddd;
+    border: 1px solid #cacaca;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#topControlBar td {
+    border-right: 1px solid #cacaca;
+    width: 239px;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+.sortDirection {
+    cursor: pointer;
+    vertical-align: middle;
+    font-weight: 600;
+    line-height: 10px;
+    text-align: left;
+    padding: 0px 0px 0 1px;
+    display: inline-block;
+    border: 1px solid #CCC;
+    margin-top: -2px;
+    height: 20px;
+    margin-right: 5px;
+    color: #626262;
+}
+
+.desc {
+    background: url(/images/catalogSprite.png) -42px -624px no-repeat;
+}
+
+.asc {
+    background: url(/images/catalogSprite.png) 14px -623px no-repeat;
+}
+
+.sortDirection div {
+    font-size: 9px;
+    color: #555;
+    display: block;
+    width: 30px;
+    padding-left: 2px;
+}
+
+.gridView {
+    margin-left: 4px;
+    padding-right: 5px;
+    color: #333;
+    padding-left: 25px;
+    line-height: 20px;
+    display: inline-block;
+    font-size: 11px;
+    background: url(/images/catalogSprite.png) -184px -710px no-repeat;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer
+}
+
+.listView {
+    margin-left: 4px;
+    padding-right: 5px;
+    color: #333;
+    padding-left: 25px;
+    line-height: 20px;
+    display: inline-block;
+    font-size: 11px;
+    background: url(/images/catalogSprite.png) -184px -680px no-repeat;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer
+}

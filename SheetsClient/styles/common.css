@@ -119,3 +119,8 @@
     text-align: right;
     padding-right: 2;
 }
+
+.clickable{
+    cursor: pointer;
+    color: #1BA2DC
+}

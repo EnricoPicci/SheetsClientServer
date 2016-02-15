@@ -9,13 +9,17 @@ import {SheetBackEnd} from './sheetBackEnd.service';
     selector: 'sheetCollectionCmp',
 	providers: [],
     templateUrl: '../templates/sheetCollection.html',
-	styleUrls: ['../styles/table.css'],
+	styleUrls: ['../styles/sheetCollection.css'],
     directives: [SheetSummaryComponent],
-	inputs: ['sheets'],
+	inputs: ['sheets', 'metricToShowInSheetSummary', 'showGrid'],
 })
 export class SheetCollection { 
 	@Input() sheets: Sheet[];
     @Output() sheetSelectedChanged: EventEmitter<any> = new EventEmitter();
+    
+    public metricToShowInSheetSummary;
+    public isSelectionOfSheetEnabled = false;
+    public showGrid = true;
     
     public errorMessage: string;
     

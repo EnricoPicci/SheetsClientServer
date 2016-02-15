@@ -31,6 +31,8 @@ System.register(['angular2/core', 'angular2/router', './sheetSummary.component',
                     this._routeParams = _routeParams;
                     this._sheetBackEnd = _sheetBackEnd;
                     this.sheetSelectedChanged = new core_1.EventEmitter();
+                    this.isSelectionOfSheetEnabled = false;
+                    this.showGrid = true;
                 }
                 SheetCollection.prototype.ngOnInit = function () {
                     var _this = this;
@@ -63,9 +65,9 @@ System.register(['angular2/core', 'angular2/router', './sheetSummary.component',
                         selector: 'sheetCollectionCmp',
                         providers: [],
                         templateUrl: '../templates/sheetCollection.html',
-                        styleUrls: ['../styles/table.css'],
+                        styleUrls: ['../styles/sheetCollection.css'],
                         directives: [sheetSummary_component_1.SheetSummaryComponent],
-                        inputs: ['sheets'],
+                        inputs: ['sheets', 'metricToShowInSheetSummary', 'showGrid'],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd])
                 ], SheetCollection);

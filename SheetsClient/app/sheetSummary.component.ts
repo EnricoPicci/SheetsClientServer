@@ -5,6 +5,8 @@ import {Sheet} from './sheet';
 import {SheetBackEnd} from './sheetBackEnd.service';
 import {SheetDetailComponent} from './sheetDetail.component';
 
+import {SheetSortCriteriaEnum} from './sheetSortCriteria';
+
 import {StringNumericConverter} from '../utilities/stringNumericConverter';
 
 @Component({
@@ -13,13 +15,14 @@ import {StringNumericConverter} from '../utilities/stringNumericConverter';
     templateUrl: '../templates/sheetSummary.html',
     styleUrls: ['../styles/common.css', '../styles/sheetSummary.css'],
 	directives: [ROUTER_DIRECTIVES],
-    inputs: ['sheet', 'isIconized'],
+    inputs: ['sheet', 'isIconized', 'metricToShowInSheetSummary'],
 })
 export class SheetSummaryComponent implements OnInit { 
     public sheet: Sheet;
     public selected: boolean;
     @Output() selectionCriteriaChanged: EventEmitter<any> = new EventEmitter();
     public isIconized = false;
+    public metricToShowInSheetSummary = SheetSortCriteriaEnum.OneMonthReturn;
     
     public errorMessage: string;
     
@@ -49,12 +52,32 @@ export class SheetSummaryComponent implements OnInit {
         this.selectionCriteriaChanged.next(this.sheet);
     }
     
-    hasPositiveOneMonthReturn() {
+    /*hasPositiveOneMonthReturn() {
         return this.hasPositiveReturn(this.sheet.oneMonthReturn);
+    }*/
+    
+    hasPositiveReturn() {
+        return StringNumericConverter.getNumberFromPercentageString(this.getMetricToShow()) >=0;
     }
     
-    hasPositiveReturn(inReturn: string) {
-        return StringNumericConverter.getNumberFromPercentageString(inReturn) >=0;
+    getMetricToShow() {
+        let metricToShow = this.sheet.oneMonthReturn;
+        if (this.metricToShowInSheetSummary == SheetSortCriteriaEnum.OneYearReturn) {
+            metricToShow = this.sheet.oneYearReturn;
+        } else if (this.metricToShowInSheetSummary == SheetSortCriteriaEnum.DailyChange) {
+            metricToShow = this.sheet.dailyChange;
+        }
+        return metricToShow;
+    }
+    
+    getMetricNameToShow() {
+        let metricNameToShow = SheetSortCriteriaEnum.OneMonthReturn;
+        if (this.metricToShowInSheetSummary == SheetSortCriteriaEnum.OneYearReturn) {
+            metricNameToShow = SheetSortCriteriaEnum.OneYearReturn;
+        } else if (this.metricToShowInSheetSummary == SheetSortCriteriaEnum.DailyChange) {
+            metricNameToShow = SheetSortCriteriaEnum.DailyChange;
+        }
+        return metricNameToShow;
     }
 
 }

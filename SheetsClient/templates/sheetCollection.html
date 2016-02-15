@@ -1,3 +1,33 @@
-<div *ngFor="#sheet of sheets" class="floating-box gridCard">
-	<sheet-summary [sheet]=sheet (selectionCriteriaChanged)="selectionCriteriaChanged(sheet)"></sheet-summary>
+<div *ngIf="showGrid">
+    <div *ngFor="#sheet of sheets" class="floating-box gridCard">
+        <sheet-summary [sheet]=sheet [metricToShowInSheetSummary]="metricToShowInSheetSummary"
+            (selectionCriteriaChanged)="selectionCriteriaChanged(sheet)"></sheet-summary>
+    </div>
+</div>
+
+<div *ngIf="!showGrid">
+    <div id="listOfSheets">
+        <table class="sheetTable">
+            <thead>
+                <tr>
+                    <th class="nameClass">Nome</th>
+                    <th class="oneMonthReturnClass">Ritorno ultimo mese</th>
+                    <th class="oneYearReturnClass">Ritorno annuale</th>
+                    <th class="dailyChange">Variazione giornaliera</th>
+                    <th class="selectForComparisonClass" [hidden]="!isSelectionOfSheetEnabled">Seleziona</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="#sheet of sheets">
+                <tr class="sheetRow">
+                    <td class="nameClass">
+                        <sheet-summary [sheet]="sheet"  [isIconized]="true"></sheet-summary>
+                    </td>
+                    <td class="oneMonthReturnClass">{{sheet.oneMonthReturn}}</td>
+                    <td class="oneYearReturnClass">{{sheet.oneYearReturn}}</td>
+                    <td class="dailyChange">{{sheet.dailyChange}}</td>
+                    <td class="selectForComparisonClass" [hidden]="!isSelectionOfSheetEnabled">{{sheet.isSelectedForComparison}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

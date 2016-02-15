@@ -25,3 +25,7 @@
     background: url(/images/catalogSprite.png) 0 -296px no-repeat;
     float: none;
 }
+
+.searchCriteriaDiv {
+    margin-left: 10;
+}

@@ -2,16 +2,52 @@
 <div id="content" class="container">
     <div id="pageHeading"></div>
     <div id="sidebarGroup">
-        <button id="compareButton" class="basicButton" type="button" (click)="onCompareClick()"
-            [style.display]="isReadyToLaunchCompare() ? 'block' : 'none'">Confronta</button>
-        <sheetSearchCmp #search (sheetsRetrieved)="updateSheets(search.searchResult)"></sheetSearchCmp>
-        <div id="buttons" class="buttonRoster" [style.display]="_user.isCustomer() ? 'block' : 'none'">
-            <button id="proposalsButton" class="basicButton" type="button" (click)="onProposals()">Proposte</button>
-            <button id="inPortfolioButton" class="basicButton" type="button" (click)="onInPortfolio()">In portafoglio</button>
+        <div id="publicPersonalSwitcher">
+            <div id="publicSheets" class="publicPersonalChoice clickable" 
+                [class.activePublicPersonalChoice]="showPublicSheetsOnly"
+                (click)="togglePublicSheetsOnly()">
+                <span>Sheets Pubblici</span>
+            </div>
+            <div id="personalSheets" class="publicPersonalChoice clickable" 
+                [class.activePublicPersonalChoice]="showPersonalizedSheetsOnly"
+                (click)="togglePerzonalizedSheetsOnly()">
+                <span>Sheets Personalizzati</span>
+            </div>
+        </div>
+        <div id="sidebar">
+            <button id="compareButton" class="basicButton" type="button" (click)="onCompareClick()"
+                [style.display]="isReadyToLaunchCompare() ? 'block' : 'none'">Confronta</button>
+            <sheetSearchCmp #search (sheetsRetrieved)="updateSheets(search.searchResult)"></sheetSearchCmp>
+            <div id="buttons" class="buttonRoster" [style.display]="_user.isCustomer() ? 'block' : 'none'">
+                <button id="proposalsButton" class="basicButton" type="button" (click)="onProposals()">Proposte</button>
+                <button id="inPortfolioButton" class="basicButton" type="button" (click)="onInPortfolio()">In portafoglio</button>
+            </div>
         </div>
     </div>
     <div id="main">
-        <sheetCollectionCmp [sheets]="sheets" (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp>
+        <table id="topControlBar">
+            <tbody>
+                <tr>
+                    <td>
+                        <span>Ordina</span>
+                        <select (change)="sortSheets($event.target.value)">
+                            <option *ngFor="#sortCriterium of sortCriteria" value={{sortCriterium.id}}>{{sortCriterium.value}}</option>
+                        </select>
+                        <spen class="sortDirection" (click)="toggleSortDirection()">
+                            <div class="desc" [style.display]="sortAscending ? 'none' : 'block'"><div>HI</div><div>LO</div></div>
+                            <div class="asc" [style.display]="sortAscending ? 'block' : 'none'"><div>LO</div><div>HI</div></div>
+                        </spen>
+                    </td>
+                    <td>
+                        <span>Vista:</span>
+                        <a class="gridView" (click)="showGrid = true">Griglia</a>
+                        <a class="listView" (click)="showGrid = false">Lista</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <sheetCollectionCmp [sheets]="sheets" [metricToShowInSheetSummary]="metricToShowInSheetSummary" 
+            [showGrid]="showGrid" (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp>
     </div>
     <div id="pageFooter"></div>
 </div>
