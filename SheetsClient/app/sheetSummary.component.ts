@@ -5,13 +5,14 @@ import {Sheet} from './sheet';
 import {SheetBackEnd} from './sheetBackEnd.service';
 import {SheetDetailComponent} from './sheetDetail.component';
 
+import {StringNumericConverter} from '../utilities/stringNumericConverter';
+
 @Component({
     selector: 'sheet-summary',
 	providers: [],
     templateUrl: '../templates/sheetSummary.html',
     styleUrls: ['../styles/common.css', '../styles/sheetSummary.css'],
 	directives: [ROUTER_DIRECTIVES],
-    //inputs: ['sheet', 'sheetId'],
     inputs: ['sheet', 'isIconized'],
 })
 export class SheetSummaryComponent implements OnInit { 
@@ -42,15 +43,18 @@ export class SheetSummaryComponent implements OnInit {
         }
     }
     
-    /*onMouseDown() {
-        console.log(this.sheet);
-        this._router.navigate( ['SheetDetail', { id: this.sheet.id }]  );
-    }*/
-    
     onChangeSelection(inSelected: boolean) {
         console.log('selected? '+ inSelected + '  id: ' + this.sheet.id);
         this.sheet.isSelectedForComparison = inSelected;
         this.selectionCriteriaChanged.next(this.sheet);
+    }
+    
+    hasPositiveOneMonthReturn() {
+        return this.hasPositiveReturn(this.sheet.oneMonthReturn);
+    }
+    
+    hasPositiveReturn(inReturn: string) {
+        return StringNumericConverter.getNumberFromPercentageString(inReturn) >=0;
     }
 
 }

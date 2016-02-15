@@ -13,6 +13,8 @@ import {SheetCompositionCharts} from './sheetCompositionCharts.component'
 import {UserLogged} from './userLogged';
 import {SheetBackEnd} from './sheetBackEnd.service';
 
+import {StringNumericConverter} from '../utilities/stringNumericConverter';
+
 @Component({
     selector: 'sheet-assetComposition',
 	providers: [],
@@ -32,6 +34,7 @@ export class SheetAssetCompositionComponent {
     
     public showCharts = true;
     public showInvestmentAmounts = false;
+    public oneMonthReturn = true;
     
     public isChanged = false;
     // if false, all sliders start from ZERO, otherwise their starting position increases based on the sum of the range of the previous assets
@@ -97,7 +100,21 @@ export class SheetAssetCompositionComponent {
     
     onEndOnAssetGroup(inEvent: number[], inAssetGroup: AssetGroup) {
         let newWeightValue = inEvent[0];
-        this._sheetWeightAdjuster.adjustAfterChangeInAssetGroupWeight(newWeightValue, inAssetGroup, this.sheet);
+        this.setAssetGroupWeight(newWeightValue, inAssetGroup);
+    }
+    
+    onSetAssetGroupWeight(inWeigthElement: any, inAssetGroup: AssetGroup) {
+        let newWeightValue = parseFloat(inWeigthElement.value);
+        let isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAssetGroup);
+        if (isNewWeightAllowed) {
+            this.setAssetGroupWeight(newWeightValue, inAssetGroup);
+        } else {
+            this.highlightInputFieldWithErrors(inWeigthElement);
+        }
+    }
+    
+    private setAssetGroupWeight(inWeight: number, inAssetGroup: AssetGroup) {
+        this._sheetWeightAdjuster.adjustAfterChangeInAssetGroupWeight(inWeight, inAssetGroup, this.sheet);
         this._sheetWeightAdjuster.setRelativeStartOfScale(this.sheet.assetGroups);
         this.sheet.emitChangeCompositionEvent();
         this.changed();
@@ -105,10 +122,38 @@ export class SheetAssetCompositionComponent {
     
     onEndOnAsset(inEvent: number[], inAsset: Asset, inAssetGroup: AssetGroup) {
         let newWeightValue = inEvent[0];
-        this._sheetWeightAdjuster.adjustAfterChangeInAssetWeight(newWeightValue, inAsset, inAssetGroup);
+        this.setAssetWeight(newWeightValue, inAsset, inAssetGroup);
+    }
+    
+    onSetAssetWeight(inWeigthElement: any, inAsset: Asset, inAssetGroup: AssetGroup) {
+        let newWeightValue = parseFloat(inWeigthElement.value);
+        let isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAsset);
+        if (isNewWeightAllowed) {
+            this.setAssetWeight(newWeightValue, inAsset, inAssetGroup);
+        } else {
+            this.highlightInputFieldWithErrors(inWeigthElement);
+        }
+    }
+    
+    private setAssetWeight(inWeight: number, inAsset: Asset, inAssetGroup: AssetGroup) {
+        this._sheetWeightAdjuster.adjustAfterChangeInAssetWeight(inWeight, inAsset, inAssetGroup);
         this._sheetWeightAdjuster.setRelativeStartOfScale(this.sheet.assetGroups);
         this.sheet.emitChangeCompositionEvent();
         this.changed();
+    }
+    
+    private validateNewWeight(inWeight: number, inAssetAbstract: AssetAbstract) {
+        this.resetMessages();
+        let isConsistent = inAssetAbstract.isWeightAllowed(inWeight);
+        if (!isConsistent) {
+            this.errorMessage = 'Valore non entro i limiti fissati';
+        }
+        return isConsistent;
+    }
+    
+    private highlightInputFieldWithErrors(inInputFIeldElement: any) {
+        inInputFIeldElement.focus();
+        inInputFIeldElement.setSelectionRange(0,inInputFIeldElement.value.length);
     }
     
     changed() {
@@ -128,6 +173,24 @@ export class SheetAssetCompositionComponent {
                 err => console.error(err),
                 () => console.log('Save Complete')
             );
+    }
+    
+    toggleOneMonthReturn()  {
+        this.oneMonthReturn = !this.oneMonthReturn;
+    }
+    
+    getReturnValue(inAssetAbstract: AssetAbstract) {
+        let returnValue: string;
+        if (this.oneMonthReturn) {
+            returnValue = inAssetAbstract.oneMonthRet;
+        } else {
+            returnValue = inAssetAbstract.oneYearRet;
+        }
+        return returnValue
+    }
+    
+    hasPositiveReturn(inAssetAbstract: AssetAbstract) {
+        return StringNumericConverter.getNumberFromPercentageString(this.getReturnValue(inAssetAbstract))  >=0;
     }
     
     private resetMessages() {

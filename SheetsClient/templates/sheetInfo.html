@@ -13,15 +13,24 @@
                 <h3>Created by: {{sheet?.createdBy}}</h3>
                 <div id="performance">
                     <div id="perfNumber">
-                        <div><span class="percentageArrow large up"><span></span>{{sheet?.oneYearReturn}}</span></div>
+                        <div><span [class.percentageArrowUpLarge]="hasPositiveOneYearReturn()"
+                                   [class.percentageArrowDownLarge]="!hasPositiveOneYearReturn()">
+                            <span></span>{{sheet?.oneYearReturn}}</span>
+                        </div>
                         <label>1 Year Return</label>
                     </div>
                     <div id="perfNumber">
-                        <div><span class="percentageArrow large up"><span></span>{{sheet?.oneMonthReturn}}</span></div>
+                        <div><span [class.percentageArrowUpLarge]="hasPositiveOneMonthReturn()"
+                                   [class.percentageArrowDownLarge]="!hasPositiveOneMonthReturn()">
+                            <span></span>{{sheet?.oneMonthReturn}}</span>
+                        </div>
                         <label>1 Month Return</label>
                     </div>
                     <div id="perfNumber">
-                        <div><span class="percentageArrow large up"><span></span>{{sheet?.dailyChange}}</span></div>
+                        <div><span [class.percentageArrowUpLarge]="hasPositiveDailyChange()"
+                                   [class.percentageArrowDownLarge]="!hasPositiveDailyChange()">
+                            <span></span>{{sheet?.dailyChange}}</span>
+                        </div>
                         <label>Daily Performance</label>
                     </div>
                 </div>

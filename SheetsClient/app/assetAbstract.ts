@@ -46,12 +46,26 @@ export abstract class AssetAbstract {
     }
 
     checkConsistency() {
+        let isConsistent = true;
         if (this.weight < this.minWeight) {
+            isConsistent = false;
             console.error(this.name + ': Weight less than allowed min');
         }
         if (this.weight > this.maxWeight) {
+            isConsistent = false;
             console.error(this.name + ': Weight more than allowed max');
         }
+    }
+    
+    isWeightAllowed(inWeight: number) {
+        let isConsistent = true;
+        if (inWeight < this.minWeight) {
+            isConsistent = false;
+        }
+        if (inWeight > this.maxWeight) {
+            isConsistent = false;
+        }
+        return isConsistent;
     }
     
     getRangeLength() {

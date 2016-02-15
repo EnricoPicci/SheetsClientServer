@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../utilities/slider.component', './sheetWeightAdjuster.service', './sheetReturnData.component', './sheetCompositionCharts.component', './userLogged', './sheetBackEnd.service'], function(exports_1) {
+System.register(['angular2/core', '../utilities/slider.component', './sheetWeightAdjuster.service', './sheetReturnData.component', './sheetCompositionCharts.component', './userLogged', './sheetBackEnd.service', '../utilities/stringNumericConverter'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, slider_component_1, sheetWeightAdjuster_service_1, sheetReturnData_component_1, sheetCompositionCharts_component_1, userLogged_1, sheetBackEnd_service_1;
+    var core_1, slider_component_1, sheetWeightAdjuster_service_1, sheetReturnData_component_1, sheetCompositionCharts_component_1, userLogged_1, sheetBackEnd_service_1, stringNumericConverter_1;
     var SheetAssetCompositionComponent;
     return {
         setters:[
@@ -32,6 +32,9 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
             },
             function (sheetBackEnd_service_1_1) {
                 sheetBackEnd_service_1 = sheetBackEnd_service_1_1;
+            },
+            function (stringNumericConverter_1_1) {
+                stringNumericConverter_1 = stringNumericConverter_1_1;
             }],
         execute: function() {
             SheetAssetCompositionComponent = (function () {
@@ -46,6 +49,7 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                     this.editStatus = false;
                     this.showCharts = true;
                     this.showInvestmentAmounts = false;
+                    this.oneMonthReturn = true;
                     this.isChanged = false;
                     // if false, all sliders start from ZERO, otherwise their starting position increases based on the sum of the range of the previous assets
                     this.startOfScaleRelative = false;
@@ -94,17 +98,55 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                 };
                 SheetAssetCompositionComponent.prototype.onEndOnAssetGroup = function (inEvent, inAssetGroup) {
                     var newWeightValue = inEvent[0];
-                    this._sheetWeightAdjuster.adjustAfterChangeInAssetGroupWeight(newWeightValue, inAssetGroup, this.sheet);
+                    this.setAssetGroupWeight(newWeightValue, inAssetGroup);
+                };
+                SheetAssetCompositionComponent.prototype.onSetAssetGroupWeight = function (inWeigthElement, inAssetGroup) {
+                    var newWeightValue = parseFloat(inWeigthElement.value);
+                    var isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAssetGroup);
+                    if (isNewWeightAllowed) {
+                        this.setAssetGroupWeight(newWeightValue, inAssetGroup);
+                    }
+                    else {
+                        this.highlightInputFieldWithErrors(inWeigthElement);
+                    }
+                };
+                SheetAssetCompositionComponent.prototype.setAssetGroupWeight = function (inWeight, inAssetGroup) {
+                    this._sheetWeightAdjuster.adjustAfterChangeInAssetGroupWeight(inWeight, inAssetGroup, this.sheet);
                     this._sheetWeightAdjuster.setRelativeStartOfScale(this.sheet.assetGroups);
                     this.sheet.emitChangeCompositionEvent();
                     this.changed();
                 };
                 SheetAssetCompositionComponent.prototype.onEndOnAsset = function (inEvent, inAsset, inAssetGroup) {
                     var newWeightValue = inEvent[0];
-                    this._sheetWeightAdjuster.adjustAfterChangeInAssetWeight(newWeightValue, inAsset, inAssetGroup);
+                    this.setAssetWeight(newWeightValue, inAsset, inAssetGroup);
+                };
+                SheetAssetCompositionComponent.prototype.onSetAssetWeight = function (inWeigthElement, inAsset, inAssetGroup) {
+                    var newWeightValue = parseFloat(inWeigthElement.value);
+                    var isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAsset);
+                    if (isNewWeightAllowed) {
+                        this.setAssetWeight(newWeightValue, inAsset, inAssetGroup);
+                    }
+                    else {
+                        this.highlightInputFieldWithErrors(inWeigthElement);
+                    }
+                };
+                SheetAssetCompositionComponent.prototype.setAssetWeight = function (inWeight, inAsset, inAssetGroup) {
+                    this._sheetWeightAdjuster.adjustAfterChangeInAssetWeight(inWeight, inAsset, inAssetGroup);
                     this._sheetWeightAdjuster.setRelativeStartOfScale(this.sheet.assetGroups);
                     this.sheet.emitChangeCompositionEvent();
                     this.changed();
+                };
+                SheetAssetCompositionComponent.prototype.validateNewWeight = function (inWeight, inAssetAbstract) {
+                    this.resetMessages();
+                    var isConsistent = inAssetAbstract.isWeightAllowed(inWeight);
+                    if (!isConsistent) {
+                        this.errorMessage = 'Valore non entro i limiti fissati';
+                    }
+                    return isConsistent;
+                };
+                SheetAssetCompositionComponent.prototype.highlightInputFieldWithErrors = function (inInputFIeldElement) {
+                    inInputFIeldElement.focus();
+                    inInputFIeldElement.setSelectionRange(0, inInputFIeldElement.value.length);
                 };
                 SheetAssetCompositionComponent.prototype.changed = function () {
                     this.isChanged = true;
@@ -121,6 +163,22 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                         _this.sheetMessage = 'Sheet personalized no: ' + retJson.id + ' has been saved';
                         console.log('Data received after Save --- ' + JSON.stringify(retJson));
                     }, function (err) { return console.error(err); }, function () { return console.log('Save Complete'); });
+                };
+                SheetAssetCompositionComponent.prototype.toggleOneMonthReturn = function () {
+                    this.oneMonthReturn = !this.oneMonthReturn;
+                };
+                SheetAssetCompositionComponent.prototype.getReturnValue = function (inAssetAbstract) {
+                    var returnValue;
+                    if (this.oneMonthReturn) {
+                        returnValue = inAssetAbstract.oneMonthRet;
+                    }
+                    else {
+                        returnValue = inAssetAbstract.oneYearRet;
+                    }
+                    return returnValue;
+                };
+                SheetAssetCompositionComponent.prototype.hasPositiveReturn = function (inAssetAbstract) {
+                    return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(this.getReturnValue(inAssetAbstract)) >= 0;
                 };
                 SheetAssetCompositionComponent.prototype.resetMessages = function () {
                     this.sheetMessage = null;

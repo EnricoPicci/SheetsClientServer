@@ -8,18 +8,7 @@
                 <button id="saveButton" class="basicButton" type="button" (click)="onClickOverSaveButton()" [style.display]="isChanged ? 'block' : 'none'">Salva</button>
             </div>
             <div id="message" class="message" [hidden]="!sheetMessage">{{sheetMessage}}</div>
-            <div id="errorMessage" class="errorMessage" [hidden]="!errorMessage">{{errorMessage}}</div>
-            <div *ngIf="isChanged || sheet.isPersonalized()">
-                <div id="shortNote" class="comment">
-                    <label>Breve nota</label>
-                    <input type="text" id="shortNoteText" size="27" [(ngModel)]="sheet.shortNote" [disabled]="!isChanged"/>
-                </div>
-                <div id="comment" class="comment">
-                    <label>Commento</label>
-                    <textarea id="commentText" rows="3" cols="120" 
-                        [(ngModel)]="sheet.personalizationComment" [disabled]="!isChanged"></textarea>
-                </div>
-            </div>
+            <div id="errorMessage" class="alert alert-danger" [hidden]="!errorMessage">{{errorMessage}}</div>
             <table class="overviewAssetTable">
                 <thead>
                     <tr>
@@ -27,7 +16,8 @@
                         <th class="nameClass">Segment &amp; Stocks</th>
                         <th class="symbolClass">Symbol</th>
                         <th class="returnClass" [style.display]="showInvestmentAmounts ? 'none' : 'table-cell'">
-                            <a class="oneMo">1 MO</a> / <a class="oneYr active">1 YR</a> Return
+                            <span [class.clickable]="!oneMonthReturn" (click)="toggleOneMonthReturn()">1 MO</span> / 
+                            <span [class.clickable]="oneMonthReturn"  (click)="toggleOneMonthReturn()">1 YR</span> Return
                         </th>
                         <th class="investedAmountClass" [style.display]="showInvestmentAmounts ? 'table-cell' : 'none'">Valore investito</th>
                         <th class="newWeightSliderClass" [style.display]="editStatus ? 'table-cell' : 'none'">New weight</th>
@@ -37,16 +27,21 @@
                 <tbody *ngFor="#assetGroup of sheet.assetGroups">
                     <tr class="assetGroupClass">
                         <th class="weightClass">
-                            <span [style.display]="editStatus ? 'none' : 'table-cell'">{{assetGroup.weight.toFixed(2)}}%</span>
-                            <input type="number" [min]="assetGroup.minWeight" [max]="assetGroup.maxWeight" [value]="assetGroup.weight" [style.display]="editStatus ? 'table-cell' : 'none'">
+                            <!--span [style.display]="editStatus ? 'none' : 'table-cell'">{{assetGroup.weight.toFixed(2)}}%</span>
+                            <input type="number" [min]="assetGroup.minWeight" [max]="assetGroup.maxWeight" [value]="assetGroup.weight" [style.display]="editStatus ? 'table-cell' : 'none'"-->
+                            <input #weightInput type="text" [value]="assetGroup.weight.toFixed(2)" [disabled]="!editStatus"
+                                [class.inputFieldDisabled]="!editStatus" 
+                                [class.inputFieldEnabled]="editStatus" 
+                                (change)="onSetAssetGroupWeight(weightInput, assetGroup)">%
                         </th>
                         <th id="assetGroupNameClass" colspan="2" (click)="onAssetGroupClick(assetGroup)">
                             <span class="arrow" [class.open]="assetGroup.show"></span>
                             <span>{{assetGroup.name}}</span>
                         </th>
                         <th  class="returnClass" [style.display]="showInvestmentAmounts ? 'none' : 'table-cell'">
-                            <span style="display: none;" class="percentageArrow up small">{{assetGroup.oneMonthRet}}</span>
-                            <span style="display: inline;" class="percentageArrow up small">{{assetGroup.oneYearRet}}</span>
+                            <span [class.percentageArrowUpSmall]="hasPositiveReturn(assetGroup)"
+                                  [class.percentageArrowDownSmall]="!hasPositiveReturn(assetGroup)">
+                                    {{getReturnValue(assetGroup)}}</span>
                         </th>
                         <th class="investedAmountClass" [style.display]="showInvestmentAmounts ? 'table-cell' : 'none'">{{assetGroup.getInvestmentAmountFormatted()}}</th>
                         <td class="newWeightSliderClass" [style.display]="editStatus ? 'table-cell' : 'none'">
@@ -62,7 +57,11 @@
                                 <table width=100%>
                                     <tr class="assetClass">
                                         <td class="weightClass">
-                                            <span>{{asset.weight.toFixed(2)}}%</span>
+                                            <!--span>{{asset.weight.toFixed(2)}}%</span-->
+                                            <input #weightInput type="text" [value]="asset.weight.toFixed(2)" [disabled]="!editStatus"
+                                                [class.inputFieldDisabled]="!editStatus" 
+                                                [class.inputFieldEnabled]="editStatus" 
+                                                (change)="onSetAssetWeight(weightInput, asset, assetGroup)">%
                                         </td>
                                         <td class="nameClass">
                                             <span>
@@ -73,8 +72,9 @@
                                             <span>{{asset.symbol}}</span>
                                         </td>
                                         <td class="returnClass" [style.display]="showInvestmentAmounts ? 'none' : 'table-cell'">
-                                            <span style="display: none;" class="percentageArrow up small">{{asset.oneYearRet}}</span>
-                                            <span style="display: inline;" class="percentageArrow up small">{{asset.oneYearRet}}</span>
+                                            <span [class.percentageArrowUpSmall]="hasPositiveReturn(asset)"
+                                                    [class.percentageArrowDownSmall]="!hasPositiveReturn(asset)">
+                                                    {{getReturnValue(asset)}}</span>
                                         </td>
                                         <td class="investedAmountClass ng-invalid" [style.display]="showInvestmentAmounts ? 'table-cell' : 'none'"
                                             [style.border-left]="!asset.isValidated ? '5px solid #a94442' : '1px solid #A1A1A1'">{{asset.getInvestmentAmountFormatted()}}</td>
@@ -99,6 +99,17 @@
                     </tr>                        
                 </tbody>
             </table>
+            <div *ngIf="isChanged || sheet.isPersonalized()">
+                <div id="shortNote" class="comment">
+                    <label>Breve nota</label>
+                    <input type="text" id="shortNoteText" size="27" [(ngModel)]="sheet.shortNote" [disabled]="!isChanged"/>
+                </div>
+                <div id="comment" class="comment">
+                    <label>Commento</label>
+                    <textarea id="commentText" rows="3" cols="120" 
+                        [(ngModel)]="sheet.personalizationComment" [disabled]="!isChanged"></textarea>
+                </div>
+            </div>            
         </div>
         <div id="assetChart">
             <sheet-compositionCharts id="sheetCharts" [sheet]="sheet" [hidden]="!showCharts"></sheet-compositionCharts>

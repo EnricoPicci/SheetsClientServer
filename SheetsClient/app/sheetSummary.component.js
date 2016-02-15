@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '../utilities/stringNumericConverter'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service'], 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetBackEnd_service_1;
+    var core_1, router_1, sheetBackEnd_service_1, stringNumericConverter_1;
     var SheetSummaryComponent;
     return {
         setters:[
@@ -20,6 +20,9 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service'], 
             },
             function (sheetBackEnd_service_1_1) {
                 sheetBackEnd_service_1 = sheetBackEnd_service_1_1;
+            },
+            function (stringNumericConverter_1_1) {
+                stringNumericConverter_1 = stringNumericConverter_1_1;
             }],
         execute: function() {
             SheetSummaryComponent = (function () {
@@ -41,14 +44,16 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service'], 
                             .subscribe(function (sheets) { return _this.sheet = sheets[0]; }, function (error) { return _this.errorMessage = error; });
                     }
                 };
-                /*onMouseDown() {
-                    console.log(this.sheet);
-                    this._router.navigate( ['SheetDetail', { id: this.sheet.id }]  );
-                }*/
                 SheetSummaryComponent.prototype.onChangeSelection = function (inSelected) {
                     console.log('selected? ' + inSelected + '  id: ' + this.sheet.id);
                     this.sheet.isSelectedForComparison = inSelected;
                     this.selectionCriteriaChanged.next(this.sheet);
+                };
+                SheetSummaryComponent.prototype.hasPositiveOneMonthReturn = function () {
+                    return this.hasPositiveReturn(this.sheet.oneMonthReturn);
+                };
+                SheetSummaryComponent.prototype.hasPositiveReturn = function (inReturn) {
+                    return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(inReturn) >= 0;
                 };
                 __decorate([
                     core_1.Output(), 
@@ -61,7 +66,6 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service'], 
                         templateUrl: '../templates/sheetSummary.html',
                         styleUrls: ['../styles/common.css', '../styles/sheetSummary.css'],
                         directives: [router_1.ROUTER_DIRECTIVES],
-                        //inputs: ['sheet', 'sheetId'],
                         inputs: ['sheet', 'isIconized'],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd])

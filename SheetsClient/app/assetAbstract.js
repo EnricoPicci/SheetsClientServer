@@ -27,12 +27,25 @@ System.register([], function(exports_1) {
                     this.locked = inLocked;
                 };
                 AssetAbstract.prototype.checkConsistency = function () {
+                    var isConsistent = true;
                     if (this.weight < this.minWeight) {
+                        isConsistent = false;
                         console.error(this.name + ': Weight less than allowed min');
                     }
                     if (this.weight > this.maxWeight) {
+                        isConsistent = false;
                         console.error(this.name + ': Weight more than allowed max');
                     }
+                };
+                AssetAbstract.prototype.isWeightAllowed = function (inWeight) {
+                    var isConsistent = true;
+                    if (inWeight < this.minWeight) {
+                        isConsistent = false;
+                    }
+                    if (inWeight > this.maxWeight) {
+                        isConsistent = false;
+                    }
+                    return isConsistent;
                 };
                 AssetAbstract.prototype.getRangeLength = function () {
                     var ret = this.range.max - this.range.min;

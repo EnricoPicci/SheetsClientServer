@@ -22,9 +22,12 @@ undefined-->
     </a>
 	<div class="metrics" [style.display]="isIconized ? 'none' : 'block'">
 		<div class="metricLabel">One Month Return</div>
-		<div class="metricValue"><span class="percentageArrow large up"><span>{{sheet.oneMonthReturn}}</span></span></div>
-        <!--input #selectionCb value="seleziona" type="checkbox"
-            (change)="onChangeSelection(selectionCb.checked)"-->
+		<div class="metricValue">
+            <span [class.percentageArrowUpLarge]="hasPositiveOneMonthReturn()"
+                  [class.percentageArrowDownLarge]="!hasPositiveOneMonthReturn()">
+                <span>{{sheet.oneMonthReturn}}</span>
+            </span>
+        </div>
         <input #selectionCb value="seleziona" type="checkbox" [checked]="sheet.isSelectedForComparison"
             (change)="onChangeSelection(selectionCb.checked)"
             [style.display]="sheet.isComparisonCheckboxToBeDisplayed ? 'block' : 'none'">

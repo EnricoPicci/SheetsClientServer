@@ -34,7 +34,7 @@ undefined-->
                 <button id="buyButton" class="basicButton" type="button" (mouseup)="onBuyProposal()" [hidden]="!_userLogged.isCustomer() || buyOrderSent">Acquista</button>
             </div>
             <div id="message" class="message" [hidden]="!proposalMessage">{{proposalMessage}}</div>
-            <div id="errorMessage" class="errorMessage" [hidden]="!errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+            <div id="errorMessage" [hidden]="!errorMessage" class="alert alert-danger">{{errorMessage}}</div>
             <div id="assetCompositionTitle" class="sectionTitle">
                 <h3>Composizione dell'investimento</h3>
             </div>
