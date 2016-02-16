@@ -134,7 +134,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -143,7 +143,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -152,7 +152,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -161,7 +161,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -180,7 +180,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -189,7 +189,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -198,7 +198,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -235,7 +235,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -254,7 +254,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -263,7 +263,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -303,7 +303,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -312,7 +312,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 5,
                                 "maxWeight": 15,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -321,7 +321,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-15%",
                                 "minWeight": 10,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -330,7 +330,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 15,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -349,7 +349,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -358,7 +358,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 10,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -367,7 +367,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 5,
                                 "maxWeight": 7,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -404,7 +404,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-17%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -423,7 +423,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 5,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -432,7 +432,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -472,7 +472,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -481,7 +481,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -490,7 +490,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -499,7 +499,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -518,7 +518,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -527,7 +527,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -536,7 +536,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -573,7 +573,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -592,7 +592,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -601,7 +601,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -641,7 +641,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -650,7 +650,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -659,7 +659,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -668,7 +668,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -687,7 +687,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -696,7 +696,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -705,7 +705,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -742,7 +742,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -761,7 +761,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -770,7 +770,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -810,7 +810,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-22%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -819,7 +819,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 5,
                                 "maxWeight": 15,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -828,7 +828,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 10,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -837,7 +837,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-15%",
                                 "minWeight": 15,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -856,7 +856,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-22%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -865,7 +865,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 10,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -874,7 +874,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 5,
                                 "maxWeight": 7,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -911,7 +911,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-17%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -930,7 +930,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 5,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -939,7 +939,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -979,7 +979,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -988,7 +988,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -997,7 +997,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -1006,7 +1006,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -1025,7 +1025,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -1034,7 +1034,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -1043,7 +1043,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -1080,7 +1080,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -1099,7 +1099,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -1108,7 +1108,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -1148,7 +1148,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -1157,7 +1157,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -1166,7 +1166,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -1175,7 +1175,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -1194,7 +1194,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -1203,7 +1203,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -1212,7 +1212,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -1249,7 +1249,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -1268,7 +1268,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -1277,7 +1277,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -1317,7 +1317,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -1326,7 +1326,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 5,
                                 "maxWeight": 15,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -1335,7 +1335,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-15%",
                                 "minWeight": 10,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -1344,7 +1344,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-19%",
                                 "minWeight": 15,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -1363,7 +1363,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-32%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -1372,7 +1372,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-22%",
                                 "minWeight": 10,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -1381,7 +1381,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-20%",
                                 "minWeight": 5,
                                 "maxWeight": 7,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -1418,7 +1418,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "-17%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -1437,7 +1437,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 5,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -1446,7 +1446,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -1486,7 +1486,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -1495,7 +1495,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -1504,7 +1504,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -1513,7 +1513,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -1532,7 +1532,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -1541,7 +1541,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -1550,7 +1550,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -1587,7 +1587,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -1606,7 +1606,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -1615,7 +1615,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -1655,7 +1655,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -1664,7 +1664,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -1673,7 +1673,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -1682,7 +1682,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -1701,7 +1701,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -1710,7 +1710,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -1719,7 +1719,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -1756,7 +1756,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -1775,7 +1775,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -1784,7 +1784,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -1824,7 +1824,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -1833,7 +1833,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 5,
                                 "maxWeight": 15,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -1842,7 +1842,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 10,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -1851,7 +1851,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 15,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -1870,7 +1870,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -1879,7 +1879,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 10,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -1888,7 +1888,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 5,
                                 "maxWeight": 7,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -1925,7 +1925,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -1944,7 +1944,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 5,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -1953,7 +1953,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -1993,7 +1993,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -2002,7 +2002,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -2011,7 +2011,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -2020,7 +2020,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -2039,7 +2039,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -2048,7 +2048,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -2057,7 +2057,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -2094,7 +2094,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -2113,7 +2113,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -2122,7 +2122,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -2162,7 +2162,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -2171,7 +2171,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -2180,7 +2180,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -2189,7 +2189,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -2208,7 +2208,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -2217,7 +2217,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -2226,7 +2226,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -2263,12 +2263,12 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
                         "weight": 10,
-                        "oneMonthRet": "14%",
+                        "oneMonthRet": "-2%",
                         "oneYearRet": "3%",
                         "minWeight": 0,
                         "maxWeight": 100
@@ -2282,7 +2282,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -2291,12 +2291,12 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
                         "weight": 10,
-                        "oneMonthRet": "14%",
+                        "oneMonthRet": "-14%",
                         "oneYearRet": "3%",
                         "minWeight": 0,
                         "maxWeight": 100
@@ -2331,7 +2331,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -2340,7 +2340,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 5,
                                 "maxWeight": 15,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -2349,7 +2349,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 10,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -2358,7 +2358,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 15,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -2377,7 +2377,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -2386,7 +2386,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 10,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -2395,7 +2395,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 5,
                                 "maxWeight": 7,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -2432,7 +2432,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -2451,7 +2451,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 5,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -2460,7 +2460,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -2500,7 +2500,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -2509,7 +2509,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -2518,7 +2518,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -2527,7 +2527,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -2546,7 +2546,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -2555,7 +2555,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -2564,7 +2564,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -2601,7 +2601,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -2620,7 +2620,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -2629,7 +2629,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -2669,7 +2669,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -2678,7 +2678,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -2687,7 +2687,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -2696,7 +2696,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -2715,7 +2715,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -2724,7 +2724,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 0,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -2733,7 +2733,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 0,
                                 "maxWeight": 45,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -2770,7 +2770,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 40,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -2789,7 +2789,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 0,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -2798,7 +2798,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 70,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",
@@ -2838,7 +2838,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "42%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "SAD"
+                                "symbol": "AAPL"
                             },
                             {
                                 "name": "Indian African Co.",
@@ -2847,7 +2847,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "12%",
                                 "minWeight": 5,
                                 "maxWeight": 15,
-                                "symbol": "IAC"
+                                "symbol": "GOOG"
                             },
                             {
                                 "name": "Plutonion International",
@@ -2856,7 +2856,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 10,
                                 "maxWeight": 20,
-                                "symbol": "PLI"
+                                "symbol": "PLUG"
                             },
                             {
                                 "name": "Cape Wineries Plc",
@@ -2865,7 +2865,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "15%",
                                 "minWeight": 15,
                                 "maxWeight": 30,
-                                "symbol": "CWN"
+                                "symbol": "CWT"
                             }
                         ],
                         "name": "South Africa",
@@ -2884,7 +2884,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "32%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "TCI"
+                                "symbol": "TCS"
                             },
                             {
                                 "name": "Caribe Banana Co.",
@@ -2893,7 +2893,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "22%",
                                 "minWeight": 10,
                                 "maxWeight": 25,
-                                "symbol": "CBC"
+                                "symbol": "CBS"
                             },
                             {
                                 "name": "Rasta Co",
@@ -2902,7 +2902,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "20%",
                                 "minWeight": 5,
                                 "maxWeight": 7,
-                                "symbol": "RCO"
+                                "symbol": "RCL"
                             }
                         ],
                         "name": "Jamaica",
@@ -2939,7 +2939,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 10,
-                                "symbol": "MDM"
+                                "symbol": "MD"
                             }
                         ],
                         "name": "Cambodia",
@@ -2958,7 +2958,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "2%",
                                 "minWeight": 5,
                                 "maxWeight": 30,
-                                "symbol": "KLM"
+                                "symbol": "KMI"
                             },
                             {
                                 "name": "Kim Unlimited",
@@ -2967,7 +2967,7 @@ var SheetDBBuilder = (function () {
                                 "oneYearRet": "17%",
                                 "minWeight": 0,
                                 "maxWeight": 20,
-                                "symbol": "KUL"
+                                "symbol": "KO"
                             }
                         ],
                         "name": "North Korea",

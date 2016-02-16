@@ -287,6 +287,25 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     proposalJSON.fillForBuyOrder(inProposal);
                     return JSON.stringify(proposalJSON, null, 4);
                 };
+                BackEndRest.prototype.getStockPrices = function (inAsset) {
+                    var myUrl = this._environment.stockPricesServiceUrlStart + inAsset.symbol +
+                        this._environment.stockPricesServiceUrlEnd;
+                    return this._http.get(myUrl)
+                        .subscribe(function (data) {
+                        var textInLines = data.text().split("\n");
+                        var textDataLine = textInLines[1];
+                        var texDataElements = textDataLine.split(",");
+                        inAsset.dateOfPrices = texDataElements[0];
+                        inAsset.openPrice = parseFloat(texDataElements[1]);
+                        inAsset.highPrice = parseFloat(texDataElements[2]);
+                        inAsset.lowPrice = parseFloat(texDataElements[3]);
+                        inAsset.closePrice = parseFloat(texDataElements[4]);
+                        inAsset.volume = parseFloat(texDataElements[5]);
+                        console.log(data.text());
+                    }, function (err) { return console.error('Error --- ' + err); } //,
+                     //,
+                    );
+                };
                 BackEndRest = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http, environment_service_1.Environment])

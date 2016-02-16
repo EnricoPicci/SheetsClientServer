@@ -17,10 +17,20 @@ System.register(['./assetAbstract'], function(exports_1) {
                 __extends(Asset, _super);
                 function Asset(inName, inSymbol, inWeight, inOneMonthRet, inOneYearRet, inMinWeigth, inMaxWeigth) {
                     _super.call(this, inName, inWeight, inOneMonthRet, inOneYearRet, inMinWeigth, inMaxWeigth);
-                    //public assetGroup: AssetGroup;
                     this.isValidated = true;
+                    this.showTooltip = false;
                     this.symbol = inSymbol;
                 }
+                Asset.prototype.hasPriceData = function () {
+                    return this.openPrice != null;
+                };
+                Asset.prototype.getVolumeFormatted = function () {
+                    var formattedString;
+                    if (this.volume) {
+                        formattedString = this.volume.toLocaleString('it-IT');
+                    }
+                    return formattedString;
+                };
                 return Asset;
             })(assetAbstract_1.AssetAbstract);
             exports_1("Asset", Asset);

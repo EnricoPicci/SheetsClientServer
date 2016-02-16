@@ -1,3 +1,25 @@
+<table id="topControlBar">
+    <tbody>
+        <tr>
+            <td>
+                <span class="controlBarLabel">Ordina</span>
+                <select id="sortSelect" (change)="sortSheets($event.target.value)">
+                    <option *ngFor="#sortCriterium of sortCriteria" value={{sortCriterium.id}}>{{sortCriterium.value}}</option>
+                </select>
+                <spen class="sortDirection" (click)="toggleSortDirection()">
+                    <div class="desc" [style.display]="sortAscending ? 'none' : 'block'"><div>HI</div><div>LO</div></div>
+                    <div class="asc" [style.display]="sortAscending ? 'block' : 'none'"><div>LO</div><div>HI</div></div>
+                </spen>
+            </td>
+            <td>
+                <span class="controlBarLabel">Vista:</span>
+                <a class="gridView" (click)="showGrid = true">Griglia</a>
+                <a class="listView" (click)="showGrid = false">Lista</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 <div *ngIf="showGrid">
     <div *ngFor="#sheet of sheets" class="floating-box gridCard">
         <sheet-summary [sheet]=sheet [metricToShowInSheetSummary]="metricToShowInSheetSummary"
@@ -7,7 +29,7 @@
 
 <div *ngIf="!showGrid">
     <div id="listOfSheets">
-        <table class="sheetTable">
+        <table id="sheetTable">
             <thead>
                 <tr>
                     <th class="nameClass">Nome</th>
@@ -18,7 +40,7 @@
                 </tr>
             </thead>
             <tbody *ngFor="#sheet of sheets">
-                <tr class="sheetRow">
+                <tr class="sheetRow" [class.even]="sheet.isEven">
                     <td class="nameClass">
                         <sheet-summary [sheet]="sheet"  [isIconized]="true"></sheet-summary>
                     </td>

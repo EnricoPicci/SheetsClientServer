@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetCollection.component', './sheetSearch.component', './userLogged', './sheetSortCriteria', '../utilities/stringNumericConverter'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetCollection.component', './sheetSearch.component', './userLogged'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetBackEnd_service_1, sheetCollection_component_1, sheetSearch_component_1, userLogged_1, sheetSortCriteria_1, sheetSortCriteria_2, stringNumericConverter_1;
+    var core_1, router_1, sheetBackEnd_service_1, sheetCollection_component_1, sheetSearch_component_1, userLogged_1;
     var SheetDashboardComponent;
     return {
         setters:[
@@ -29,15 +29,11 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
             },
             function (userLogged_1_1) {
                 userLogged_1 = userLogged_1_1;
-            },
-            function (sheetSortCriteria_1_1) {
-                sheetSortCriteria_1 = sheetSortCriteria_1_1;
-                sheetSortCriteria_2 = sheetSortCriteria_1_1;
-            },
-            function (stringNumericConverter_1_1) {
-                stringNumericConverter_1 = stringNumericConverter_1_1;
             }],
         execute: function() {
+            //import {SheetSortCriteria} from './sheetSortCriteria';
+            //import {SheetSortCriteriaEnum} from './sheetSortCriteria';
+            //import {StringNumericConverter} from '../utilities/stringNumericConverter';
             SheetDashboardComponent = (function () {
                 function SheetDashboardComponent(_router, _routeParams, _sheetBackEnd, _user) {
                     this._router = _router;
@@ -47,17 +43,13 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     this.title = 'Sheets';
                     this.showPublicSheetsOnly = false;
                     this.showPersonalizedSheetsOnly = false;
-                    this.sortCriteria = sheetSortCriteria_1.SheetSortCriteria.criteria;
-                    this.selectedSortCriterium = sheetSortCriteria_2.SheetSortCriteriaEnum.OneMonthReturn;
-                    this.sortAscending = false;
-                    this.showGrid = true;
                 }
                 SheetDashboardComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._sheetBackEnd.getAllSheets()
                         .subscribe(function (sheets) {
                         _this.sheets = sheets;
-                        _this.sortSheets(_this.selectedSortCriterium);
+                        //this.sortSheets(this.selectedSortCriterium);
                         _this.idOfFirstSheetToCompare = _this._routeParams.get('idOfFirstSheetToCompare');
                         if (_this.idOfFirstSheetToCompare != null) {
                             for (var i = 0; i < _this.sheets.length; i++) {
@@ -134,73 +126,6 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         this._sheetBackEnd.getAllSheets()
                             .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.errorMessage = error; });
                     }
-                };
-                /*getSortCriteria() {
-                    if (!this.sortCriteria) {
-                        this.sortCriteria = Object.keys(SheetSortCriteria).filter(v => isNaN(parseInt(v, 10)));
-                    }
-                    return this.sortCriteria;
-                }*/
-                SheetDashboardComponent.prototype.sortSheets = function (inSortCriterium) {
-                    this.selectedSortCriterium = inSortCriterium;
-                    if (this.sortAscending) {
-                        if (inSortCriterium == sheetSortCriteria_2.SheetSortCriteriaEnum.OneMonthReturn) {
-                            this.metricToShowInSheetSummary = sheetSortCriteria_2.SheetSortCriteriaEnum.OneMonthReturn;
-                            this.sheets = this.sheets.sort(function (a, b) {
-                                return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(a.oneMonthReturn) - stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(b.oneMonthReturn);
-                            });
-                        }
-                        else if (inSortCriterium == sheetSortCriteria_2.SheetSortCriteriaEnum.OneYearReturn) {
-                            this.metricToShowInSheetSummary = sheetSortCriteria_2.SheetSortCriteriaEnum.OneYearReturn;
-                            this.sheets = this.sheets.sort(function (a, b) {
-                                return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(a.oneYearReturn) - stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(b.oneYearReturn);
-                            });
-                        }
-                        else if (inSortCriterium == sheetSortCriteria_2.SheetSortCriteriaEnum.DailyChange) {
-                            this.metricToShowInSheetSummary = sheetSortCriteria_2.SheetSortCriteriaEnum.DailyChange;
-                            this.sheets = this.sheets.sort(function (a, b) {
-                                return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(a.dailyChange) - stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(b.dailyChange);
-                            });
-                        }
-                        else if (inSortCriterium == sheetSortCriteria_2.SheetSortCriteriaEnum.Name) {
-                            this.sheets = this.sheets.sort(function (a, b) {
-                                var titleA = a.title.toUpperCase();
-                                var titleB = b.title.toUpperCase();
-                                return (titleA < titleB) ? -1 : (titleA > titleB) ? 1 : 0;
-                            });
-                        }
-                    }
-                    else {
-                        if (inSortCriterium == sheetSortCriteria_2.SheetSortCriteriaEnum.OneMonthReturn) {
-                            this.metricToShowInSheetSummary = sheetSortCriteria_2.SheetSortCriteriaEnum.OneMonthReturn;
-                            this.sheets = this.sheets.sort(function (b, a) {
-                                return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(a.oneMonthReturn) - stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(b.oneMonthReturn);
-                            });
-                        }
-                        else if (inSortCriterium == sheetSortCriteria_2.SheetSortCriteriaEnum.OneYearReturn) {
-                            this.metricToShowInSheetSummary = sheetSortCriteria_2.SheetSortCriteriaEnum.OneYearReturn;
-                            this.sheets = this.sheets.sort(function (b, a) {
-                                return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(a.oneYearReturn) - stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(b.oneYearReturn);
-                            });
-                        }
-                        else if (inSortCriterium == sheetSortCriteria_2.SheetSortCriteriaEnum.DailyChange) {
-                            this.metricToShowInSheetSummary = sheetSortCriteria_2.SheetSortCriteriaEnum.DailyChange;
-                            this.sheets = this.sheets.sort(function (b, a) {
-                                return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(a.dailyChange) - stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(b.dailyChange);
-                            });
-                        }
-                        else if (inSortCriterium == sheetSortCriteria_2.SheetSortCriteriaEnum.Name) {
-                            this.sheets = this.sheets.sort(function (b, a) {
-                                var titleA = a.title.toUpperCase();
-                                var titleB = b.title.toUpperCase();
-                                return (titleA < titleB) ? -1 : (titleA > titleB) ? 1 : 0;
-                            });
-                        }
-                    }
-                };
-                SheetDashboardComponent.prototype.toggleSortDirection = function () {
-                    this.sortAscending = !this.sortAscending;
-                    this.sortSheets(this.selectedSortCriterium);
                 };
                 SheetDashboardComponent = __decorate([
                     core_1.Component({

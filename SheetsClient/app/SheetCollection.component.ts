@@ -5,21 +5,38 @@ import {Sheet} from './sheet';
 import {SheetSummaryComponent} from './sheetSummary.component';
 import {SheetBackEnd} from './sheetBackEnd.service';
 
+import {SheetSortCriteria} from './sheetSortCriteria';
+import {SheetSortCriteriaEnum} from './sheetSortCriteria';
+import {StringNumericConverter} from '../utilities/stringNumericConverter';
+
 @Component({
     selector: 'sheetCollectionCmp',
 	providers: [],
     templateUrl: '../templates/sheetCollection.html',
 	styleUrls: ['../styles/sheetCollection.css'],
     directives: [SheetSummaryComponent],
-	inputs: ['sheets', 'metricToShowInSheetSummary', 'showGrid'],
+	//inputs: ['sheets'],
 })
 export class SheetCollection { 
-	@Input() sheets: Sheet[];
+	//@Input() 
+    public sheets: Sheet[];
+    @Input('sheets') set setSheets(inSheets: Sheet[]) {
+        this.sheets = inSheets;
+        if (this.sheets) {
+            this.sortSheets(this.selectedSortCriterium);
+        }
+    }
     @Output() sheetSelectedChanged: EventEmitter<any> = new EventEmitter();
     
+    public sortCriteria = SheetSortCriteria.criteria;
+    public selectedSortCriterium = SheetSortCriteriaEnum.OneMonthReturn;
+    public sortAscending = false;
     public metricToShowInSheetSummary;
-    public isSelectionOfSheetEnabled = false;
     public showGrid = true;
+    
+    /*public metricToShowInSheetSummary;
+    public isSelectionOfSheetEnabled = false;
+    public showGrid = true;*/
     
     public errorMessage: string;
     
@@ -40,10 +57,13 @@ export class SheetCollection {
         if (maxNumOfSheets) {
             this._sheetBackEnd.getSomeSheets(startId, maxNumOfSheets)
             .subscribe(
-                sheets => this.sheets = sheets,
+                sheets => {
+                        this.sheets = sheets;
+                        this.sortSheets(this.selectedSortCriterium);
+                    },
                 error => this.errorMessage = <any>error
             );
-        }
+        } 
     }
     
     selectionCriteriaChanged(inSheet: Sheet) {
@@ -51,5 +71,65 @@ export class SheetCollection {
         this.sheetSelectedChanged.next(inSheet);
     }
     
+    sortSheets(inSortCriterium: SheetSortCriteriaEnum) {
+        this.selectedSortCriterium = inSortCriterium;
+        if (this.sortAscending) {
+            if (inSortCriterium == SheetSortCriteriaEnum.OneMonthReturn) {
+                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.OneMonthReturn;
+                this.sheets = this.sheets.sort(function(a, b){
+                        return StringNumericConverter.getNumberFromPercentageString(a.oneMonthReturn)-StringNumericConverter.getNumberFromPercentageString(b.oneMonthReturn)
+                    });
+            } else if (inSortCriterium == SheetSortCriteriaEnum.OneYearReturn) {
+                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.OneYearReturn;
+                this.sheets = this.sheets.sort(function(a, b){
+                        return StringNumericConverter.getNumberFromPercentageString(a.oneYearReturn)-StringNumericConverter.getNumberFromPercentageString(b.oneYearReturn)
+                    });
+            } else if (inSortCriterium == SheetSortCriteriaEnum.DailyChange) {
+                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.DailyChange;
+                this.sheets = this.sheets.sort(function(a, b){
+                        return StringNumericConverter.getNumberFromPercentageString(a.dailyChange)-StringNumericConverter.getNumberFromPercentageString(b.dailyChange)
+                    });
+            } else if (inSortCriterium == SheetSortCriteriaEnum.Name) {
+                this.sheets = this.sheets.sort(function(a, b){
+                        let titleA = a.title.toUpperCase();
+                        let titleB = b.title.toUpperCase();
+                        return (titleA < titleB) ? -1 : (titleA > titleB) ? 1 : 0;
+                    });
+            }
+        } else {
+           if (inSortCriterium == SheetSortCriteriaEnum.OneMonthReturn) {
+               this.metricToShowInSheetSummary = SheetSortCriteriaEnum.OneMonthReturn;
+                this.sheets = this.sheets.sort(function(b, a){
+                        return StringNumericConverter.getNumberFromPercentageString(a.oneMonthReturn)-StringNumericConverter.getNumberFromPercentageString(b.oneMonthReturn)
+                    });
+            } else if (inSortCriterium == SheetSortCriteriaEnum.OneYearReturn) {
+                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.OneYearReturn;
+                this.sheets = this.sheets.sort(function(b, a){
+                        return StringNumericConverter.getNumberFromPercentageString(a.oneYearReturn)-StringNumericConverter.getNumberFromPercentageString(b.oneYearReturn)
+                    });
+            } else if (inSortCriterium == SheetSortCriteriaEnum.DailyChange) {
+                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.DailyChange;
+                this.sheets = this.sheets.sort(function(b, a){
+                        return StringNumericConverter.getNumberFromPercentageString(a.dailyChange)-StringNumericConverter.getNumberFromPercentageString(b.dailyChange)
+                    });
+            } else if (inSortCriterium == SheetSortCriteriaEnum.Name) {
+                this.sheets = this.sheets.sort(function(b, a){
+                        let titleA = a.title.toUpperCase();
+                        let titleB = b.title.toUpperCase();
+                        return (titleA < titleB) ? -1 : (titleA > titleB) ? 1 : 0;
+                    });
+            } 
+        }
+        if (this.sheets.length > 1) {
+            for (var i = 1; i < this.sheets.length; i = i+2) {
+                this.sheets[i].isEven = true;
+            }
+        }
+    }
+    
+    toggleSortDirection() {
+        this.sortAscending = !this.sortAscending;
+        this.sortSheets(this.selectedSortCriterium);
+    }
 }
 

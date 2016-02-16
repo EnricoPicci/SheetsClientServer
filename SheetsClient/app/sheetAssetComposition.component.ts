@@ -19,7 +19,7 @@ import {StringNumericConverter} from '../utilities/stringNumericConverter';
     selector: 'sheet-assetComposition',
 	providers: [],
     templateUrl: '../templates/sheetAssetComposition.html',
-    styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
+    styleUrls: ['../styles/common.css', '../styles/sheetDetail.css', '../styles/tooltips.css'],
 	directives: [Slider, SheetReturnData, SheetCompositionCharts],
     inputs: ['sheet', 'editMode', 'showCharts', 'showInvestmentAmounts'],
 })
@@ -191,6 +191,21 @@ export class SheetAssetCompositionComponent {
     
     hasPositiveReturn(inAssetAbstract: AssetAbstract) {
         return StringNumericConverter.getNumberFromPercentageString(this.getReturnValue(inAssetAbstract))  >=0;
+    }
+    
+    onMouseOverAsset(inAsset: Asset) {
+        inAsset.showTooltip = true;
+    }
+    
+    onMouseOutOfAsset(inAsset: Asset) {
+        inAsset.showTooltip = false;
+    }
+    
+    onMouseOver(inAsset: Asset) {
+        if(!inAsset.hasPriceData()) {
+            this.resetMessages();
+            this._sheetBackEnd.getStockPrices(inAsset);
+        }
     }
     
     private resetMessages() {

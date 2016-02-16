@@ -49,6 +49,9 @@ export class Sheet {
     // variable to store states that I use to drive the view as far as comparison functionalities are required
     public isSelectedForComparison: boolean = false;
     public isComparisonCheckboxToBeDisplayed: boolean = false;
+    
+    // isEven is used to drive the choice of the background color when Sheets are shown in a list
+    public isEven = false;
 
 	public constructor(inId: number, 
                         inTitle: string, 

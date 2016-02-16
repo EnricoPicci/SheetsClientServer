@@ -79,7 +79,7 @@ z-index: 100;
 #name {
     width: calc(96% - 175px);
     float: left;
-    padding: 30px;
+    padding: 27px;
 }
 
 #divider {

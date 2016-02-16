@@ -180,6 +180,18 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                 SheetAssetCompositionComponent.prototype.hasPositiveReturn = function (inAssetAbstract) {
                     return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(this.getReturnValue(inAssetAbstract)) >= 0;
                 };
+                SheetAssetCompositionComponent.prototype.onMouseOverAsset = function (inAsset) {
+                    inAsset.showTooltip = true;
+                };
+                SheetAssetCompositionComponent.prototype.onMouseOutOfAsset = function (inAsset) {
+                    inAsset.showTooltip = false;
+                };
+                SheetAssetCompositionComponent.prototype.onMouseOver = function (inAsset) {
+                    if (!inAsset.hasPriceData()) {
+                        this.resetMessages();
+                        this._sheetBackEnd.getStockPrices(inAsset);
+                    }
+                };
                 SheetAssetCompositionComponent.prototype.resetMessages = function () {
                     this.sheetMessage = null;
                     this.errorMessage = null;
@@ -189,7 +201,7 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                         selector: 'sheet-assetComposition',
                         providers: [],
                         templateUrl: '../templates/sheetAssetComposition.html',
-                        styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
+                        styleUrls: ['../styles/common.css', '../styles/sheetDetail.css', '../styles/tooltips.css'],
                         directives: [slider_component_1.Slider, sheetReturnData_component_1.SheetReturnData, sheetCompositionCharts_component_1.SheetCompositionCharts],
                         inputs: ['sheet', 'editMode', 'showCharts', 'showInvestmentAmounts'],
                     }), 

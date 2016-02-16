@@ -2,6 +2,7 @@ import {Observable}     from 'rxjs/Observable';
 
 import {Sheet} from './sheet';
 import {ReturnPeriod} from './returnPeriod';
+import {Asset} from './asset';
 import {Proposal} from './proposal';
 
 export abstract class SheetBackEnd {
@@ -29,6 +30,8 @@ export abstract class SheetBackEnd {
     getProposalsForCustomer(inCustomerId: string) : any {}
     validateAndSaveProposal(inProposal: Proposal) : any {}
     sendProposal(inProposal: Proposal) : any {}
+    
+    getStockPrices(inAsset: Asset) {};
     
     // this is a method for demo purposes only
     // it creates a message to show what could be sent to a back end system when

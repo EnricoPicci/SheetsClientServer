@@ -66,3 +66,15 @@
     font-weight: 300;
     text-shadow: 1px 1px #000;
 }
+
+.iconImage {
+    height: 40px;
+    widows: 40px;
+    float: left;
+}
+.iconName {
+    font-size: 18px;
+    line-height: 26px;
+    display: block;
+    margin-left: 60px;
+}

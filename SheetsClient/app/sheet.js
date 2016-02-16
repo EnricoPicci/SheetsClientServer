@@ -27,6 +27,8 @@ System.register(['angular2/core', './returnData'], function(exports_1) {
                     // variable to store states that I use to drive the view as far as comparison functionalities are required
                     this.isSelectedForComparison = false;
                     this.isComparisonCheckboxToBeDisplayed = false;
+                    // isEven is used to drive the choice of the background color when Sheets are shown in a list
+                    this.isEven = false;
                     this.id = inId;
                     this.title = inTitle;
                     this.longTitle = inLongTitle;

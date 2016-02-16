@@ -276,4 +276,26 @@ export class BackEndRest extends BackEndClientMock {
         proposalJSON.fillForBuyOrder(inProposal);
         return JSON.stringify(proposalJSON, null, 4);
     }
+    
+    getStockPrices(inAsset: Asset) {
+        let myUrl = this._environment.stockPricesServiceUrlStart + inAsset.symbol + 
+                    this._environment.stockPricesServiceUrlEnd;
+        return this._http.get(myUrl)
+            .subscribe(
+                data => {
+                    let textInLines = data.text().split("\n");
+                    let textDataLine = textInLines[1];
+                    let texDataElements = textDataLine.split(",");
+                    inAsset.dateOfPrices = texDataElements[0];
+                    inAsset.openPrice = parseFloat(texDataElements[1]);
+                    inAsset.highPrice = parseFloat(texDataElements[2]);
+                    inAsset.lowPrice = parseFloat(texDataElements[3]);
+                    inAsset.closePrice = parseFloat(texDataElements[4]);
+                    inAsset.volume = parseFloat(texDataElements[5]);
+                    console.log(data.text());
+                },
+                err => console.error('Error --- ' + err)//,
+                //() => console.log('Save Complete')
+            );
+    }
 }

@@ -16,8 +16,8 @@ undefined-->
             </div>
         </div>
         <div class="iconFrame" [style.display]="isIconized ? 'block' : 'none'">
-            <img height="40" width="40" src={{sheet.imageUrl}}>
-            <span class="name sheetLink">{{sheet.title}}</span>
+            <img class="iconImage" src={{sheet.imageUrl}}>
+            <span class="iconName">{{sheet.title}}</span>
         </div>
     </a>
 	<div class="metrics" [style.display]="isIconized ? 'none' : 'block'">

@@ -63,10 +63,45 @@
                                                 [class.inputFieldEnabled]="editStatus" 
                                                 (change)="onSetAssetWeight(weightInput, asset, assetGroup)">%
                                         </td>
-                                        <td class="nameClass">
-                                            <span>
-                                                {{asset.name}}
-                                            </span>
+                                        <td class="nameClass" (mouseover)="onMouseOver(asset)">
+                                            
+<div class="tooltip tooltip-effect-1">
+    <span class="tooltip-item">{{asset.name}}</span>
+    <div class="tooltip-content clearfix">
+        <div class="tooltipHeading"> {{asset.name}} - 
+            <span>{{asset.symbol}}</span>
+        </div>
+        <div class="tooltipFundamentals clearfix">
+            <div class="col1">
+                <div class="tooltipCellTitle">Apertura</div>
+                <div class="tooltipAmount">{{asset.openPrice}}</div>
+            </div>
+            <div class="col2">
+                <div class="tooltipCellTitle">Massimo</div>
+                <div class="tooltipAmount">{{asset.highPrice}}</div>
+            </div>
+            <div class="col3">
+                <div class="tooltipCellTitle">Minimo</div>
+                <div class="tooltipAmount">{{asset.lowPrice}}</div>
+            </div>
+            <div class="col4">
+                <div class="tooltipCellTitle">Chiusura</div>
+                <div class="tooltipAmount">{{asset.closePrice}}</div>
+            </div>
+            <div class="col5">
+                <div class="tooltipCellTitle">Volumi</div>
+                <div class="tooltipVolume">{{asset.getVolumeFormatted()}}</div>
+            </div>
+        </div>
+        <div class="tooltipBottom"> Data di valorizzazione - 
+            <span>{{asset.dateOfPrices}}</span>
+        </div>
+        <div class="tooltipBottom"> Powered by - 
+            <a class="quandl-logo" href="https://www.quandl.com">QUANDL</a>
+        </div>
+    </div>
+</div>                                            
+                                            
                                         </td>
                                         <td class="symbolClass">
                                             <span>{{asset.symbol}}</span>

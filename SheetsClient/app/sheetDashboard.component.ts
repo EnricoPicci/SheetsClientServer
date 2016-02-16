@@ -6,9 +6,9 @@ import {Sheet} from './sheet';
 import {SheetCollection} from './sheetCollection.component';
 import {SheetSearchCmp} from './sheetSearch.component';
 import {UserLogged} from './userLogged';
-import {SheetSortCriteria} from './sheetSortCriteria';
-import {SheetSortCriteriaEnum} from './sheetSortCriteria';
-import {StringNumericConverter} from '../utilities/stringNumericConverter';
+//import {SheetSortCriteria} from './sheetSortCriteria';
+//import {SheetSortCriteriaEnum} from './sheetSortCriteria';
+//import {StringNumericConverter} from '../utilities/stringNumericConverter';
 
 @Component({
     selector: 'sheet-dashboard',
@@ -28,11 +28,11 @@ export class SheetDashboardComponent {
     public showPublicSheetsOnly = false;
     public showPersonalizedSheetsOnly = false;
     
-    public sortCriteria = SheetSortCriteria.criteria;
+    /*public sortCriteria = SheetSortCriteria.criteria;
     public selectedSortCriterium = SheetSortCriteriaEnum.OneMonthReturn;
     public sortAscending = false;
     public metricToShowInSheetSummary;
-    public showGrid = true;
+    public showGrid = true;*/
     
     public errorMessage;
     
@@ -48,7 +48,7 @@ export class SheetDashboardComponent {
             .subscribe(
                 sheets => {
                     this.sheets = sheets;
-                    this.sortSheets(this.selectedSortCriterium);
+                    //this.sortSheets(this.selectedSortCriterium);
                     this.idOfFirstSheetToCompare = this._routeParams.get('idOfFirstSheetToCompare');
                     if (this.idOfFirstSheetToCompare != null) {
                         for (var i = 0; i < this.sheets.length; i++) {
@@ -144,14 +144,7 @@ export class SheetDashboardComponent {
         }        
     }
     
-    /*getSortCriteria() {
-        if (!this.sortCriteria) {
-            this.sortCriteria = Object.keys(SheetSortCriteria).filter(v => isNaN(parseInt(v, 10)));
-        }
-        return this.sortCriteria;
-    }*/
-    
-    sortSheets(inSortCriterium: SheetSortCriteriaEnum) {
+    /*sortSheets(inSortCriterium: SheetSortCriteriaEnum) {
         this.selectedSortCriterium = inSortCriterium;
         if (this.sortAscending) {
             if (inSortCriterium == SheetSortCriteriaEnum.OneMonthReturn) {
@@ -205,7 +198,7 @@ export class SheetDashboardComponent {
     toggleSortDirection() {
         this.sortAscending = !this.sortAscending;
         this.sortSheets(this.selectedSortCriterium);
-    }
+    }*/
 
 }
 

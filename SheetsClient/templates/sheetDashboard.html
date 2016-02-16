@@ -25,7 +25,7 @@
         </div>
     </div>
     <div id="main">
-        <table id="topControlBar">
+        <!--table id="topControlBar">
             <tbody>
                 <tr>
                     <td>
@@ -47,7 +47,9 @@
             </tbody>
         </table>
         <sheetCollectionCmp [sheets]="sheets" [metricToShowInSheetSummary]="metricToShowInSheetSummary" 
-            [showGrid]="showGrid" (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp>
+            [showGrid]="showGrid" (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp-->
+        <sheetCollectionCmp [sheets]="sheets" 
+            (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp>
     </div>
     <div id="pageFooter"></div>
 </div>
