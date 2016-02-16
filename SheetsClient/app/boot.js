@@ -34,6 +34,7 @@ System.register(['angular2/core', 'angular2/platform/browser', 'angular2/router'
                 environment_service_1 = environment_service_1_1;
             }],
         execute: function() {
+            //enableProdMode();
             browser_1.bootstrap(app_component_1.AppComponent, [router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS, core_1.provide(sheetBackEnd_service_1.SheetBackEnd, { useClass: backEnd_restServer_service_1.BackEndRest }),
                 sheetWeightAdjuster_service_1.SheetWeightAdjuster, userLogged_1.UserLogged, environment_service_1.Environment]);
         }

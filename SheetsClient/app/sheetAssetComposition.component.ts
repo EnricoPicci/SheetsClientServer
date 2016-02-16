@@ -104,12 +104,16 @@ export class SheetAssetCompositionComponent {
     }
     
     onSetAssetGroupWeight(inWeigthElement: any, inAssetGroup: AssetGroup) {
+        let oldWeightValue = inAssetGroup.weight;
         let newWeightValue = parseFloat(inWeigthElement.value);
         let isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAssetGroup);
         if (isNewWeightAllowed) {
             this.setAssetGroupWeight(newWeightValue, inAssetGroup);
+            if (oldWeightValue == newWeightValue) {
+                inWeigthElement.value = oldWeightValue.toFixed(2);
+            }
         } else {
-            this.highlightInputFieldWithErrors(inWeigthElement);
+            this.highlightInputFieldWithErrors(inWeigthElement, inAssetGroup.weight);
         }
     }
     
@@ -126,12 +130,16 @@ export class SheetAssetCompositionComponent {
     }
     
     onSetAssetWeight(inWeigthElement: any, inAsset: Asset, inAssetGroup: AssetGroup) {
+        let oldWeightValue = inAsset.weight;
         let newWeightValue = parseFloat(inWeigthElement.value);
         let isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAsset);
         if (isNewWeightAllowed) {
             this.setAssetWeight(newWeightValue, inAsset, inAssetGroup);
+            if (oldWeightValue == newWeightValue) {
+                inWeigthElement.value = oldWeightValue.toFixed(2);
+            }
         } else {
-            this.highlightInputFieldWithErrors(inWeigthElement);
+            this.highlightInputFieldWithErrors(inWeigthElement, inAsset.weight);
         }
     }
     
@@ -151,9 +159,10 @@ export class SheetAssetCompositionComponent {
         return isConsistent;
     }
     
-    private highlightInputFieldWithErrors(inInputFIeldElement: any) {
+    private highlightInputFieldWithErrors(inInputFIeldElement: any, inWeight: number) {
         inInputFIeldElement.focus();
         inInputFIeldElement.setSelectionRange(0,inInputFIeldElement.value.length);
+        inInputFIeldElement.value = inWeight.toFixed(2);
     }
     
     changed() {

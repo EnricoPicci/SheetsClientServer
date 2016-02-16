@@ -1,4 +1,4 @@
-
+<div id="buttons" class="buttonRoster">
     <button id="simpleComplexViewToggle" class="toggleViewButton" type="button" 
         (click)="simpleComplexViewToggle()">{{getSimpleComplexViewText()}}</button>
     <div id="returnPerioButtons" *ngIf="!complexView" >
@@ -9,6 +9,8 @@
         <button id="all" class="basicButton" type="button" (click)="setAllSeries()" 
             [disabled]="isAllPeriod()">Ab origine</button>
     </div>
-    <div *ngIf="!complexView" [ng2-highcharts]="chartOptions" class="graph"></div>
-    <div *ngIf="complexView" [ng2-highstocks]="chartOptions" class="graph"></div>
+</div>
+
+<div *ngIf="!complexView" [ng2-highcharts]="chartOptions" class="graph"></div>
+<div *ngIf="complexView" [ng2-highstocks]="chartOptions" class="graph"></div>
 

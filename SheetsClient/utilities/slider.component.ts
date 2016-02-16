@@ -5,7 +5,7 @@ import {Component, ViewChild, AfterViewInit, OnChanges, Input, Output, EventEmit
 @Component({
   selector: 'my-slider',
   template: `
-    <div id="preSlider" class="slider back" [style.width]="getWidthFromZero()" [style.left]="getLeftForPreDiv()">
+    <div id="preSlider" class="slider back noUi-base" [style.width]="getWidthFromZero()" [style.left]="getLeftForPreDiv()">
         <div class="noUi-marker noUi-marker-horizontal noUi-marker-large"></div>
         <div class="noUi-value noUi-value-horizontal noUi-value-large"></div>
     </div>
@@ -33,6 +33,9 @@ export class Slider {
     }
     
     ngAfterViewInit() {
+        this.pips = {mode: 'values',
+                values: [this.range.min, this.range.max],
+				density: 10};
         noUiSlider.create(this.sliderDomElement.nativeElement, 
           {start: this.start,
            tooltips: true,
@@ -71,10 +74,22 @@ export class Slider {
         return ret + '%';
     }
     
-    getWidth() {
+    /*getWidth() {
         let ret = (this.range.max - this.range.min) + '%';
         return ret;
-    }    
+    }*/
+    getWidth() {
+        let ret;
+        // we want to set a limit of 100 to the width from zero so that the html component does not expand outside its width
+        let widthFromZero = this.relativeStartOfScale + this.range.max;
+        if (widthFromZero > 100) {
+            ret = (100 - this.relativeStartOfScale - this.range.min) + '%';
+            this.resetPips();
+        } else {
+            ret = (this.range.max - this.range.min) + '%';
+        } 
+        return ret;
+    }
     
     getWidthFromZero() {
         // ret = this.range.max + '%';
@@ -84,8 +99,15 @@ export class Slider {
             ret = this.range.max + '%';
         } else {  // we want to set a limit of 100 to the width from zero so that the html component does not expand outside its width
             ret = (100 - this.relativeStartOfScale) + '%';
+            this.resetPips();
         }
         return ret;
+    }
+    
+    resetPips() {
+        if (this.pips) {
+            this.pips.values = [this.range.min, 100 - this.relativeStartOfScale];
+        }
     }
     
     displayPreDiv() {

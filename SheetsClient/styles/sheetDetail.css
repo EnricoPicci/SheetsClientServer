@@ -229,5 +229,7 @@ z-index: 100;
     border: 1px solid #A1A1A1;
 }
 
-
-
+#description {
+    width: 100%;
+    float: left;
+}

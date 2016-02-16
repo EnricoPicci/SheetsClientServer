@@ -101,13 +101,17 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                     this.setAssetGroupWeight(newWeightValue, inAssetGroup);
                 };
                 SheetAssetCompositionComponent.prototype.onSetAssetGroupWeight = function (inWeigthElement, inAssetGroup) {
+                    var oldWeightValue = inAssetGroup.weight;
                     var newWeightValue = parseFloat(inWeigthElement.value);
                     var isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAssetGroup);
                     if (isNewWeightAllowed) {
                         this.setAssetGroupWeight(newWeightValue, inAssetGroup);
+                        if (oldWeightValue == newWeightValue) {
+                            inWeigthElement.value = oldWeightValue.toFixed(2);
+                        }
                     }
                     else {
-                        this.highlightInputFieldWithErrors(inWeigthElement);
+                        this.highlightInputFieldWithErrors(inWeigthElement, inAssetGroup.weight);
                     }
                 };
                 SheetAssetCompositionComponent.prototype.setAssetGroupWeight = function (inWeight, inAssetGroup) {
@@ -121,13 +125,17 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                     this.setAssetWeight(newWeightValue, inAsset, inAssetGroup);
                 };
                 SheetAssetCompositionComponent.prototype.onSetAssetWeight = function (inWeigthElement, inAsset, inAssetGroup) {
+                    var oldWeightValue = inAsset.weight;
                     var newWeightValue = parseFloat(inWeigthElement.value);
                     var isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAsset);
                     if (isNewWeightAllowed) {
                         this.setAssetWeight(newWeightValue, inAsset, inAssetGroup);
+                        if (oldWeightValue == newWeightValue) {
+                            inWeigthElement.value = oldWeightValue.toFixed(2);
+                        }
                     }
                     else {
-                        this.highlightInputFieldWithErrors(inWeigthElement);
+                        this.highlightInputFieldWithErrors(inWeigthElement, inAsset.weight);
                     }
                 };
                 SheetAssetCompositionComponent.prototype.setAssetWeight = function (inWeight, inAsset, inAssetGroup) {
@@ -144,9 +152,10 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                     }
                     return isConsistent;
                 };
-                SheetAssetCompositionComponent.prototype.highlightInputFieldWithErrors = function (inInputFIeldElement) {
+                SheetAssetCompositionComponent.prototype.highlightInputFieldWithErrors = function (inInputFIeldElement, inWeight) {
                     inInputFIeldElement.focus();
                     inInputFIeldElement.setSelectionRange(0, inInputFIeldElement.value.length);
+                    inInputFIeldElement.value = inWeight.toFixed(2);
                 };
                 SheetAssetCompositionComponent.prototype.changed = function () {
                     this.isChanged = true;

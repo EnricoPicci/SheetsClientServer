@@ -30,6 +30,9 @@ System.register(['angular2/core'], function(exports_1) {
                     };
                 }
                 Slider.prototype.ngAfterViewInit = function () {
+                    this.pips = { mode: 'values',
+                        values: [this.range.min, this.range.max],
+                        density: 10 };
                     noUiSlider.create(this.sliderDomElement.nativeElement, { start: this.start,
                         tooltips: true,
                         //connect: true,
@@ -63,8 +66,21 @@ System.register(['angular2/core'], function(exports_1) {
                     var ret = this.relativeStartOfScale;
                     return ret + '%';
                 };
+                /*getWidth() {
+                    let ret = (this.range.max - this.range.min) + '%';
+                    return ret;
+                }*/
                 Slider.prototype.getWidth = function () {
-                    var ret = (this.range.max - this.range.min) + '%';
+                    var ret;
+                    // we want to set a limit of 100 to the width from zero so that the html component does not expand outside its width
+                    var widthFromZero = this.relativeStartOfScale + this.range.max;
+                    if (widthFromZero > 100) {
+                        ret = (100 - this.relativeStartOfScale - this.range.min) + '%';
+                        this.resetPips();
+                    }
+                    else {
+                        ret = (this.range.max - this.range.min) + '%';
+                    }
                     return ret;
                 };
                 Slider.prototype.getWidthFromZero = function () {
@@ -76,8 +92,14 @@ System.register(['angular2/core'], function(exports_1) {
                     }
                     else {
                         ret = (100 - this.relativeStartOfScale) + '%';
+                        this.resetPips();
                     }
                     return ret;
+                };
+                Slider.prototype.resetPips = function () {
+                    if (this.pips) {
+                        this.pips.values = [this.range.min, 100 - this.relativeStartOfScale];
+                    }
                 };
                 Slider.prototype.displayPreDiv = function () {
                     // show the PreDiv html component only if we are NOT in the 'relative scale' mode, i.e. if
@@ -126,7 +148,7 @@ System.register(['angular2/core'], function(exports_1) {
                 Slider = __decorate([
                     core_1.Component({
                         selector: 'my-slider',
-                        template: "\n    <div id=\"preSlider\" class=\"slider back\" [style.width]=\"getWidthFromZero()\" [style.left]=\"getLeftForPreDiv()\">\n        <div class=\"noUi-marker noUi-marker-horizontal noUi-marker-large\"></div>\n        <div class=\"noUi-value noUi-value-horizontal noUi-value-large\"></div>\n    </div>\n    <div #sliderDomElement id=\"slider\" class=\"slider\" [style.left]=\"getLeft()\" [style.width]=\"getWidth()\"></div>\n    <div id=\"postSlider\"></div>\n  ",
+                        template: "\n    <div id=\"preSlider\" class=\"slider back noUi-base\" [style.width]=\"getWidthFromZero()\" [style.left]=\"getLeftForPreDiv()\">\n        <div class=\"noUi-marker noUi-marker-horizontal noUi-marker-large\"></div>\n        <div class=\"noUi-value noUi-value-horizontal noUi-value-large\"></div>\n    </div>\n    <div #sliderDomElement id=\"slider\" class=\"slider\" [style.left]=\"getLeft()\" [style.width]=\"getWidth()\"></div>\n    <div id=\"postSlider\"></div>\n  ",
                     }), 
                     __metadata('design:paramtypes', [])
                 ], Slider);

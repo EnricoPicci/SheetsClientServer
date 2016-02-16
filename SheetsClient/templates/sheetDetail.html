@@ -16,7 +16,7 @@ undefined-->
             <h2>{{sheet.longTitle}}</h2>
             <short-long-text [longText]="sheet.description" [shortTextLength]="shortDescriptionTextLength"></short-long-text>
         </div>
-        <div id="buttons" class="buttonRoster">
+        <div id="buttons" class="buttonRoster" style="width: 100%; float: left;">
             <button id="compareButton" class="basicButton" type="button" (click)="onClickOverCompareButton()"
                 [style.display]="hasId() ? 'block' : 'none'">Confronta</button>
             <button id="prepareProposalButton" class="basicButton" type="button" (click)="onPrepareProposal()"
