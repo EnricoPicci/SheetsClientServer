@@ -6,7 +6,9 @@ var SheetDBBuilder = (function () {
     }
     SheetDBBuilder.prototype.connectAndOpen = function () {
         var _this = this;
-        mongoose.connect('mongodb://localhost/NodeServerDB');
+        //mongoose.connect('mongodb://localhost/NodeServerDB');
+        mongoose.connect('mongodb://ec2-54-213-172-98.us-west-2.compute.amazonaws.com/NodeServerDB');
+        ///////mongoose.connect('mongodb://Enrico:immiammi@ec2-54-213-172-98.us-west-2.compute.amazonaws.com:27017/NodeServerDB');
         var db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error:'));
         db.once('open', function () {

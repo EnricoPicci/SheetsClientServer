@@ -57,7 +57,11 @@ export class SheetSummaryComponent implements OnInit {
     }*/
     
     hasPositiveReturn() {
-        return StringNumericConverter.getNumberFromPercentageString(this.getMetricToShow()) >=0;
+        let ret = true;
+        if(this.getMetricToShow()) {
+            ret = StringNumericConverter.getNumberFromPercentageString(this.getMetricToShow()) >=0;
+        }
+        return ret;
     }
     
     getMetricToShow() {

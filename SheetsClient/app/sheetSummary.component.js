@@ -57,7 +57,11 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     return this.hasPositiveReturn(this.sheet.oneMonthReturn);
                 }*/
                 SheetSummaryComponent.prototype.hasPositiveReturn = function () {
-                    return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(this.getMetricToShow()) >= 0;
+                    var ret = true;
+                    if (this.getMetricToShow()) {
+                        ret = stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(this.getMetricToShow()) >= 0;
+                    }
+                    return ret;
                 };
                 SheetSummaryComponent.prototype.getMetricToShow = function () {
                     var metricToShow = this.sheet.oneMonthReturn;

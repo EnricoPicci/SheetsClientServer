@@ -10,7 +10,11 @@ export class ProposalInvestmentSource {
     }
     
     getMaxCapacityFormatted() {
-        return this.maxCapacity.toLocaleString() + ' €';
+        let ret = '';
+        if (this.maxCapacity) {
+            ret = this.maxCapacity.toLocaleString() + ' €';
+        }
+        return ret;
     }
     
 }

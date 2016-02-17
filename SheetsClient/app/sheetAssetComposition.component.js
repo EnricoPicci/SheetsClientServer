@@ -187,7 +187,11 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                     return returnValue;
                 };
                 SheetAssetCompositionComponent.prototype.hasPositiveReturn = function (inAssetAbstract) {
-                    return stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(this.getReturnValue(inAssetAbstract)) >= 0;
+                    var ret = true;
+                    if (this.getReturnValue(inAssetAbstract)) {
+                        ret = stringNumericConverter_1.StringNumericConverter.getNumberFromPercentageString(this.getReturnValue(inAssetAbstract)) >= 0;
+                    }
+                    return ret;
                 };
                 SheetAssetCompositionComponent.prototype.onMouseOverAsset = function (inAsset) {
                     inAsset.showTooltip = true;

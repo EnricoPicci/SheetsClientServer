@@ -1,6 +1,6 @@
         <div id="info">
             <div id="image">
-                <img height="146" width="146" src={{sheet?.imageUrl}}>
+                <img class="clickable" height="146" width="146" src={{sheet?.imageUrl}} (click)="onClickOverImage()">
                 <div class="imageOverlayTop" [style.display]="sheet.isPersonalized() ? 'block' : 'none'">
                     <span class="name sheetLink">Personalizzato</span>
                 </div>

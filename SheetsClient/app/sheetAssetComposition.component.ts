@@ -199,7 +199,11 @@ export class SheetAssetCompositionComponent {
     }
     
     hasPositiveReturn(inAssetAbstract: AssetAbstract) {
-        return StringNumericConverter.getNumberFromPercentageString(this.getReturnValue(inAssetAbstract))  >=0;
+        let ret = true;
+        if (this.getReturnValue(inAssetAbstract)) {
+            ret = StringNumericConverter.getNumberFromPercentageString(this.getReturnValue(inAssetAbstract))  >=0;
+        }
+        return ret;
     }
     
     onMouseOverAsset(inAsset: Asset) {

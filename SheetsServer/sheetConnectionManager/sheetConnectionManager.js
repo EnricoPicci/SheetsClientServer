@@ -8,7 +8,9 @@ var SheetConnectionManager = (function () {
     }
     SheetConnectionManager.connectAndOpen = function () {
         if (!this.db) {
-            mongoose.connect('mongodb://localhost/NodeServerDB');
+            //mongoose.connect('mongodb://localhost/NodeServerDB');
+            mongoose.connect('mongodb://ec2-54-213-172-98.us-west-2.compute.amazonaws.com/NodeServerDB');
+            ////////mongoose.connect('mongodb://Enrico:immiammi@ec2-54-213-172-98.us-west-2.compute.amazonaws.com:27017/NodeServerDB');
             this.db = mongoose.connection;
             this.db.on('error', console.error.bind(console, 'connection error:'));
             this.db.once('open', function () {

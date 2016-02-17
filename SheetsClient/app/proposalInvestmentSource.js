@@ -10,7 +10,11 @@ System.register([], function(exports_1) {
                     this.maxCapacity = inMaxCapacity;
                 }
                 ProposalInvestmentSource.prototype.getMaxCapacityFormatted = function () {
-                    return this.maxCapacity.toLocaleString() + ' €';
+                    var ret = '';
+                    if (this.maxCapacity) {
+                        ret = this.maxCapacity.toLocaleString() + ' €';
+                    }
+                    return ret;
                 };
                 return ProposalInvestmentSource;
             })();

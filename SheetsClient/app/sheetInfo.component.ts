@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import {Router} from 'angular2/router';
 
 import {Sheet} from './sheet';
 
@@ -14,6 +15,10 @@ import {StringNumericConverter} from '../utilities/stringNumericConverter';
 })
 export class SheetInfoComponent { 
     public sheet: Sheet;
+    
+    constructor(
+        private _router: Router
+    ) { }
         
     hasPositiveOneYearReturn() {
         return this.hasPositiveReturn(this.sheet.oneYearReturn);
@@ -29,5 +34,9 @@ export class SheetInfoComponent {
     
     hasPositiveReturn(inReturn: string) {
         return StringNumericConverter.getNumberFromPercentageString(inReturn) >=0;
+    }
+    
+    onClickOverImage() {
+        this._router.navigate(['SheetDetail', {id: this.sheet.id}]);
     }
 }

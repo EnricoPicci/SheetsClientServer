@@ -7,7 +7,9 @@ import * as mongoose from "mongoose";
 export class SheetDBBuilder { 
    
     connectAndOpen() {
-        mongoose.connect('mongodb://localhost/NodeServerDB');
+        //mongoose.connect('mongodb://localhost/NodeServerDB');
+        mongoose.connect('mongodb://ec2-54-213-172-98.us-west-2.compute.amazonaws.com/NodeServerDB');
+        ///////mongoose.connect('mongodb://Enrico:immiammi@ec2-54-213-172-98.us-west-2.compute.amazonaws.com:27017/NodeServerDB');
         let db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error:'));
         db.once('open', () => {
