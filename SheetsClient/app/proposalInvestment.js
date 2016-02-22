@@ -11,7 +11,7 @@ System.register([], function(exports_1) {
                 ProposalInvestment.prototype.getAmountFormatted = function () {
                     var formattedString = '';
                     if (this.amount != 0) {
-                        formattedString = this.amount.toLocaleString('it');
+                        formattedString = this.amount.toLocaleString('it-IT');
                     }
                     return formattedString;
                 };

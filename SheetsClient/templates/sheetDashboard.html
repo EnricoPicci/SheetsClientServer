@@ -25,29 +25,6 @@
         </div>
     </div>
     <div id="main">
-        <!--table id="topControlBar">
-            <tbody>
-                <tr>
-                    <td>
-                        <span>Ordina</span>
-                        <select (change)="sortSheets($event.target.value)">
-                            <option *ngFor="#sortCriterium of sortCriteria" value={{sortCriterium.id}}>{{sortCriterium.value}}</option>
-                        </select>
-                        <spen class="sortDirection" (click)="toggleSortDirection()">
-                            <div class="desc" [style.display]="sortAscending ? 'none' : 'block'"><div>HI</div><div>LO</div></div>
-                            <div class="asc" [style.display]="sortAscending ? 'block' : 'none'"><div>LO</div><div>HI</div></div>
-                        </spen>
-                    </td>
-                    <td>
-                        <span>Vista:</span>
-                        <a class="gridView" (click)="showGrid = true">Griglia</a>
-                        <a class="listView" (click)="showGrid = false">Lista</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <sheetCollectionCmp [sheets]="sheets" [metricToShowInSheetSummary]="metricToShowInSheetSummary" 
-            [showGrid]="showGrid" (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp-->
         <sheetCollectionCmp [sheets]="sheets" 
             (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp>
     </div>

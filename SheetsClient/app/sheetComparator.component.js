@@ -9,7 +9,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, sheetBackEnd_service_1, sheetInfo_component_1, sheetReturnData_component_1, sheetCompositionCharts_component_1, sheetAssetComposition_component_1;
-    var SheetComparatorComponent;
+    var ReturnData, SheetComparatorComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -34,6 +34,16 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                 sheetAssetComposition_component_1 = sheetAssetComposition_component_1_1;
             }],
         execute: function() {
+            ReturnData = (function () {
+                function ReturnData() {
+                    this.data = new Array();
+                }
+                ReturnData.prototype.isEmpty = function () {
+                    return this.data.length == 0;
+                };
+                return ReturnData;
+            })();
+            exports_1("ReturnData", ReturnData);
             SheetComparatorComponent = (function () {
                 function SheetComparatorComponent(_routeParams, _sheetBackEnd) {
                     this._routeParams = _routeParams;
@@ -72,4 +82,4 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
         }
     }
 });
-//# sourceMappingURL=SheetComparator.component.js.map
+//# sourceMappingURL=sheetComparator.component.js.map

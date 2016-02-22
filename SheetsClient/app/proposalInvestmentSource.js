@@ -12,7 +12,7 @@ System.register([], function(exports_1) {
                 ProposalInvestmentSource.prototype.getMaxCapacityFormatted = function () {
                     var ret = '';
                     if (this.maxCapacity) {
-                        ret = this.maxCapacity.toLocaleString() + ' €';
+                        ret = this.maxCapacity.toLocaleString('it-IT') + ' €';
                     }
                     return ret;
                 };

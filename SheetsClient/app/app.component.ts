@@ -5,7 +5,7 @@ import {SheetDashboardComponent} from './sheetDashboard.component';
 import {SheetCollection} from './sheetCollection.component';
 import {SheetSummaryComponent} from './sheetSummary.component';
 import {SheetDetailComponent} from './sheetDetail.component';
-import {SheetComparatorComponent} from './SheetComparator.component';
+import {SheetComparatorComponent} from './sheetComparator.component';
 import {UserLoginComponent} from './userLogin.component';
 import {SheetOrProposalDetailComponent} from './sheetOrProposalDetail.component';
 import {ProposalComponent} from './proposal.component';

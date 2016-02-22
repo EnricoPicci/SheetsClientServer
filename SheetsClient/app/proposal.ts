@@ -28,7 +28,7 @@ export class Proposal {
     }
     
     getTotalInvestmentFormatted() {
-        return this.getTotalInvestment().toLocaleString('it') + ' €';
+        return this.getTotalInvestment().toLocaleString('it-IT') + ' €';
     }
     
     updateInvestment() {

@@ -1,3 +1,11 @@
+  export class ReturnData { 
+    public data:Array<any> = new Array<any>();
+    
+    public isEmpty() {
+        return this.data.length == 0;
+    }
+  }
+  
 import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 

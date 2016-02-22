@@ -14,7 +14,7 @@ import {SheetWeightAdjuster} from './sheetWeightAdjuster.service';
 import {UserLogged} from './userLogged'; 
 import {Environment} from '../environmentSettings/environment.service';
 
-//enableProdMode();
+enableProdMode();
 
 bootstrap(AppComponent, [ROUTER_PROVIDERS, HTTP_PROVIDERS, provide(SheetBackEnd, {useClass: BackEndRest}), 
                         SheetWeightAdjuster, UserLogged, Environment]);

@@ -165,4 +165,4 @@ System.register(['angular2/core', 'angular2/router', './sheetSummary.component',
         }
     }
 });
-//# sourceMappingURL=SheetCollection.component.js.map
+//# sourceMappingURL=sheetCollection.component.js.map

@@ -11,7 +11,7 @@ export class ProposalInvestment {
     getAmountFormatted() {
         let formattedString = '';
         if (this.amount != 0) {
-            formattedString = this.amount.toLocaleString('it');
+            formattedString = this.amount.toLocaleString('it-IT');
         }
         return formattedString;
     }
