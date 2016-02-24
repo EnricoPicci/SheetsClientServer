@@ -69,7 +69,7 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
                         });
                     }
                     this.currentPeriod = returnPeriod_1.ReturnPeriod.lastMonth;
-                    this.periodText = 'Ultimo mese';
+                    this.periodText = 'Last month';
                     this.setSeriesInChartOptions(series);
                 };
                 SheetReturnData.prototype.setLastYearSeries = function () {
@@ -89,7 +89,7 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
                         });
                     }
                     this.currentPeriod = returnPeriod_1.ReturnPeriod.lastYear;
-                    this.periodText = 'Ultimo anno';
+                    this.periodText = 'Last year';
                     this.setSeriesInChartOptions(series);
                 };
                 SheetReturnData.prototype.setAllSeries = function () {
@@ -171,10 +171,10 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
                 SheetReturnData.prototype.getSimpleComplexViewText = function () {
                     var text;
                     if (this.complexView) {
-                        text = 'Grafico semplice';
+                        text = 'Simple chart';
                     }
                     else {
-                        text = 'Grafico sofisticato';
+                        text = 'Sophisticated chart';
                     }
                     return text;
                 };

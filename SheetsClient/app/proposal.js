@@ -19,7 +19,8 @@ System.register([], function(exports_1) {
                     return ret;
                 };
                 Proposal.prototype.getTotalInvestmentFormatted = function () {
-                    return this.getTotalInvestment().toLocaleString('it-IT') + ' €';
+                    //return this.getTotalInvestment().toLocaleString('it-IT') + ' €';
+                    return (Math.round(this.getTotalInvestment() * 100) / 100).toLocaleString('it-IT');
                 };
                 Proposal.prototype.updateInvestment = function () {
                     var totalInvestment = this.getTotalInvestment();

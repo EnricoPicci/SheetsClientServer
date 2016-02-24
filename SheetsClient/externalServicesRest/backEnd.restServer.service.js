@@ -178,7 +178,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     console.log('save proposal -- json --  ');
                     console.log(jsonString);
                     var myPost = this._http.post(this._environment.baseServiceUrl + 'validateAndSaveProposal', jsonString, options)
-                        .map(function (res) { return res.json(); });
+                        .map(function (res) {
+                        var resJson = res.json();
+                        return resJson;
+                    })
+                        .catch(this.handleError);
                     return myPost;
                 };
                 BackEndRest.prototype.sendProposal = function (inProposal) {
@@ -244,9 +248,17 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                 };
                 BackEndRest.prototype.handleError = function (error) {
                     // TODO: add service to send error to the server
-                    console.error('the error');
+                    console.error('http error');
                     console.error(error);
-                    return Observable_1.Observable.throw(error.json().error || 'Server error');
+                    /*let responseJson = error.json();
+                    if (responseJson) {
+                        let request = responseJson.target();
+                    }*/
+                    var errorText = error.text();
+                    if (error.status == 200) {
+                        errorText = 'The whole server is down. The connection has been refused.';
+                    }
+                    return Observable_1.Observable.throw(errorText || 'Server error');
                 };
                 BackEndRest.prototype.getOpionsForPost = function () {
                     var headers = new http_1.Headers();
@@ -301,7 +313,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                         inAsset.lowPrice = parseFloat(texDataElements[3]);
                         inAsset.closePrice = parseFloat(texDataElements[4]);
                         inAsset.volume = parseFloat(texDataElements[5]);
-                        console.log(data.text());
+                        //console.log(data.text());
                     }, function (err) { return console.error('Error --- ' + err); } //,
                      //,
                     );

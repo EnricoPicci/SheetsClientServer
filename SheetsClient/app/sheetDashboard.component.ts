@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, ViewChild} from 'angular2/core';
 import {Router, RouteParams} from 'angular2/router';
 
 import {SheetBackEnd} from './sheetBackEnd.service';
@@ -19,6 +19,8 @@ import {UserLogged} from './userLogged';
 })
 
 export class SheetDashboardComponent { 
+    @ViewChild('compareButtonElement') compareButtonElementRef;
+    
 	public title: string = 'Sheets';
 	public sheets: Sheet[];
     public idOfFirstSheetToCompare: string;
@@ -71,7 +73,7 @@ export class SheetDashboardComponent {
 		this.sheets = searchResult;
 	}
     
-    selectionCriteriaChanged(inSheet: Sheet) {
+    selectedSheetChanged(inSheet: Sheet) {
         if (inSheet.isSelectedForComparison) {
             // if the secondSheetToCompare is not null, then I reset it so that it is unchecked for comparison
             // if there is a secondSheetToCompare not null, then it means that a previous selection was made and this 
@@ -92,6 +94,7 @@ export class SheetDashboardComponent {
                 (this.secondSheetToCompare != null) && 
                 (this.secondSheetToCompare.isSelectedForComparison)) {
            ret = true;
+           this.setFocusOnCompareButton();
         }
         return ret;
     }
@@ -143,62 +146,14 @@ export class SheetDashboardComponent {
                 ); 
         }        
     }
-    
-    /*sortSheets(inSortCriterium: SheetSortCriteriaEnum) {
-        this.selectedSortCriterium = inSortCriterium;
-        if (this.sortAscending) {
-            if (inSortCriterium == SheetSortCriteriaEnum.OneMonthReturn) {
-                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.OneMonthReturn;
-                this.sheets = this.sheets.sort(function(a, b){
-                        return StringNumericConverter.getNumberFromPercentageString(a.oneMonthReturn)-StringNumericConverter.getNumberFromPercentageString(b.oneMonthReturn)
-                    });
-            } else if (inSortCriterium == SheetSortCriteriaEnum.OneYearReturn) {
-                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.OneYearReturn;
-                this.sheets = this.sheets.sort(function(a, b){
-                        return StringNumericConverter.getNumberFromPercentageString(a.oneYearReturn)-StringNumericConverter.getNumberFromPercentageString(b.oneYearReturn)
-                    });
-            } else if (inSortCriterium == SheetSortCriteriaEnum.DailyChange) {
-                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.DailyChange;
-                this.sheets = this.sheets.sort(function(a, b){
-                        return StringNumericConverter.getNumberFromPercentageString(a.dailyChange)-StringNumericConverter.getNumberFromPercentageString(b.dailyChange)
-                    });
-            } else if (inSortCriterium == SheetSortCriteriaEnum.Name) {
-                this.sheets = this.sheets.sort(function(a, b){
-                        let titleA = a.title.toUpperCase();
-                        let titleB = b.title.toUpperCase();
-                        return (titleA < titleB) ? -1 : (titleA > titleB) ? 1 : 0;
-                    });
-            }
-        } else {
-           if (inSortCriterium == SheetSortCriteriaEnum.OneMonthReturn) {
-               this.metricToShowInSheetSummary = SheetSortCriteriaEnum.OneMonthReturn;
-                this.sheets = this.sheets.sort(function(b, a){
-                        return StringNumericConverter.getNumberFromPercentageString(a.oneMonthReturn)-StringNumericConverter.getNumberFromPercentageString(b.oneMonthReturn)
-                    });
-            } else if (inSortCriterium == SheetSortCriteriaEnum.OneYearReturn) {
-                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.OneYearReturn;
-                this.sheets = this.sheets.sort(function(b, a){
-                        return StringNumericConverter.getNumberFromPercentageString(a.oneYearReturn)-StringNumericConverter.getNumberFromPercentageString(b.oneYearReturn)
-                    });
-            } else if (inSortCriterium == SheetSortCriteriaEnum.DailyChange) {
-                this.metricToShowInSheetSummary = SheetSortCriteriaEnum.DailyChange;
-                this.sheets = this.sheets.sort(function(b, a){
-                        return StringNumericConverter.getNumberFromPercentageString(a.dailyChange)-StringNumericConverter.getNumberFromPercentageString(b.dailyChange)
-                    });
-            } else if (inSortCriterium == SheetSortCriteriaEnum.Name) {
-                this.sheets = this.sheets.sort(function(b, a){
-                        let titleA = a.title.toUpperCase();
-                        let titleB = b.title.toUpperCase();
-                        return (titleA < titleB) ? -1 : (titleA > titleB) ? 1 : 0;
-                    });
-            } 
-        }
+        
+    setFocusOnCompareButton() {
+        /*var element = this.compareButtonElementRef.nativeElement;
+        setTimeout(function() {
+             element.focus();
+            }, 0);*/
+        this.compareButtonElementRef.nativeElement.focus();
     }
-    
-    toggleSortDirection() {
-        this.sortAscending = !this.sortAscending;
-        this.sortSheets(this.selectedSortCriterium);
-    }*/
 
 }
 

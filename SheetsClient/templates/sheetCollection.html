@@ -2,7 +2,7 @@
     <tbody>
         <tr>
             <td>
-                <span class="controlBarLabel">Ordina</span>
+                <span class="controlBarLabel">Sort</span>
                 <select id="sortSelect" (change)="sortSheets($event.target.value)">
                     <option *ngFor="#sortCriterium of sortCriteria" value={{sortCriterium.id}}>{{sortCriterium.value}}</option>
                 </select>
@@ -12,9 +12,9 @@
                 </spen>
             </td>
             <td>
-                <span class="controlBarLabel">Vista:</span>
-                <a class="gridView" (click)="showGrid = true">Griglia</a>
-                <a class="listView" (click)="showGrid = false">Lista</a>
+                <span class="controlBarLabel">View:</span>
+                <a class="gridView" (click)="showGrid = true">Grid</a>
+                <a class="listView" (click)="showGrid = false">List</a>
             </td>
         </tr>
     </tbody>
@@ -32,11 +32,11 @@
         <table id="sheetTable">
             <thead>
                 <tr>
-                    <th class="nameClass">Nome</th>
-                    <th class="oneMonthReturnClass">Ritorno ultimo mese</th>
-                    <th class="oneYearReturnClass">Ritorno annuale</th>
-                    <th class="dailyChange">Variazione giornaliera</th>
-                    <th class="selectForComparisonClass" [hidden]="!isSelectionOfSheetEnabled">Seleziona</th>
+                    <th class="nameClass">Name</th>
+                    <th class="oneMonthReturnClass">Last Month Return</th>
+                    <th class="oneYearReturnClass">Last Year Return</th>
+                    <th class="dailyChange">Daily Change</th>
+                    <th class="selectForComparisonClass" [hidden]="!isSelectionOfSheetEnabled">Select</th>
                 </tr>
             </thead>
             <tbody *ngFor="#sheet of sheets">

@@ -67,7 +67,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                 SheetDashboardComponent.prototype.updateSheets = function (searchResult) {
                     this.sheets = searchResult;
                 };
-                SheetDashboardComponent.prototype.selectionCriteriaChanged = function (inSheet) {
+                SheetDashboardComponent.prototype.selectedSheetChanged = function (inSheet) {
                     if (inSheet.isSelectedForComparison) {
                         // if the secondSheetToCompare is not null, then I reset it so that it is unchecked for comparison
                         // if there is a secondSheetToCompare not null, then it means that a previous selection was made and this 
@@ -88,6 +88,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         (this.secondSheetToCompare != null) &&
                         (this.secondSheetToCompare.isSelectedForComparison)) {
                         ret = true;
+                        this.setFocusOnCompareButton();
                     }
                     return ret;
                 };
@@ -127,6 +128,17 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                             .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.errorMessage = error; });
                     }
                 };
+                SheetDashboardComponent.prototype.setFocusOnCompareButton = function () {
+                    /*var element = this.compareButtonElementRef.nativeElement;
+                    setTimeout(function() {
+                         element.focus();
+                        }, 0);*/
+                    this.compareButtonElementRef.nativeElement.focus();
+                };
+                __decorate([
+                    core_1.ViewChild('compareButtonElement'), 
+                    __metadata('design:type', Object)
+                ], SheetDashboardComponent.prototype, "compareButtonElementRef", void 0);
                 SheetDashboardComponent = __decorate([
                     core_1.Component({
                         selector: 'sheet-dashboard',

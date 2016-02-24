@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, ViewChild} from 'angular2/core';
 
 import {Sheet} from './sheet';
 import {AssetGroup} from './assetGroup';
@@ -24,6 +24,9 @@ import {StringNumericConverter} from '../utilities/stringNumericConverter';
     inputs: ['sheet', 'editMode', 'showCharts', 'showInvestmentAmounts'],
 })
 export class SheetAssetCompositionComponent { 
+    @ViewChild('shortNoteTextEl') shortNoteTextElementRef;
+    @ViewChild('commentTextEl') commentTextElementRef;
+    
     public sheet: Sheet;
     
     // editMode and editStatus are different
@@ -42,6 +45,8 @@ export class SheetAssetCompositionComponent {
     
     public errorMessage: string;
     public sheetMessage: string;
+    public errorMessageShortNote: string;
+    public errorMessageComment: string;
     
     constructor(
         private _sheetWeightAdjuster: SheetWeightAdjuster, 
@@ -60,9 +65,9 @@ export class SheetAssetCompositionComponent {
     getCustomizeButtonText() {
         let ret: string;
         if (this.editStatus) {
-            ret = 'Chiudi';
+            ret = 'Close';
         } else {
-            ret = 'Personalizza';
+            ret = 'Customize';
         }
         return ret;
     }
@@ -75,9 +80,9 @@ export class SheetAssetCompositionComponent {
     getRelativeScaleButtonText() {
         let ret: string;
         if (this.startOfScaleRelative) {
-            ret = 'Scala assoluta';
+            ret = 'Absolute scale';
         } else {
-            ret = 'Scala relativa';
+            ret = 'Relative scale';
         }
         return ret;        
     }
@@ -154,7 +159,7 @@ export class SheetAssetCompositionComponent {
         this.resetMessages();
         let isConsistent = inAssetAbstract.isWeightAllowed(inWeight);
         if (!isConsistent) {
-            this.errorMessage = 'Valore non entro i limiti fissati';
+            this.errorMessage = 'Value not within the fixed boundaries';
         }
         return isConsistent;
     }
@@ -172,16 +177,40 @@ export class SheetAssetCompositionComponent {
     
     onClickOverSaveButton() {
         this.resetMessages();
-        this._sheetBackEnd.addSheet(this.sheet)
-            .subscribe(
-                data => {this.isChanged= false; 
-                    let retJson = data.json();
-                    this.sheet.id = retJson.id;
-                    this.sheetMessage = 'Sheet personalized no: ' + retJson.id + ' has been saved';
-                    console.log('Data received after Save --- ' + JSON.stringify(retJson))},
-                err => console.error(err),
-                () => console.log('Save Complete')
-            );
+        if (!this.isCommentFilled()) {
+            this.errorMessageComment = 'Add a comment for this personalized Sheet';
+            var element = this.commentTextElementRef.nativeElement;
+            setTimeout(function() {
+             element.focus();
+            }, 0);
+        }
+        if (!this.isShortNoteFilled()) {
+            this.errorMessageShortNote = 'Add a short note for this personalized Sheet';
+            var element = this.shortNoteTextElementRef.nativeElement;
+            setTimeout(function() {
+             element.focus();
+            }, 0);
+        }
+        if (this.isCommentFilled() && this.isShortNoteFilled())  {
+            this._sheetBackEnd.addSheet(this.sheet)
+                .subscribe(
+                    data => {this.isChanged= false; 
+                        let retJson = data.json();
+                        this.sheet.id = retJson.id;
+                        this.sheetMessage = 'Sheet personalized no: ' + retJson.id + ' has been saved';
+                        console.log('Data received after Save --- ' + JSON.stringify(retJson))},
+                    err => console.error(err),
+                    () => console.log('Save Complete')
+                );            
+        }
+    }
+    
+    isShortNoteFilled() {
+        return this.sheet.shortNote != null && this.sheet.shortNote.trim().length > 0;
+    }
+    
+    isCommentFilled() {
+        return this.sheet.personalizationComment != null && this.sheet.personalizationComment.trim().length > 0;
     }
     
     toggleOneMonthReturn()  {
@@ -216,7 +245,7 @@ export class SheetAssetCompositionComponent {
     
     onMouseOver(inAsset: Asset) {
         if(!inAsset.hasPriceData()) {
-            this.resetMessages();
+            //this.resetMessages();
             this._sheetBackEnd.getStockPrices(inAsset);
         }
     }
@@ -224,6 +253,8 @@ export class SheetAssetCompositionComponent {
     private resetMessages() {
         this.sheetMessage = null;
         this.errorMessage = null;
+        this.errorMessageShortNote = null;
+        this. errorMessageComment = null;
     }
      
 }

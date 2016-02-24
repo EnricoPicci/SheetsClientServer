@@ -40,7 +40,7 @@ export class SheetSearchCmp implements OnInit {
             let publicPersonalized = new Array<SearchSelection>();
             publicPersonalized[0] = new SearchSelection(publicPersonalizedDomain[0]);
             publicPersonalized[1] = new SearchSelection(publicPersonalizedDomain[1]);
-            this.searchCriteria[0] = new SearchCriteria('Publici o Personalizzati', publicPersonalized);
+            this.searchCriteria[0] = new SearchCriteria('Standard or Customized', publicPersonalized);
             
             this._backEnd.getGeneralSearchCriteriaDomain()
                 .subscribe(

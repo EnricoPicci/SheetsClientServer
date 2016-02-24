@@ -4,20 +4,20 @@ System.register([], function(exports_1) {
         setters:[],
         execute: function() {
             (function (SheetSortCriteriaEnum) {
-                SheetSortCriteriaEnum[SheetSortCriteriaEnum["OneMonthReturn"] = "Ritorno Ultimo Mese"] = "OneMonthReturn";
-                SheetSortCriteriaEnum[SheetSortCriteriaEnum["OneYearReturn"] = "Ritorno Ultimo Anno"] = "OneYearReturn";
-                SheetSortCriteriaEnum[SheetSortCriteriaEnum["DailyChange"] = "Variazione giornaliera"] = "DailyChange";
-                SheetSortCriteriaEnum[SheetSortCriteriaEnum["Name"] = "Nome"] = "Name";
+                SheetSortCriteriaEnum[SheetSortCriteriaEnum["OneMonthReturn"] = "Last Month Return"] = "OneMonthReturn";
+                SheetSortCriteriaEnum[SheetSortCriteriaEnum["OneYearReturn"] = "Last Year Return"] = "OneYearReturn";
+                SheetSortCriteriaEnum[SheetSortCriteriaEnum["DailyChange"] = "Daily Change"] = "DailyChange";
+                SheetSortCriteriaEnum[SheetSortCriteriaEnum["Name"] = "Name"] = "Name";
             })(SheetSortCriteriaEnum || (SheetSortCriteriaEnum = {}));
             exports_1("SheetSortCriteriaEnum", SheetSortCriteriaEnum);
             SheetSortCriteria = (function () {
                 function SheetSortCriteria() {
                 }
                 SheetSortCriteria.criteria = [
-                    { id: SheetSortCriteriaEnum.OneMonthReturn, value: 'Ritorno Ultimo Mese' },
-                    { id: SheetSortCriteriaEnum.OneYearReturn, value: 'Ritorno Ultimo Anno' },
-                    { id: SheetSortCriteriaEnum.DailyChange, value: 'Variazione giornaliera' },
-                    { id: SheetSortCriteriaEnum.Name, value: 'Nome' }
+                    { id: SheetSortCriteriaEnum.OneMonthReturn, value: 'Last Month Return' },
+                    { id: SheetSortCriteriaEnum.OneYearReturn, value: 'Last Year Return' },
+                    { id: SheetSortCriteriaEnum.DailyChange, value: 'Daily Change' },
+                    { id: SheetSortCriteriaEnum.Name, value: 'Name' }
                 ];
                 return SheetSortCriteria;
             })();

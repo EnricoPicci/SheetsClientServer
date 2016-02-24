@@ -1,4 +1,4 @@
-System.register(['angular2/core', './proposal', './proposalInvestment', './proposalInvestmentSource', './proposalInvestment.component', './sheetAssetComposition.component', './sheetSummary.component', './userLogged', './sheetBackEnd.service'], function(exports_1) {
+System.register(['angular2/core', './proposal', './proposalInvestment', './proposalInvestmentSource', './proposalInvestment.component', './sheetAssetComposition.component', './sheetSummary.component', './userLogged', './sheetBackEnd.service', '../utilities/httpErrorManager.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, proposal_1, proposalInvestment_1, proposalInvestmentSource_1, proposalInvestment_component_1, sheetAssetComposition_component_1, sheetSummary_component_1, userLogged_1, sheetBackEnd_service_1;
+    var core_1, proposal_1, proposalInvestment_1, proposalInvestmentSource_1, proposalInvestment_component_1, sheetAssetComposition_component_1, sheetSummary_component_1, userLogged_1, sheetBackEnd_service_1, httpErrorManager_component_1;
     var ProposalComponent;
     return {
         setters:[
@@ -38,6 +38,9 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
             },
             function (sheetBackEnd_service_1_1) {
                 sheetBackEnd_service_1 = sheetBackEnd_service_1_1;
+            },
+            function (httpErrorManager_component_1_1) {
+                httpErrorManager_component_1 = httpErrorManager_component_1_1;
             }],
         execute: function() {
             ProposalComponent = (function () {
@@ -48,6 +51,7 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                 }
                 ProposalComponent.prototype.ngOnInit = function () {
                     var _this = this;
+                    this.resetMessages();
                     // if the input passed is sheet, then we need to create a proposal starting from the sheet passed
                     if (this.sheet) {
                         var assets = this.sheet.assetGroups;
@@ -60,7 +64,7 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                                 var investment = new proposalInvestment_1.ProposalInvestment(investmentSource);
                                 _this.proposal.investmentElements.push(investment);
                             }
-                        }, function (error) { return _this.errorMessage = error; });
+                        }, function (error) { return _this.httpErrorResponse = error; });
                     }
                     else {
                         if (!this.proposal) {
@@ -76,49 +80,60 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                                 // the sheet property is set so that we can use components originally designed for sheets also with 
                                 // proposals (e.g. SheetAssetCompositionComponent)
                                 _this.sheet = _this.proposal.sheet;
-                            }, function (error) { return _this.errorMessage = error; });
+                            }, function (error) { return _this.httpErrorResponse = error; });
                         }
                     }
                 };
                 ProposalComponent.prototype.onSaveProposal = function () {
                     var _this = this;
                     this.resetMessages();
-                    this._backEnd.validateAndSaveProposal(this.proposal)
-                        .subscribe(function (backEndResponse) {
-                        if (backEndResponse.result == 'OK') {
-                            _this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved';
-                        }
-                        else {
-                            // first of all clean the situation for all assets in the proposal
-                            for (var j = 0; j < _this.proposal.assetGroups.length; j++) {
-                                var assetGroup = _this.proposal.assetGroups[j];
-                                for (var k = 0; k < assetGroup.assets.length; k++) {
-                                    assetGroup.assets[k].isValidated = true;
-                                }
+                    // first of all clean the situation for all assets in the proposal
+                    this.resetAssetValidation();
+                    if (!this.isCommentFilled()) {
+                        this.errorMessageComment = 'Add a comment for this proposal';
+                        var element = this.commentTextElementRef.nativeElement;
+                        setTimeout(function () {
+                            element.focus();
+                        }, 0);
+                    }
+                    else {
+                        this._backEnd.validateAndSaveProposal(this.proposal)
+                            .subscribe(function (backEndResponse) {
+                            if (backEndResponse.result == 'OK') {
+                                _this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved';
                             }
-                            // all assets are valid at the beginning of the loop that defines
-                            // which ones are not valid
-                            for (var i = 0; i < backEndResponse.validationResults.length; i++) {
-                                var invalidAssetSymbol = backEndResponse.validationResults[i].symbol;
-                                for (var j = 0; j < _this.proposal.assetGroups.length; j++) {
-                                    var assetGroup = _this.proposal.assetGroups[j];
+                            else {
+                                /*// first of all clean the situation for all assets in the proposal
+                                for (var j = 0; j < this.proposal.assetGroups.length; j++) {
+                                    let assetGroup = this.proposal.assetGroups[j];
                                     for (var k = 0; k < assetGroup.assets.length; k++) {
-                                        var asset = assetGroup.assets[k];
-                                        if (asset.symbol == invalidAssetSymbol) {
-                                            asset.isValidated = false;
+                                        assetGroup.assets[k].isValidated = true;
+                                    }
+                                }*/
+                                // all assets are valid at the beginning of the loop that defines
+                                // which ones are not valid
+                                for (var i = 0; i < backEndResponse.validationResults.length; i++) {
+                                    var invalidAssetSymbol = backEndResponse.validationResults[i].symbol;
+                                    for (var j = 0; j < _this.proposal.assetGroups.length; j++) {
+                                        var assetGroup = _this.proposal.assetGroups[j];
+                                        for (var k = 0; k < assetGroup.assets.length; k++) {
+                                            var asset = assetGroup.assets[k];
+                                            if (asset.symbol == invalidAssetSymbol) {
+                                                asset.isValidated = false;
+                                            }
                                         }
                                     }
                                 }
+                                _this.errorMessage = 'Invalid. Reduce investment indicated below';
                             }
-                            _this.errorMessage = 'Proposta non valida. Ridurre gli investimenti segnalati sotto';
-                        }
-                    }, function (error) { return _this.errorMessage = error; });
+                        }, function (error) { return _this.httpErrorResponse = error; });
+                    }
                 };
                 ProposalComponent.prototype.onSendProposal = function () {
                     var _this = this;
                     this.resetMessages();
                     this._backEnd.sendProposal(this.proposal)
-                        .subscribe(function (backEndResponse) { return _this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' sent'; }, function (error) { return _this.errorMessage = error; });
+                        .subscribe(function (backEndResponse) { return _this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' sent'; }, function (error) { return _this.httpErrorResponse = error; });
                 };
                 ProposalComponent.prototype.onBuyProposal = function () {
                     this.buyMessageForTheBackEnd = this._backEnd.buildBuyMessageForTheBackEnd(this.proposal);
@@ -131,21 +146,38 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                         element.disabled = "true";
                     }, 0);
                 };
+                ProposalComponent.prototype.isCommentFilled = function () {
+                    return this.proposal.comment != null && this.proposal.comment.trim().length > 0;
+                };
+                ProposalComponent.prototype.resetAssetValidation = function () {
+                    for (var j = 0; j < this.proposal.assetGroups.length; j++) {
+                        var assetGroup = this.proposal.assetGroups[j];
+                        for (var k = 0; k < assetGroup.assets.length; k++) {
+                            assetGroup.assets[k].isValidated = true;
+                        }
+                    }
+                };
                 ProposalComponent.prototype.resetMessages = function () {
+                    this.httpErrorResponse = null;
                     this.proposalMessage = null;
                     this.errorMessage = null;
+                    this.errorMessageComment = null;
                 };
                 __decorate([
                     core_1.ViewChild('buyMessage'), 
                     __metadata('design:type', Object)
                 ], ProposalComponent.prototype, "buyMessageElementRef", void 0);
+                __decorate([
+                    core_1.ViewChild('commentTextEl'), 
+                    __metadata('design:type', Object)
+                ], ProposalComponent.prototype, "commentTextElementRef", void 0);
                 ProposalComponent = __decorate([
                     core_1.Component({
                         selector: 'proposalCmp',
                         providers: [],
                         templateUrl: '../templates/proposal.html',
                         styleUrls: ['../styles/common.css', '../styles/proposal.css'],
-                        directives: [sheetAssetComposition_component_1.SheetAssetCompositionComponent, proposalInvestment_component_1.ProposalInvestmentComponent, sheetSummary_component_1.SheetSummaryComponent],
+                        directives: [sheetAssetComposition_component_1.SheetAssetCompositionComponent, proposalInvestment_component_1.ProposalInvestmentComponent, sheetSummary_component_1.SheetSummaryComponent, httpErrorManager_component_1.HttpErrorManagerComponent],
                         inputs: ['sheet', 'proposal'],
                     }), 
                     __metadata('design:paramtypes', [userLogged_1.UserLogged, sheetBackEnd_service_1.SheetBackEnd])

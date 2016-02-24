@@ -49,7 +49,7 @@ System.register(['angular2/core', '../utilities/searchCriteria.component', '../u
                         var publicPersonalized = new Array();
                         publicPersonalized[0] = new searchSelection_1.SearchSelection(publicPersonalizedDomain[0]);
                         publicPersonalized[1] = new searchSelection_1.SearchSelection(publicPersonalizedDomain[1]);
-                        this.searchCriteria[0] = new searchCriteria_1.SearchCriteria('Publici o Personalizzati', publicPersonalized);
+                        this.searchCriteria[0] = new searchCriteria_1.SearchCriteria('Standard or Customized', publicPersonalized);
                         this._backEnd.getGeneralSearchCriteriaDomain()
                             .subscribe(function (tags) {
                             var general = new Array();

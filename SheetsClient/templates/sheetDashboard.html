@@ -6,27 +6,27 @@
             <div id="publicSheets" class="publicPersonalChoice clickable" 
                 [class.activePublicPersonalChoice]="showPublicSheetsOnly"
                 (click)="togglePublicSheetsOnly()">
-                <span>Sheets Pubblici</span>
+                <span>Standard Sheets</span>
             </div>
             <div id="personalSheets" class="publicPersonalChoice clickable" 
                 [class.activePublicPersonalChoice]="showPersonalizedSheetsOnly"
                 (click)="togglePerzonalizedSheetsOnly()">
-                <span>Sheets Personalizzati</span>
+                <span>Customized Sheets</span>
             </div>
         </div>
         <div id="sidebar">
-            <button id="compareButton" class="basicButton" type="button" (click)="onCompareClick()"
-                [style.display]="isReadyToLaunchCompare() ? 'block' : 'none'">Confronta</button>
+            <button #compareButtonElement id="compareButton" class="basicButton" type="button" (click)="onCompareClick()"
+                [style.display]="isReadyToLaunchCompare() ? 'block' : 'none'">Compare</button>
             <sheetSearchCmp #search (sheetsRetrieved)="updateSheets(search.searchResult)"></sheetSearchCmp>
             <div id="buttons" class="buttonRoster" [style.display]="_user.isCustomer() ? 'block' : 'none'">
-                <button id="proposalsButton" class="basicButton" type="button" (click)="onProposals()">Proposte</button>
-                <button id="inPortfolioButton" class="basicButton" type="button" (click)="onInPortfolio()">In portafoglio</button>
+                <button id="proposalsButton" class="basicButton" type="button" (click)="onProposals()">Proposals</button>
+                <button id="inPortfolioButton" class="basicButton" type="button" (click)="onInPortfolio()">In portfolio</button>
             </div>
         </div>
     </div>
     <div id="main">
         <sheetCollectionCmp [sheets]="sheets" 
-            (sheetSelectedChanged)="selectionCriteriaChanged($event)"></sheetCollectionCmp>
+            (sheetSelectedChanged)="selectedSheetChanged($event)"></sheetCollectionCmp>
     </div>
     <div id="pageFooter"></div>
 </div>

@@ -11,22 +11,27 @@ import {SheetSummaryComponent} from './sheetSummary.component';
 import {UserLogged} from './userLogged';
 import {SheetBackEnd} from './sheetBackEnd.service';
 
+import {HttpErrorManagerComponent} from '../utilities/httpErrorManager.component';
+
 @Component({
     selector: 'proposalCmp',
 	providers: [],
     templateUrl: '../templates/proposal.html',
 	styleUrls: ['../styles/common.css', '../styles/proposal.css'],
-    directives: [SheetAssetCompositionComponent, ProposalInvestmentComponent, SheetSummaryComponent],
+    directives: [SheetAssetCompositionComponent, ProposalInvestmentComponent, SheetSummaryComponent, HttpErrorManagerComponent],
 	inputs: ['sheet', 'proposal'],
 })
 export class ProposalComponent { 
-    @ViewChild('buyMessage') buyMessageElementRef;
+    @ViewChild('buyMessage') buyMessageElementRef;commentTextEl
+    @ViewChild('commentTextEl') commentTextElementRef;
     
     public proposal: Proposal;
     public sheet: Sheet;
     
+    public httpErrorResponse: string;
     public errorMessage: string;
     public proposalMessage: string;
+    public errorMessageComment: string;
     
     public buyOrderSent = false;
     public buyMessageForTheBackEnd: string;
@@ -37,6 +42,7 @@ export class ProposalComponent {
     ) { }
     
     ngOnInit() {
+        this.resetMessages();
         // if the input passed is sheet, then we need to create a proposal starting from the sheet passed
         if (this.sheet) {
             let assets = this.sheet.assetGroups;
@@ -54,7 +60,7 @@ export class ProposalComponent {
                             this.proposal.investmentElements.push(investment);
                         }
                     },
-                    error => this.errorMessage = <any>error
+                    error => this.httpErrorResponse = <any>error
                 );
         } 
         // if we enter the else, it means that sheet has not been passed as input and therefore we
@@ -76,7 +82,7 @@ export class ProposalComponent {
                             // proposals (e.g. SheetAssetCompositionComponent)
                             this.sheet = this.proposal.sheet;
                         },
-                        error => this.errorMessage = <any>error
+                        error => this.httpErrorResponse = <any>error
                     );
             }
         }
@@ -84,38 +90,48 @@ export class ProposalComponent {
     
     onSaveProposal() {
         this.resetMessages();
-        this._backEnd.validateAndSaveProposal(this.proposal)
-            .subscribe(
-                backEndResponse => {
-                    if (backEndResponse.result == 'OK') {
-                        this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved';
-                    } else {
-                        // first of all clean the situation for all assets in the proposal
-                        for (var j = 0; j < this.proposal.assetGroups.length; j++) {
-                            let assetGroup = this.proposal.assetGroups[j];
-                            for (var k = 0; k < assetGroup.assets.length; k++) {
-                                assetGroup.assets[k].isValidated = true;
-                            }
-                        }
-                        // all assets are valid at the beginning of the loop that defines
-                        // which ones are not valid
-                        for (var i = 0; i < backEndResponse.validationResults.length; i++) {
-                            let invalidAssetSymbol = backEndResponse.validationResults[i].symbol;
+        // first of all clean the situation for all assets in the proposal
+        this.resetAssetValidation();
+        if (!this.isCommentFilled()) {
+            this.errorMessageComment = 'Add a comment for this proposal';
+            var element = this.commentTextElementRef.nativeElement;
+            setTimeout(function() {
+             element.focus();
+            }, 0);
+        } else {
+            this._backEnd.validateAndSaveProposal(this.proposal)
+                .subscribe(
+                    backEndResponse => {
+                        if (backEndResponse.result == 'OK') {
+                            this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved';
+                        } else {
+                            /*// first of all clean the situation for all assets in the proposal
                             for (var j = 0; j < this.proposal.assetGroups.length; j++) {
                                 let assetGroup = this.proposal.assetGroups[j];
                                 for (var k = 0; k < assetGroup.assets.length; k++) {
-                                    let asset = assetGroup.assets[k];
-                                    if (asset.symbol == invalidAssetSymbol) {
-                                        asset.isValidated = false;
+                                    assetGroup.assets[k].isValidated = true;
+                                }
+                            }*/
+                            // all assets are valid at the beginning of the loop that defines
+                            // which ones are not valid
+                            for (var i = 0; i < backEndResponse.validationResults.length; i++) {
+                                let invalidAssetSymbol = backEndResponse.validationResults[i].symbol;
+                                for (var j = 0; j < this.proposal.assetGroups.length; j++) {
+                                    let assetGroup = this.proposal.assetGroups[j];
+                                    for (var k = 0; k < assetGroup.assets.length; k++) {
+                                        let asset = assetGroup.assets[k];
+                                        if (asset.symbol == invalidAssetSymbol) {
+                                            asset.isValidated = false;
+                                        }
                                     }
                                 }
                             }
+                            this.errorMessage = 'Invalid. Reduce investment indicated below';
                         }
-                        this.errorMessage = 'Proposta non valida. Ridurre gli investimenti segnalati sotto';
-                    }
-                },
-                error => this.errorMessage = <any>error
-            );
+                    },
+                        error => this.httpErrorResponse = <any>error
+                );
+        }
     }
     
         
@@ -124,7 +140,7 @@ export class ProposalComponent {
         this._backEnd.sendProposal(this.proposal)
             .subscribe(
                 backEndResponse => this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' sent',
-                error => this.errorMessage = <any>error
+                error => this.httpErrorResponse = <any>error
             );
     }
     
@@ -140,9 +156,24 @@ export class ProposalComponent {
             }, 0);
     }
     
+    isCommentFilled() {
+        return this.proposal.comment != null && this.proposal.comment.trim().length > 0;
+    }
+    
+    resetAssetValidation() {
+        for (var j = 0; j < this.proposal.assetGroups.length; j++) {
+            let assetGroup = this.proposal.assetGroups[j];
+            for (var k = 0; k < assetGroup.assets.length; k++) {
+                assetGroup.assets[k].isValidated = true;
+            }
+        }        
+    }
+    
     private resetMessages() {
+        this.httpErrorResponse = null;
         this.proposalMessage = null;
         this.errorMessage = null;
+        this.errorMessageComment = null;
     }
     
 }

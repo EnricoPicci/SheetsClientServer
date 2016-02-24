@@ -149,7 +149,12 @@ export class BackEndRest extends BackEndClientMock {
         console.log('save proposal -- json --  ');
         console.log(jsonString);
         let myPost = this._http.post(this._environment.baseServiceUrl + 'validateAndSaveProposal', jsonString, options)
-            .map(res => res.json());
+            .map(res => {
+                    let resJson = res.json();
+                    return resJson;
+                }
+            )
+            .catch(this.handleError);
         return myPost;
     }
     
@@ -223,9 +228,17 @@ export class BackEndRest extends BackEndClientMock {
     
     private handleError (error: Response) {
         // TODO: add service to send error to the server
-        console.error('the error');
+        console.error('http error');
         console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
+        /*let responseJson = error.json();
+        if (responseJson) {
+            let request = responseJson.target();
+        }*/
+        let errorText = error.text();
+        if (error.status == 200) {
+            errorText = 'The whole server is down. The connection has been refused.';
+        }
+        return Observable.throw(errorText || 'Server error');
     }
     
     private getOpionsForPost() {
@@ -292,7 +305,7 @@ export class BackEndRest extends BackEndClientMock {
                     inAsset.lowPrice = parseFloat(texDataElements[3]);
                     inAsset.closePrice = parseFloat(texDataElements[4]);
                     inAsset.volume = parseFloat(texDataElements[5]);
-                    console.log(data.text());
+                    //console.log(data.text());
                 },
                 err => console.error('Error --- ' + err)//,
                 //() => console.log('Save Complete')

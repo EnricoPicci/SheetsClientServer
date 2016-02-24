@@ -74,9 +74,10 @@ export abstract class AssetAbstract {
     }
     
     getInvestmentAmountFormatted() {
-        let amountFormatted = '';
+        let amountFormatted = '0';
         if (this.investmentAmount) {
-            amountFormatted = this.investmentAmount.toLocaleString('it-IT') + ' €';
+            //amountFormatted = this.investmentAmount.toLocaleString('it-IT') + ' €';
+            amountFormatted = (Math.round(this.investmentAmount*100)/100).toLocaleString('it-IT');
         } 
         return amountFormatted;
     }

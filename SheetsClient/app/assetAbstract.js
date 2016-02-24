@@ -52,9 +52,10 @@ System.register([], function(exports_1) {
                     return ret;
                 };
                 AssetAbstract.prototype.getInvestmentAmountFormatted = function () {
-                    var amountFormatted = '';
+                    var amountFormatted = '0';
                     if (this.investmentAmount) {
-                        amountFormatted = this.investmentAmount.toLocaleString('it-IT') + ' €';
+                        //amountFormatted = this.investmentAmount.toLocaleString('it-IT') + ' €';
+                        amountFormatted = (Math.round(this.investmentAmount * 100) / 100).toLocaleString('it-IT');
                     }
                     return amountFormatted;
                 };

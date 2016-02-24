@@ -3,17 +3,17 @@
     <div id="content" class="container">
         <div id="pageHeading"></div>
         <div id="proposalListTitle" style="width: 100%;">
-            <h3>Le proposte per te</h3>
+            <h3>Proposals for you</h3>
         </div>
         <div id="listOfProposals" style="float: none;">
             <table class="proposalTable">
                 <thead>
                     <tr>
                         <th class="iconClass"></th>
-                        <th class="proposalIdClass">Num Proposta</th>
-                        <th class="titleClass">Foglio</th>
-                        <th class="commentInCellClass">Nota</th>
-                        <th class="investedAmountClass">Valore investito</th>
+                        <th class="proposalIdClass">Number</th>
+                        <th class="titleClass">Sheet</th>
+                        <th class="commentInCellClass">Note</th>
+                        <th class="investedAmountClass">Invested value</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="#proposal of proposals">
@@ -24,7 +24,10 @@
                         <td class="proposalIdClass" (click)="onProposalSelected(proposal)" style="cursor: pointer;">{{proposal.id}}</td>
                         <td class="titleClass" (click)="onProposalSelected(proposal)" style="cursor: pointer;">{{proposal.sheet.getTitle()}}</td>
                         <td class="commentInCellClass">{{proposal.getCommentShortText()}}</td>
-                        <td class="investedAmountClass">{{proposal.getTotalInvestment()}}</td>
+                        <td class="investedAmountClass">
+                            {{proposal.getTotalInvestmentFormatted()}}
+                            <span>€</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>

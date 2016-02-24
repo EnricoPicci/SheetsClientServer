@@ -19,7 +19,7 @@
                             <span [class.clickable]="!oneMonthReturn" (click)="toggleOneMonthReturn()">1 MO</span> / 
                             <span [class.clickable]="oneMonthReturn"  (click)="toggleOneMonthReturn()">1 YR</span> Return
                         </th>
-                        <th class="investedAmountClass" [style.display]="showInvestmentAmounts ? 'table-cell' : 'none'">Valore investito</th>
+                        <th class="investedAmountClass" [style.display]="showInvestmentAmounts ? 'table-cell' : 'none'">Invested value</th>
                         <th class="newWeightSliderClass" [style.display]="editStatus ? 'table-cell' : 'none'">New weight</th>
                         <th class="lockClass" [style.display]="editStatus ? 'table-cell' : 'none'">Lock</th>
                     </tr>
@@ -43,7 +43,10 @@
                                   [class.percentageArrowDownSmall]="!hasPositiveReturn(assetGroup)">
                                     {{getReturnValue(assetGroup)}}</span>
                         </th>
-                        <th class="investedAmountClass" [style.display]="showInvestmentAmounts ? 'table-cell' : 'none'">{{assetGroup.getInvestmentAmountFormatted()}}</th>
+                        <th class="investedAmountClass" [style.display]="showInvestmentAmounts ? 'table-cell' : 'none'">
+                            {{assetGroup.getInvestmentAmountFormatted()}}
+                            <span>€</span>
+                        </th>
                         <td class="newWeightSliderClass" [style.display]="editStatus ? 'table-cell' : 'none'">
                             <!--my-slider [start]="getStart(assetGroup)" [range]="getRange(assetGroup)" [pips]="getPips(assetGroup)" (end)="onEndOnAssetGroup($event, assetGroup)" 
                                 [newValue]="assetGroup.newWeight" [locked]="assetGroup.locked" [isGroup]="true" 
@@ -114,8 +117,11 @@
                                                     [class.percentageArrowDownSmall]="!hasPositiveReturn(asset)">
                                                     {{getReturnValue(asset)}}</span>
                                         </td>
-                                        <td class="investedAmountClass ng-invalid" [style.display]="showInvestmentAmounts ? 'table-cell' : 'none'"
-                                            [style.border-left]="!asset.isValidated ? '5px solid #a94442' : '1px solid #A1A1A1'">{{asset.getInvestmentAmountFormatted()}}</td>
+                                        <td class="investedAmountClass" [style.display]="showInvestmentAmounts ? 'table-cell' : 'none'"
+                                            [style.border-left]="!asset.isValidated ? '5px solid #a94442' : '1px solid #A1A1A1'">
+                                            {{asset.getInvestmentAmountFormatted()}}
+                                            <span>€</span>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -142,14 +148,17 @@
             </table>
             <div *ngIf="isChanged || sheet.isPersonalized()">
                 <div id="shortNote" class="comment">
-                    <label>Breve nota</label>
-                    <input type="text" id="shortNoteText" size="27" [(ngModel)]="sheet.shortNote" [disabled]="!isChanged"/>
+                    <label>Short note</label>
+                    <input #shortNoteTextEl type="text" id="shortNoteText" size="27" [(ngModel)]="sheet.shortNote" 
+                        [disabled]="!isChanged" [class.invalidField]="!isShortNoteFilled()"/>
                 </div>
+                <div id="errorMessageShortNote" class="alert alert-danger" [hidden]="!errorMessageShortNote">{{errorMessageShortNote}}</div>
                 <div id="comment" class="comment">
-                    <label>Commento</label>
-                    <textarea id="commentText" rows="3" cols="120" 
-                        [(ngModel)]="sheet.personalizationComment" [disabled]="!isChanged"></textarea>
+                    <label>Comment</label>
+                    <textarea #commentTextEl id="commentText" rows="3" cols="120" [(ngModel)]="sheet.personalizationComment" 
+                        [disabled]="!isChanged" [class.invalidField]="!isCommentFilled()"></textarea>
                 </div>
+                <div id="errorMessageComment" class="alert alert-danger" [hidden]="!errorMessageComment">{{errorMessageComment}}</div>
             </div>            
         </div>
         <div id="assetChart">

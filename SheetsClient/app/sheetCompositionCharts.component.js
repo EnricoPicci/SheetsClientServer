@@ -38,14 +38,14 @@ System.register(['angular2/core', './sheetBackEnd.service', '../ng2Highcharts/sr
                     this._subscriptionToSheetCompositionChange = this.sheet.getChangeCompositionEvent().unsubscribe();
                 };
                 SheetCompositionCharts.prototype.generateCharts = function () {
-                    this.highchartsOptionsForGroups = this.createNewHighstocksOptionsForPieChart('Composizione per Gruppi');
+                    this.highchartsOptionsForGroups = this.createNewHighstocksOptionsForPieChart('Group composition');
                     this.highchartsOptionsForGroups.series = this.getSeriesForAssetGroups();
-                    this.highchartsOptionsForAssets = this.createNewHighstocksOptionsForPieChart('Composizione per Asset');
+                    this.highchartsOptionsForAssets = this.createNewHighstocksOptionsForPieChart('Asset Composition');
                     this.highchartsOptionsForAssets.series = this.getSeriesForAssets();
                     this._sheetBackEnd.updateValueAtRisk(this.sheet);
                     this._sheetBackEnd.updateVolatility(this.sheet);
                     this.highchartsOptionsForValueAtRisk = this.createNewHighstocksOptionsForGaugeChart('VaR', this.sheet.valueAtRisk, 0, 10, 3, 6);
-                    this.highchartsOptionsForVolatility = this.createNewHighstocksOptionsForGaugeChart('Volatilità', this.sheet.volatility, 0, 25, 8, 18);
+                    this.highchartsOptionsForVolatility = this.createNewHighstocksOptionsForGaugeChart('Volatility', this.sheet.volatility, 0, 25, 8, 18);
                 };
                 SheetCompositionCharts.prototype.createNewHighstocksOptionsForPieChart = function (inTitle) {
                     return {
@@ -189,10 +189,10 @@ System.register(['angular2/core', './sheetBackEnd.service', '../ng2Highcharts/sr
                 SheetCompositionCharts.prototype.getTogglePieCharViewText = function () {
                     var ret;
                     if (this._isAssetGroupViewShown) {
-                        ret = 'Vista per Assets';
+                        ret = 'Asset View';
                     }
                     else {
-                        ret = 'Vista per Asset Group';
+                        ret = 'Asset Group View';
                     }
                     ;
                     return ret;

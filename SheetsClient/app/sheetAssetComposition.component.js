@@ -63,10 +63,10 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                 SheetAssetCompositionComponent.prototype.getCustomizeButtonText = function () {
                     var ret;
                     if (this.editStatus) {
-                        ret = 'Chiudi';
+                        ret = 'Close';
                     }
                     else {
-                        ret = 'Personalizza';
+                        ret = 'Customize';
                     }
                     return ret;
                 };
@@ -77,10 +77,10 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                 SheetAssetCompositionComponent.prototype.getRelativeScaleButtonText = function () {
                     var ret;
                     if (this.startOfScaleRelative) {
-                        ret = 'Scala assoluta';
+                        ret = 'Absolute scale';
                     }
                     else {
-                        ret = 'Scala relativa';
+                        ret = 'Relative scale';
                     }
                     return ret;
                 };
@@ -148,7 +148,7 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                     this.resetMessages();
                     var isConsistent = inAssetAbstract.isWeightAllowed(inWeight);
                     if (!isConsistent) {
-                        this.errorMessage = 'Valore non entro i limiti fissati';
+                        this.errorMessage = 'Value not within the fixed boundaries';
                     }
                     return isConsistent;
                 };
@@ -164,14 +164,36 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                 SheetAssetCompositionComponent.prototype.onClickOverSaveButton = function () {
                     var _this = this;
                     this.resetMessages();
-                    this._sheetBackEnd.addSheet(this.sheet)
-                        .subscribe(function (data) {
-                        _this.isChanged = false;
-                        var retJson = data.json();
-                        _this.sheet.id = retJson.id;
-                        _this.sheetMessage = 'Sheet personalized no: ' + retJson.id + ' has been saved';
-                        console.log('Data received after Save --- ' + JSON.stringify(retJson));
-                    }, function (err) { return console.error(err); }, function () { return console.log('Save Complete'); });
+                    if (!this.isCommentFilled()) {
+                        this.errorMessageComment = 'Add a comment for this personalized Sheet';
+                        var element = this.commentTextElementRef.nativeElement;
+                        setTimeout(function () {
+                            element.focus();
+                        }, 0);
+                    }
+                    if (!this.isShortNoteFilled()) {
+                        this.errorMessageShortNote = 'Add a short note for this personalized Sheet';
+                        var element = this.shortNoteTextElementRef.nativeElement;
+                        setTimeout(function () {
+                            element.focus();
+                        }, 0);
+                    }
+                    if (this.isCommentFilled() && this.isShortNoteFilled()) {
+                        this._sheetBackEnd.addSheet(this.sheet)
+                            .subscribe(function (data) {
+                            _this.isChanged = false;
+                            var retJson = data.json();
+                            _this.sheet.id = retJson.id;
+                            _this.sheetMessage = 'Sheet personalized no: ' + retJson.id + ' has been saved';
+                            console.log('Data received after Save --- ' + JSON.stringify(retJson));
+                        }, function (err) { return console.error(err); }, function () { return console.log('Save Complete'); });
+                    }
+                };
+                SheetAssetCompositionComponent.prototype.isShortNoteFilled = function () {
+                    return this.sheet.shortNote != null && this.sheet.shortNote.trim().length > 0;
+                };
+                SheetAssetCompositionComponent.prototype.isCommentFilled = function () {
+                    return this.sheet.personalizationComment != null && this.sheet.personalizationComment.trim().length > 0;
                 };
                 SheetAssetCompositionComponent.prototype.toggleOneMonthReturn = function () {
                     this.oneMonthReturn = !this.oneMonthReturn;
@@ -201,14 +223,24 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                 };
                 SheetAssetCompositionComponent.prototype.onMouseOver = function (inAsset) {
                     if (!inAsset.hasPriceData()) {
-                        this.resetMessages();
+                        //this.resetMessages();
                         this._sheetBackEnd.getStockPrices(inAsset);
                     }
                 };
                 SheetAssetCompositionComponent.prototype.resetMessages = function () {
                     this.sheetMessage = null;
                     this.errorMessage = null;
+                    this.errorMessageShortNote = null;
+                    this.errorMessageComment = null;
                 };
+                __decorate([
+                    core_1.ViewChild('shortNoteTextEl'), 
+                    __metadata('design:type', Object)
+                ], SheetAssetCompositionComponent.prototype, "shortNoteTextElementRef", void 0);
+                __decorate([
+                    core_1.ViewChild('commentTextEl'), 
+                    __metadata('design:type', Object)
+                ], SheetAssetCompositionComponent.prototype, "commentTextElementRef", void 0);
                 SheetAssetCompositionComponent = __decorate([
                     core_1.Component({
                         selector: 'sheet-assetComposition',

@@ -61,7 +61,7 @@ export class SheetReturnData {
             });
         }
         this.currentPeriod = ReturnPeriod.lastMonth;
-        this.periodText = 'Ultimo mese';
+        this.periodText = 'Last month';
         this.setSeriesInChartOptions(series);
     }
     
@@ -82,7 +82,7 @@ export class SheetReturnData {
             });
         }
         this.currentPeriod = ReturnPeriod.lastYear;
-        this.periodText = 'Ultimo anno';
+        this.periodText = 'Last year';
         this.setSeriesInChartOptions(series);
     }
     
@@ -169,9 +169,9 @@ export class SheetReturnData {
     getSimpleComplexViewText() {
         let text: string;
         if (this.complexView) {
-            text = 'Grafico semplice';
+            text = 'Simple chart';
         } else {
-            text = 'Grafico sofisticato';
+            text = 'Sophisticated chart';
         }
         return text;
     }

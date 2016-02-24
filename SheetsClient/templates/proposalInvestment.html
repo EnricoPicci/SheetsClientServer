@@ -2,14 +2,14 @@
    <table class="investmentTable">
         <thead>
             <tr>
-                <th class="sourceType">Conto o Dossier</th>
+                <th class="sourceType">Account or Dossier</th>
                 <th class="id">ID</th>
-                <th class="maxCapacity">Massimo</th>
-                <th class="investmentAmount">Ammontare da investire</th>
+                <th class="maxCapacity">Max capacity</th>
+                <th class="investmentAmount">Amount to invest</th>
             </tr>
         </thead>
-        <tbody *ngFor="#investmentElement of proposal.investmentElements">
-            <tr class="investmentElement">
+        <tbody>
+            <tr *ngFor="#investmentElement of proposal.investmentElements" class="investmentElement">
                 <td class="sourceType">
                     <span>{{investmentElement.source.type}}</span>
                 </td>
@@ -18,6 +18,7 @@
                 </td>
                 <td  class="maxCapacity">
                     <span>{{investmentElement.source.getMaxCapacityFormatted()}}</span>
+                    <span>€</span>
                 </td>
                 <td  class="investmentAmount">
                     <!--input type="number" [max]="investmentElement.source.maxCapacity" 
@@ -34,10 +35,13 @@
         </tbody>
         <tbody>
             <tr>
-                <th class="sourceType">Totale</th>
+                <th class="sourceType">Total</th>
                 <th class="id"></th>
                 <th class="maxCapacity"></th>
-                <th class="investmentAmount">{{proposal.getTotalInvestmentFormatted()}}</th>
+                <th class="investmentAmount">
+                    {{proposal.getTotalInvestmentFormatted()}}
+                    <span>€</span>
+                </th>
             </tr>
         </tbody>
     </table>
