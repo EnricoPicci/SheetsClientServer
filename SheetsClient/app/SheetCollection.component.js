@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './sheetSummary.component', './sheetBackEnd.service', './sheetSortCriteria', '../utilities/stringNumericConverter'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './sheetSummary.component', './sheetBackEnd.service', './sheetSortCriteria', '../utilities/stringNumericConverter', '../utilities/httpErrorManager.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './sheetSummary.component',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetSummary_component_1, sheetBackEnd_service_1, sheetSortCriteria_1, sheetSortCriteria_2, stringNumericConverter_1;
+    var core_1, router_1, sheetSummary_component_1, sheetBackEnd_service_1, sheetSortCriteria_1, sheetSortCriteria_2, stringNumericConverter_1, httpErrorManager_component_1;
     var SheetCollection;
     return {
         setters:[
@@ -30,9 +30,13 @@ System.register(['angular2/core', 'angular2/router', './sheetSummary.component',
             },
             function (stringNumericConverter_1_1) {
                 stringNumericConverter_1 = stringNumericConverter_1_1;
+            },
+            function (httpErrorManager_component_1_1) {
+                httpErrorManager_component_1 = httpErrorManager_component_1_1;
             }],
         execute: function() {
             SheetCollection = (function () {
+                //public errorMessage: string;
                 function SheetCollection(_router, _routeParams, _sheetBackEnd) {
                     this._router = _router;
                     this._routeParams = _routeParams;
@@ -67,7 +71,7 @@ System.register(['angular2/core', 'angular2/router', './sheetSummary.component',
                             .subscribe(function (sheets) {
                             _this.sheets = sheets;
                             _this.sortSheets(_this.selectedSortCriterium);
-                        }, function (error) { return _this.errorMessage = error; });
+                        }, function (error) { return _this.httpErrorResponse = error; });
                     }
                 };
                 SheetCollection.prototype.selectionCriteriaChanged = function (inSheet) {
@@ -155,7 +159,7 @@ System.register(['angular2/core', 'angular2/router', './sheetSummary.component',
                         providers: [],
                         templateUrl: '../templates/sheetCollection.html',
                         styleUrls: ['../styles/sheetCollection.css'],
-                        directives: [sheetSummary_component_1.SheetSummaryComponent],
+                        directives: [sheetSummary_component_1.SheetSummaryComponent, httpErrorManager_component_1.HttpErrorManagerComponent],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd])
                 ], SheetCollection);

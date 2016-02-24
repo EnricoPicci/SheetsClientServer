@@ -8,17 +8,17 @@ import {SheetBackEnd} from './sheetBackEnd.service';
 import {SheetSortCriteria} from './sheetSortCriteria';
 import {SheetSortCriteriaEnum} from './sheetSortCriteria';
 import {StringNumericConverter} from '../utilities/stringNumericConverter';
+import {HttpErrorManagerComponent} from '../utilities/httpErrorManager.component';
 
 @Component({
     selector: 'sheetCollectionCmp',
 	providers: [],
     templateUrl: '../templates/sheetCollection.html',
 	styleUrls: ['../styles/sheetCollection.css'],
-    directives: [SheetSummaryComponent],
+    directives: [SheetSummaryComponent, HttpErrorManagerComponent],
 	//inputs: ['sheets'],
 })
 export class SheetCollection { 
-	//@Input() 
     public sheets: Sheet[];
     @Input('sheets') set setSheets(inSheets: Sheet[]) {
         this.sheets = inSheets;
@@ -33,12 +33,9 @@ export class SheetCollection {
     public sortAscending = false;
     public metricToShowInSheetSummary;
     public showGrid = true;
-    
-    /*public metricToShowInSheetSummary;
-    public isSelectionOfSheetEnabled = false;
-    public showGrid = true;*/
-    
-    public errorMessage: string;
+
+    public httpErrorResponse: string;
+    //public errorMessage: string;
     
     constructor(
         private _router: Router,
@@ -61,7 +58,7 @@ export class SheetCollection {
                         this.sheets = sheets;
                         this.sortSheets(this.selectedSortCriterium);
                     },
-                error => this.errorMessage = <any>error
+                error => this.httpErrorResponse = <any>error
             );
         } 
     }

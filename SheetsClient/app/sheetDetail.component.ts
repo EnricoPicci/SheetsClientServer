@@ -10,22 +10,26 @@ import {SheetCompositionCharts} from './sheetCompositionCharts.component'
 import {SheetAssetCompositionComponent} from './sheetAssetComposition.component';
 import {SheetInfoComponent} from './sheetInfo.component';
 
+import {HttpErrorManagerComponent} from '../utilities/httpErrorManager.component';
+
 @Component({
     selector: 'sheet-detail',
 	providers: [],
     templateUrl: '../templates/sheetDetail.html',
     styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
-	directives: [ShortLongTextComponent, SheetAssetCompositionComponent, SheetReturnData, SheetCompositionCharts, SheetInfoComponent],
+	directives: [ShortLongTextComponent, SheetAssetCompositionComponent, SheetReturnData, 
+        SheetCompositionCharts, SheetInfoComponent, HttpErrorManagerComponent],
     inputs: ['sheet', 'editMode'],
 })
 export class SheetDetailComponent { 
     public sheet: Sheet;
     // the array is needed to feed the sheetReturnData component
     public sheets: Sheet[] = new Array<Sheet>();
-    //public sheets: Sheet[];
     public shortDescriptionTextLength: number = 250;
-    public errorMessage: string;
-    //public sendProposalMessage: string;
+    
+    public httpErrorResponse: string;
+    //public errorMessage: string;
+
     @Output() sheetRetrieved: EventEmitter<any> = new EventEmitter();
     @Output() prepareProposal: EventEmitter<any> = new EventEmitter();
     
@@ -45,7 +49,7 @@ export class SheetDetailComponent {
                             this.sheets[0] = this.sheet;
                             this.sheetRetrieved.next(this.sheet);
                         },
-                error => this.errorMessage = <any>error
+                error => this.httpErrorResponse = <any>error
             );
     }
     

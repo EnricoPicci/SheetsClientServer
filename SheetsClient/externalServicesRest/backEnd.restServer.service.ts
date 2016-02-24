@@ -64,7 +64,9 @@ export class BackEndRest extends BackEndClientMock {
                         thisAssetGroupJSON.minWeight, thisAssetGroupJSON.maxWeight);
                         sheetFromBackEnd.assetGroups.push(thisAssetGroup);
                     }
-                    this.fillReturnData(sheetFromBackEnd, ReturnPeriod.lastMonth);
+                    sheetFromBackEnd.returnDataLastMonth.data = sheetJSON.returnDataLastMonth;
+                    sheetFromBackEnd.returnDataBenchmarkLastMonth.data = sheetJSON.returnDataBenchmarkLastMonth;
+                    //this.fillReturnData(sheetFromBackEnd, ReturnPeriod.lastMonth);
                     return sheetFromBackEnd;
                 }
             )
@@ -226,14 +228,17 @@ export class BackEndRest extends BackEndClientMock {
             .catch(this.handleError)
     }
     
+    getReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) {
+        let myUrl = this._environment.baseServiceUrl + 'getReturnData/?sheetId=' + inSheet.id +
+                                    '&returnPeriod=' + inPeriod;
+        return this._http.get(myUrl)
+            .map(res => res.json())
+            .catch(this.handleError)
+    }
+    
     private handleError (error: Response) {
-        // TODO: add service to send error to the server
         console.error('http error');
         console.error(error);
-        /*let responseJson = error.json();
-        if (responseJson) {
-            let request = responseJson.target();
-        }*/
         let errorText = error.text();
         if (error.status == 200) {
             errorText = 'The whole server is down. The connection has been refused.';

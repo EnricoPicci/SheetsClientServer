@@ -5,7 +5,7 @@ export class UserLogged {
     constructor() {}
     
     isCustomer() {
-        return this.pbId == null;
+        return this.pbId == null || this.pbId.trim().length == 0;
     }
     
 }

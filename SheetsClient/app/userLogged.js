@@ -9,7 +9,7 @@ System.register([], function(exports_1) {
                     this.customerId = null;
                 }
                 UserLogged.prototype.isCustomer = function () {
-                    return this.pbId == null;
+                    return this.pbId == null || this.pbId.trim().length == 0;
                 };
                 return UserLogged;
             })();

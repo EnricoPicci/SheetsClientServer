@@ -15,7 +15,7 @@ System.register([], function(exports_1) {
                 SheetBackEnd.prototype.getSectorsSearchCriteriaDomain = function () { return null; };
                 SheetBackEnd.prototype.selectSheets = function (publicPersonal, generalTags, valueBasedTags, sectorsTags) { return null; };
                 SheetBackEnd.prototype.searchSheetsByKeyword = function (inSearchString) { return null; };
-                SheetBackEnd.prototype.fillReturnData = function (inSheet, inPeriod) { };
+                SheetBackEnd.prototype.getReturnData = function (inSheet, inPeriod) { return null; };
                 SheetBackEnd.prototype.updateReturnData = function (inSheet, inPeriod) { };
                 SheetBackEnd.prototype.updateValueAtRisk = function (inSheet) { };
                 ;

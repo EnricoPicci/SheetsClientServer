@@ -1,4 +1,11 @@
-System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetInfo.component', './sheetReturnData.component', './sheetCompositionCharts.component', './sheetAssetComposition.component'], function(exports_1) {
+/*export class ReturnData {
+  public data:Array<any> = new Array<any>();
+  
+  public isEmpty() {
+      return this.data.length == 0;
+  }
+}*/
+System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetInfo.component', './sheetReturnData.component', './sheetCompositionCharts.component', './sheetAssetComposition.component', '../utilities/httpErrorManager.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,8 +15,8 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetBackEnd_service_1, sheetInfo_component_1, sheetReturnData_component_1, sheetCompositionCharts_component_1, sheetAssetComposition_component_1;
-    var ReturnData, SheetComparatorComponent;
+    var core_1, router_1, sheetBackEnd_service_1, sheetInfo_component_1, sheetReturnData_component_1, sheetCompositionCharts_component_1, sheetAssetComposition_component_1, httpErrorManager_component_1;
+    var SheetComparatorComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -32,24 +39,16 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
             },
             function (sheetAssetComposition_component_1_1) {
                 sheetAssetComposition_component_1 = sheetAssetComposition_component_1_1;
+            },
+            function (httpErrorManager_component_1_1) {
+                httpErrorManager_component_1 = httpErrorManager_component_1_1;
             }],
         execute: function() {
-            ReturnData = (function () {
-                function ReturnData() {
-                    this.data = new Array();
-                }
-                ReturnData.prototype.isEmpty = function () {
-                    return this.data.length == 0;
-                };
-                return ReturnData;
-            })();
-            exports_1("ReturnData", ReturnData);
             SheetComparatorComponent = (function () {
+                //public errorMessage: string;
                 function SheetComparatorComponent(_routeParams, _sheetBackEnd) {
                     this._routeParams = _routeParams;
                     this._sheetBackEnd = _sheetBackEnd;
-                    //public sheet1: Sheet;
-                    //public sheet2: Sheet;
                     this.sheets = new Array();
                 }
                 SheetComparatorComponent.prototype.ngOnInit = function () {
@@ -57,13 +56,9 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     var id1 = +this._routeParams.get('idSheetToCompare1');
                     var id2 = +this._routeParams.get('idSheetToCompare2');
                     this._sheetBackEnd.getSheetWithDetails(id1)
-                        .subscribe(function (sheet) { return _this.sheets[0] = sheet; }, function (error) { return _this.errorMessage = error; });
+                        .subscribe(function (sheet) { return _this.sheets[0] = sheet; }, function (error) { return _this.httpErrorResponse = error; });
                     this._sheetBackEnd.getSheetWithDetails(id2)
-                        .subscribe(function (sheet) { return _this.sheets[1] = sheet; }, function (error) { return _this.errorMessage = error; });
-                    //this._sheetBackEnd.fillDetails(this.sheets[0]);
-                    //this._sheetBackEnd.fillDetails(this.sheets[1]);
-                    //this.sheets.push(this.sheet1);
-                    //this.sheets.push(this.sheet2);
+                        .subscribe(function (sheet) { return _this.sheets[1] = sheet; }, function (error) { return _this.httpErrorResponse = error; });
                 };
                 SheetComparatorComponent = __decorate([
                     core_1.Component({
@@ -71,7 +66,8 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         providers: [],
                         templateUrl: '../templates/sheetComparator.html',
                         styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
-                        directives: [sheetAssetComposition_component_1.SheetAssetCompositionComponent, sheetReturnData_component_1.SheetReturnData, sheetCompositionCharts_component_1.SheetCompositionCharts, sheetInfo_component_1.SheetInfoComponent],
+                        directives: [sheetAssetComposition_component_1.SheetAssetCompositionComponent, sheetReturnData_component_1.SheetReturnData, sheetCompositionCharts_component_1.SheetCompositionCharts,
+                            sheetInfo_component_1.SheetInfoComponent, httpErrorManager_component_1.HttpErrorManagerComponent],
                         inputs: ['sheet1', 'sheet2'],
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd])

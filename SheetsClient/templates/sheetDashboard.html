@@ -1,6 +1,7 @@
 <div id="header" class="header"></div>
 <div id="content" class="container">
     <div id="pageHeading"></div>
+    <httpErrorManager [httpErrorResponse]="httpErrorResponse"></httpErrorManager>
     <div id="sidebarGroup">
         <div id="publicPersonalSwitcher">
             <div id="publicSheets" class="publicPersonalChoice clickable" 
@@ -20,7 +21,7 @@
             <sheetSearchCmp #search (sheetsRetrieved)="updateSheets(search.searchResult)"></sheetSearchCmp>
             <div id="buttons" class="buttonRoster" [style.display]="_user.isCustomer() ? 'block' : 'none'">
                 <button id="proposalsButton" class="basicButton" type="button" (click)="onProposals()">Proposals</button>
-                <button id="inPortfolioButton" class="basicButton" type="button" (click)="onInPortfolio()">In portfolio</button>
+                <!--button id="inPortfolioButton" class="basicButton" type="button" (click)="onInPortfolio()">In portfolio</button-->
             </div>
         </div>
     </div>

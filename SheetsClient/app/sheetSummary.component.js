@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetSortCriteria', '../utilities/stringNumericConverter'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetSortCriteria', '../utilities/stringNumericConverter', '../utilities/httpErrorManager.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetBackEnd_service_1, sheetSortCriteria_1, stringNumericConverter_1;
+    var core_1, router_1, sheetBackEnd_service_1, sheetSortCriteria_1, stringNumericConverter_1, httpErrorManager_component_1;
     var SheetSummaryComponent;
     return {
         setters:[
@@ -26,9 +26,13 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
             },
             function (stringNumericConverter_1_1) {
                 stringNumericConverter_1 = stringNumericConverter_1_1;
+            },
+            function (httpErrorManager_component_1_1) {
+                httpErrorManager_component_1 = httpErrorManager_component_1_1;
             }],
         execute: function() {
             SheetSummaryComponent = (function () {
+                //public errorMessage: string;
                 function SheetSummaryComponent(_router, _routeParams, _sheetBackEnd) {
                     this._router = _router;
                     this._routeParams = _routeParams;
@@ -45,7 +49,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     // if id is null it means we have been called within the single-page (and we hope we have been passed the full Sheet instance)
                     if (id) {
                         this._sheetBackEnd.getSomeSheets(id, 1)
-                            .subscribe(function (sheets) { return _this.sheet = sheets[0]; }, function (error) { return _this.errorMessage = error; });
+                            .subscribe(function (sheets) { return _this.sheet = sheets[0]; }, function (error) { return _this.httpErrorResponse = error; });
                     }
                 };
                 SheetSummaryComponent.prototype.onChangeSelection = function (inSelected) {
@@ -53,9 +57,6 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     this.sheet.isSelectedForComparison = inSelected;
                     this.selectionCriteriaChanged.next(this.sheet);
                 };
-                /*hasPositiveOneMonthReturn() {
-                    return this.hasPositiveReturn(this.sheet.oneMonthReturn);
-                }*/
                 SheetSummaryComponent.prototype.hasPositiveReturn = function () {
                     var ret = true;
                     if (this.getMetricToShow()) {
@@ -93,7 +94,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         providers: [],
                         templateUrl: '../templates/sheetSummary.html',
                         styleUrls: ['../styles/common.css', '../styles/sheetSummary.css'],
-                        directives: [router_1.ROUTER_DIRECTIVES],
+                        directives: [router_1.ROUTER_DIRECTIVES, httpErrorManager_component_1.HttpErrorManagerComponent],
                         inputs: ['sheet', 'isIconized', 'metricToShowInSheetSummary'],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd])

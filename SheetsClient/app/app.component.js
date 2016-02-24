@@ -55,7 +55,6 @@ System.register(['angular2/core', 'angular2/router', './sheetDashboard.component
                         { path: '/Dashboard/', name: 'SheetDashboard', component: sheetDashboard_component_1.SheetDashboardComponent },
                         { path: '/SheetCollection/', name: 'SheetCollection', component: sheetCollection_component_1.SheetCollection },
                         { path: '/Sheet/:id', name: 'SheetSummary', component: sheetSummary_component_1.SheetSummaryComponent },
-                        //{path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetDetailComponent},
                         { path: '/SheetDetail/:id', name: 'SheetDetail', component: sheetOrProposalDetail_component_1.SheetOrProposalDetailComponent },
                         { path: '/SheetComparator/', name: 'SheetComparator', component: sheetComparator_component_1.SheetComparatorComponent },
                         { path: '/Proposals/', name: 'ProposalCollection', component: proposalCollection_component_1.ProposalCollectionComponent },

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetCollection.component', './sheetSearch.component', './userLogged'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', './sheetCollection.component', './sheetSearch.component', './userLogged', '../utilities/httpErrorManager.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetBackEnd_service_1, sheetCollection_component_1, sheetSearch_component_1, userLogged_1;
+    var core_1, router_1, sheetBackEnd_service_1, sheetCollection_component_1, sheetSearch_component_1, userLogged_1, httpErrorManager_component_1;
     var SheetDashboardComponent;
     return {
         setters:[
@@ -29,12 +29,13 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
             },
             function (userLogged_1_1) {
                 userLogged_1 = userLogged_1_1;
+            },
+            function (httpErrorManager_component_1_1) {
+                httpErrorManager_component_1 = httpErrorManager_component_1_1;
             }],
         execute: function() {
-            //import {SheetSortCriteria} from './sheetSortCriteria';
-            //import {SheetSortCriteriaEnum} from './sheetSortCriteria';
-            //import {StringNumericConverter} from '../utilities/stringNumericConverter';
             SheetDashboardComponent = (function () {
+                //public errorMessage;
                 function SheetDashboardComponent(_router, _routeParams, _sheetBackEnd, _user) {
                     this._router = _router;
                     this._routeParams = _routeParams;
@@ -59,7 +60,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                                 }
                             }
                         }
-                    }, function (error) { return _this.errorMessage = error; });
+                    }, function (error) { return _this.httpErrorResponse = error; });
                 };
                 SheetDashboardComponent.prototype.getSheets = function () {
                     return this.sheets;
@@ -108,11 +109,11 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     this.showPersonalizedSheetsOnly = false;
                     if (this.showPublicSheetsOnly) {
                         this._sheetBackEnd.selectSheets(["Pubblici"], [], [], [])
-                            .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.errorMessage = error; });
+                            .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.httpErrorResponse = error; });
                     }
                     else {
                         this._sheetBackEnd.getAllSheets()
-                            .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.errorMessage = error; });
+                            .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.httpErrorResponse = error; });
                     }
                 };
                 SheetDashboardComponent.prototype.togglePerzonalizedSheetsOnly = function () {
@@ -121,18 +122,14 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     this.showPublicSheetsOnly = false;
                     if (this.showPersonalizedSheetsOnly) {
                         this._sheetBackEnd.selectSheets([null, "Personalizzati"], [], [], [])
-                            .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.errorMessage = error; });
+                            .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.httpErrorResponse = error; });
                     }
                     else {
                         this._sheetBackEnd.getAllSheets()
-                            .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.errorMessage = error; });
+                            .subscribe(function (sheets) { return _this.sheets = sheets; }, function (error) { return _this.httpErrorResponse = error; });
                     }
                 };
                 SheetDashboardComponent.prototype.setFocusOnCompareButton = function () {
-                    /*var element = this.compareButtonElementRef.nativeElement;
-                    setTimeout(function() {
-                         element.focus();
-                        }, 0);*/
                     this.compareButtonElementRef.nativeElement.focus();
                 };
                 __decorate([
@@ -145,7 +142,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         providers: [],
                         templateUrl: '../templates/sheetDashboard.html',
                         styleUrls: ['../styles/common.css', '../styles/app.css'],
-                        directives: [sheetCollection_component_1.SheetCollection, sheetSearch_component_1.SheetSearchCmp],
+                        directives: [sheetCollection_component_1.SheetCollection, sheetSearch_component_1.SheetSearchCmp, httpErrorManager_component_1.HttpErrorManagerComponent],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd, userLogged_1.UserLogged])
                 ], SheetDashboardComponent);

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sheet', './sheetJSON', '../app/assetGroup', '../app/asset', '../app/returnPeriod', '../app/proposal', './proposalJSON', '../app/proposalInvestment', '../app/proposalInvestmentSource', '../externalServicesClientMock/backEnd.clientMock.service', '../environmentSettings/environment.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sheet', './sheetJSON', '../app/assetGroup', '../app/asset', '../app/proposal', './proposalJSON', '../app/proposalInvestment', '../app/proposalInvestmentSource', '../externalServicesClientMock/backEnd.clientMock.service', '../environmentSettings/environment.service'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -13,7 +13,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, Observable_1, sheet_1, sheetJSON_1, assetGroup_1, asset_1, returnPeriod_1, proposal_1, proposalJSON_1, proposalInvestment_1, proposalInvestmentSource_1, backEnd_clientMock_service_1, environment_service_1;
+    var core_1, http_1, Observable_1, sheet_1, sheetJSON_1, assetGroup_1, asset_1, proposal_1, proposalJSON_1, proposalInvestment_1, proposalInvestmentSource_1, backEnd_clientMock_service_1, environment_service_1;
     var BackEndRest;
     return {
         setters:[
@@ -37,9 +37,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
             },
             function (asset_1_1) {
                 asset_1 = asset_1_1;
-            },
-            function (returnPeriod_1_1) {
-                returnPeriod_1 = returnPeriod_1_1;
             },
             function (proposal_1_1) {
                 proposal_1 = proposal_1_1;
@@ -103,7 +100,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                             var thisAssetGroup = new assetGroup_1.AssetGroup(thisAssetGroupJSON.name, thisAssetGroupJSON.weight, thisAssetGroupJSON.oneMonthRet, thisAssetGroupJSON.oneYearRet, thisArrayOfAssets, thisAssetGroupJSON.minWeight, thisAssetGroupJSON.maxWeight);
                             sheetFromBackEnd.assetGroups.push(thisAssetGroup);
                         }
-                        _this.fillReturnData(sheetFromBackEnd, returnPeriod_1.ReturnPeriod.lastMonth);
+                        sheetFromBackEnd.returnDataLastMonth.data = sheetJSON.returnDataLastMonth;
+                        sheetFromBackEnd.returnDataBenchmarkLastMonth.data = sheetJSON.returnDataBenchmarkLastMonth;
+                        //this.fillReturnData(sheetFromBackEnd, ReturnPeriod.lastMonth);
                         return sheetFromBackEnd;
                     })
                         .catch(this.handleError);
@@ -246,14 +245,16 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     })
                         .catch(this.handleError);
                 };
+                BackEndRest.prototype.getReturnData = function (inSheet, inPeriod) {
+                    var myUrl = this._environment.baseServiceUrl + 'getReturnData/?sheetId=' + inSheet.id +
+                        '&returnPeriod=' + inPeriod;
+                    return this._http.get(myUrl)
+                        .map(function (res) { return res.json(); })
+                        .catch(this.handleError);
+                };
                 BackEndRest.prototype.handleError = function (error) {
-                    // TODO: add service to send error to the server
                     console.error('http error');
                     console.error(error);
-                    /*let responseJson = error.json();
-                    if (responseJson) {
-                        let request = responseJson.target();
-                    }*/
                     var errorText = error.text();
                     if (error.status == 200) {
                         errorText = 'The whole server is down. The connection has been refused.';

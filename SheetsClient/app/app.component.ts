@@ -24,7 +24,6 @@ import {ProposalCollectionComponent} from './proposalCollection.component';
     {path: '/Dashboard/', name: 'SheetDashboard', component: SheetDashboardComponent},
     {path: '/SheetCollection/', name: 'SheetCollection', component: SheetCollection},
     {path: '/Sheet/:id', name: 'SheetSummary', component: SheetSummaryComponent},
-    //{path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetDetailComponent},
     {path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetOrProposalDetailComponent},
     {path: '/SheetComparator/', name: 'SheetComparator', component: SheetComparatorComponent},
     {path: '/Proposals/', name: 'ProposalCollection', component: ProposalCollectionComponent},

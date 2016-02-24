@@ -8,19 +8,22 @@ import {SheetBackEnd} from './sheetBackEnd.service';
 import {SheetSummaryComponent} from './sheetSummary.component';
 import {ProposalComponent} from './proposal.component';
 
+import {HttpErrorManagerComponent} from '../utilities/httpErrorManager.component';
+
 @Component({
     selector: 'proposalCollectionCmp',
 	providers: [],
     templateUrl: '../templates/proposalCollection.html',
 	styleUrls: ['../styles/common.css', '../styles/proposalCollection.css'],
-    directives: [SheetSummaryComponent, ProposalComponent],
+    directives: [SheetSummaryComponent, ProposalComponent, HttpErrorManagerComponent],
 	inputs: ['sheet'],
 })
 export class ProposalCollectionComponent { 
     public proposals: Proposal[];
     public currentProposal: Proposal;
     
-    public errorMessage: string;
+    public httpErrorResponse: string;
+    //public errorMessage: string;
     
     constructor(
         private _router: Router,
@@ -33,7 +36,7 @@ export class ProposalCollectionComponent {
         this._backEnd.getProposalsForCustomer(customerId)
             .subscribe(
                 proposals => this.proposals = proposals,
-                error => this.errorMessage = <any>error
+                error => this.httpErrorResponse = <any>error
             );
     }
     

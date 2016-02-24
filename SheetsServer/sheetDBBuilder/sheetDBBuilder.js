@@ -84,7 +84,9 @@ var SheetDBBuilder = (function () {
             originalSheetID: String,
             shortNote: String,
             personalizationComment: String,
-            assetGroupJSONs: [assetGroupSchema]
+            assetGroupJSONs: [assetGroupSchema],
+            returnDataLastMonth: [],
+            returnDataBenchmarkLastMonth: []
         };
     };
     SheetDBBuilder.prototype.getProposalSchema = function () {

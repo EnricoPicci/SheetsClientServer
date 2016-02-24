@@ -6,16 +6,15 @@ import {Sheet} from './sheet';
 import {SheetCollection} from './sheetCollection.component';
 import {SheetSearchCmp} from './sheetSearch.component';
 import {UserLogged} from './userLogged';
-//import {SheetSortCriteria} from './sheetSortCriteria';
-//import {SheetSortCriteriaEnum} from './sheetSortCriteria';
-//import {StringNumericConverter} from '../utilities/stringNumericConverter';
+
+import {HttpErrorManagerComponent} from '../utilities/httpErrorManager.component';
 
 @Component({
     selector: 'sheet-dashboard',
 	providers: [],
     templateUrl: '../templates/sheetDashboard.html',
     styleUrls: ['../styles/common.css', '../styles/app.css'],
-	directives: [SheetCollection, SheetSearchCmp],
+	directives: [SheetCollection, SheetSearchCmp, HttpErrorManagerComponent],
 })
 
 export class SheetDashboardComponent { 
@@ -30,13 +29,8 @@ export class SheetDashboardComponent {
     public showPublicSheetsOnly = false;
     public showPersonalizedSheetsOnly = false;
     
-    /*public sortCriteria = SheetSortCriteria.criteria;
-    public selectedSortCriterium = SheetSortCriteriaEnum.OneMonthReturn;
-    public sortAscending = false;
-    public metricToShowInSheetSummary;
-    public showGrid = true;*/
-    
-    public errorMessage;
+    public httpErrorResponse: string;
+    //public errorMessage;
     
     constructor(
         private _router: Router,
@@ -61,7 +55,7 @@ export class SheetDashboardComponent {
                         }
                     }                    
                 },
-                error => this.errorMessage = <any>error
+                error => this.httpErrorResponse = <any>error
             );
     }
     
@@ -118,13 +112,13 @@ export class SheetDashboardComponent {
             this._sheetBackEnd.selectSheets(["Pubblici"], [], [], [])
                 .subscribe(
                     sheets => this.sheets = sheets,
-                    error => this.errorMessage = <any>error
+                    error => this.httpErrorResponse = <any>error
                 );            
         } else {
            this._sheetBackEnd.getAllSheets()
                 .subscribe(
                     sheets => this.sheets = sheets,
-                    error => this.errorMessage = <any>error
+                    error => this.httpErrorResponse = <any>error
                 ); 
         }
     }
@@ -136,22 +130,18 @@ export class SheetDashboardComponent {
             this._sheetBackEnd.selectSheets([null, "Personalizzati"], [], [], [])
                 .subscribe(
                     sheets => this.sheets = sheets,
-                    error => this.errorMessage = <any>error
+                    error => this.httpErrorResponse = <any>error
                 );            
         } else {
            this._sheetBackEnd.getAllSheets()
                 .subscribe(
                     sheets => this.sheets = sheets,
-                    error => this.errorMessage = <any>error
+                    error => this.httpErrorResponse = <any>error
                 ); 
         }        
     }
         
     setFocusOnCompareButton() {
-        /*var element = this.compareButtonElementRef.nativeElement;
-        setTimeout(function() {
-             element.focus();
-            }, 0);*/
         this.compareButtonElementRef.nativeElement.focus();
     }
 

@@ -19,7 +19,7 @@ export abstract class SheetBackEnd {
 	selectSheets(publicPersonal: string[], generalTags: string[], valueBasedTags: string[], sectorsTags: string[]) : any {return null}
     searchSheetsByKeyword(inSearchString: string) : any {return null}
     
-    fillReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) {}
+    getReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) : any {return null}
     updateReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) {}
     
     updateValueAtRisk(inSheet: Sheet) {};

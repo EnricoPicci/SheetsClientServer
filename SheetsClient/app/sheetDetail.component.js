@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '../utilities/shortLongText.component', './sheetReturnData.component', './sheetCompositionCharts.component', './sheetAssetComposition.component', './sheetInfo.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '../utilities/shortLongText.component', './sheetReturnData.component', './sheetCompositionCharts.component', './sheetAssetComposition.component', './sheetInfo.component', '../utilities/httpErrorManager.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, sheetBackEnd_service_1, shortLongText_component_1, sheetReturnData_component_1, sheetCompositionCharts_component_1, sheetAssetComposition_component_1, sheetInfo_component_1;
+    var core_1, router_1, sheetBackEnd_service_1, shortLongText_component_1, sheetReturnData_component_1, sheetCompositionCharts_component_1, sheetAssetComposition_component_1, sheetInfo_component_1, httpErrorManager_component_1;
     var SheetDetailComponent;
     return {
         setters:[
@@ -35,6 +35,9 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
             },
             function (sheetInfo_component_1_1) {
                 sheetInfo_component_1 = sheetInfo_component_1_1;
+            },
+            function (httpErrorManager_component_1_1) {
+                httpErrorManager_component_1 = httpErrorManager_component_1_1;
             }],
         execute: function() {
             SheetDetailComponent = (function () {
@@ -44,9 +47,8 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                     this._backEnd = _backEnd;
                     // the array is needed to feed the sheetReturnData component
                     this.sheets = new Array();
-                    //public sheets: Sheet[];
                     this.shortDescriptionTextLength = 250;
-                    //public sendProposalMessage: string;
+                    //public errorMessage: string;
                     this.sheetRetrieved = new core_1.EventEmitter();
                     this.prepareProposal = new core_1.EventEmitter();
                     this.editMode = true;
@@ -59,7 +61,7 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         _this.sheet = sheet;
                         _this.sheets[0] = _this.sheet;
                         _this.sheetRetrieved.next(_this.sheet);
-                    }, function (error) { return _this.errorMessage = error; });
+                    }, function (error) { return _this.httpErrorResponse = error; });
                 };
                 SheetDetailComponent.prototype.setSheet = function (inSheet) {
                     this.sheet = inSheet;
@@ -100,7 +102,8 @@ System.register(['angular2/core', 'angular2/router', './sheetBackEnd.service', '
                         providers: [],
                         templateUrl: '../templates/sheetDetail.html',
                         styleUrls: ['../styles/common.css', '../styles/sheetDetail.css'],
-                        directives: [shortLongText_component_1.ShortLongTextComponent, sheetAssetComposition_component_1.SheetAssetCompositionComponent, sheetReturnData_component_1.SheetReturnData, sheetCompositionCharts_component_1.SheetCompositionCharts, sheetInfo_component_1.SheetInfoComponent],
+                        directives: [shortLongText_component_1.ShortLongTextComponent, sheetAssetComposition_component_1.SheetAssetCompositionComponent, sheetReturnData_component_1.SheetReturnData,
+                            sheetCompositionCharts_component_1.SheetCompositionCharts, sheetInfo_component_1.SheetInfoComponent, httpErrorManager_component_1.HttpErrorManagerComponent],
                         inputs: ['sheet', 'editMode'],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, sheetBackEnd_service_1.SheetBackEnd])

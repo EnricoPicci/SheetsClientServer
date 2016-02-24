@@ -1,17 +1,23 @@
 ///<reference path="../typings/mongodb/mongodb.d.ts" />
 ///<reference path="../typings/mongoose/mongoose.d.ts" />
 var sheetConnectionManager_1 = require('../sheetConnectionManager/sheetConnectionManager');
+var mockData_1 = require('./mockData');
+var returnPeriod_1 = require('./returnPeriod');
 var SheetRestService = (function () {
     function SheetRestService() {
     }
     SheetRestService.getSheetById = function (inId, inHttpRes) {
         sheetConnectionManager_1.SheetConnectionManager.connectAndOpen();
-        sheetConnectionManager_1.SheetConnectionManager.getSheetModel().find({ 'id': +inId }, function (err, sheetModel) {
+        sheetConnectionManager_1.SheetConnectionManager.getSheetModel().find({ 'id': +inId }, function (err, sheetModels) {
             if (err) {
                 return console.error(err);
             }
             else {
-                inHttpRes.json(sheetModel);
+                for (var i = 0; i < sheetModels.length; i++) {
+                    SheetRestService.fillReturnDataLastMonth(sheetModels[i]);
+                }
+                inHttpRes.json(sheetModels);
+                var hhh = inHttpRes;
             }
         });
     };
@@ -262,8 +268,138 @@ var SheetRestService = (function () {
             info.push({ type: "portfolio", id: "xyz-12", maxCapacity: 200000 });
         }
         inHttpRes.json(info);
-        ;
     };
+    SheetRestService.getReturnData = function (inSheetId, inReturnPeriod, inHttpRes) {
+        var returnData = new Array();
+        var sheetId = +inSheetId;
+        var period = +inReturnPeriod;
+        switch (period) {
+            case returnPeriod_1.ReturnPeriod.lastMonth:
+                this.fillReturnDataArrayLastMonth(sheetId, returnData);
+                break;
+            case returnPeriod_1.ReturnPeriod.lastYear:
+                this.fillReturnDataArrayLastYear(sheetId, returnData);
+                break;
+            case returnPeriod_1.ReturnPeriod.all:
+                this.fillReturnDataArrayLastAll(sheetId, returnData);
+                break;
+            default:
+                console.error('Return period for Sheets not supported -- Return period input: ' + period);
+        }
+        inHttpRes.json(returnData);
+    };
+    SheetRestService.fillReturnDataArrayLastMonth = function (id, inRetunrData) {
+        if (id == 1 || id == 4 || id == 7 || id == 10 || id == 13 || id == 16) {
+            inRetunrData[0] = this.mockData.getReturnDataLastMonth1();
+            inRetunrData[1] = this.mockData.getReturnDataLastMonth2(); // take the second series as benchmark
+        }
+        else if (id == 2 || id == 5 || id == 8 || id == 11 || id == 14) {
+            inRetunrData[0] = this.mockData.getReturnDataLastMonth2();
+            inRetunrData[1] = this.mockData.getReturnDataLastMonth3(); // take the third series as benchmark
+        }
+        else {
+            inRetunrData[0] = this.mockData.getReturnDataLastMonth3();
+            inRetunrData[1] = this.mockData.getReturnDataLastMonth1(); // take the first series as benchmark            
+        }
+    };
+    SheetRestService.fillReturnDataArrayLastYear = function (id, inRetunrData) {
+        if (id == 1 || id == 4 || id == 7 || id == 10 || id == 13 || id == 16) {
+            inRetunrData[0] = this.mockData.getReturnDataLastYear1();
+            inRetunrData[1] = this.mockData.getReturnDataLastYear2(); // take the second series as benchmark
+        }
+        else if (id == 2 || id == 5 || id == 8 || id == 11 || id == 14) {
+            inRetunrData[0] = this.mockData.getReturnDataLastYear2();
+            inRetunrData[1] = this.mockData.getReturnDataLastYear3(); // take the third series as benchmark
+        }
+        else {
+            inRetunrData[0] = this.mockData.getReturnDataLastYear3();
+            inRetunrData[1] = this.mockData.getReturnDataLastYear1(); // take the first series as benchmark      
+        }
+    };
+    SheetRestService.fillReturnDataArrayLastAll = function (id, inRetunrData) {
+        if (id == 1 || id == 4 || id == 7 || id == 10 || id == 13 || id == 16) {
+            inRetunrData[0] = this.mockData.getReturnDataAll1();
+            inRetunrData[1] = this.mockData.getReturnDataAll2(); // take the second series as benchmark
+        }
+        else if (id == 2 || id == 5 || id == 8 || id == 11 || id == 14) {
+            inRetunrData[0] = this.mockData.getReturnDataAll2();
+            inRetunrData[1] = this.mockData.getReturnDataAll3(); // take the third series as benchmark
+        }
+        else {
+            inRetunrData[0] = this.mockData.getReturnDataAll3();
+            inRetunrData[1] = this.mockData.getReturnDataAll1(); // take the first series as benchmark
+        }
+    };
+    SheetRestService.fillReturnData = function (inSheetModel, inPeriod) {
+        switch (inPeriod) {
+            case returnPeriod_1.ReturnPeriod.lastMonth:
+                this.fillReturnDataLastMonth(inSheetModel);
+                break;
+            case returnPeriod_1.ReturnPeriod.lastYear:
+                this.fillReturnDataLastYear(inSheetModel);
+                break;
+            case returnPeriod_1.ReturnPeriod.all:
+                this.fillReturnDataLastAll(inSheetModel);
+                break;
+            default:
+                console.error('Return period for Sheets not supported -- Return period input: ' + inPeriod);
+        }
+    };
+    SheetRestService.fillReturnDataLastMonth = function (inSheetModel) {
+        var id = inSheetModel.id;
+        if (id == 1 || id == 4 || id == 7 || id == 10 || id == 13 || id == 16) {
+            //inSheetModel.benchmark = 'S&P 1312';
+            inSheetModel.returnDataLastMonth = this.mockData.getReturnDataLastMonth1();
+            inSheetModel.returnDataBenchmarkLastMonth = this.mockData.getReturnDataLastMonth2(); // take the second series as benchmark
+        }
+        else if (id == 2 || id == 5 || id == 8 || id == 11 || id == 14) {
+            //inSheetModel.benchmark = 'Best Dream Index';
+            inSheetModel.returnDataLastMonth = this.mockData.getReturnDataLastMonth2();
+            inSheetModel.returnDataBenchmarkLastMonth = this.mockData.getReturnDataLastMonth3(); // take the third series as benchmark
+        }
+        else {
+            //inSheetModel.benchmark = 'Worst Nitghmare Index';
+            inSheetModel.returnDataLastMonth = this.mockData.getReturnDataLastMonth3();
+            inSheetModel.returnDataBenchmarkLastMonth = this.mockData.getReturnDataLastMonth1(); // take the first series as benchmark            
+        }
+    };
+    SheetRestService.fillReturnDataLastYear = function (inSheetModel) {
+        var id = inSheetModel.id;
+        if (id == 1 || id == 4 || id == 7 || id == 10 || id == 13 || id == 16) {
+            inSheetModel.benchmark = 'S&P 1312';
+            inSheetModel.returnDataLastYear = this.mockData.getReturnDataLastYear1();
+            inSheetModel.returnDataBenchmarkLastYear = this.mockData.getReturnDataLastYear2(); // take the second series as benchmark
+        }
+        else if (id == 2 || id == 5 || id == 8 || id == 11 || id == 14) {
+            inSheetModel.benchmark = 'Best Dream Index';
+            inSheetModel.returnDataLastYear = this.mockData.getReturnDataLastYear2();
+            inSheetModel.returnDataBenchmarkLastYear = this.mockData.getReturnDataLastYear3(); // take the third series as benchmark
+        }
+        else {
+            inSheetModel.benchmark = 'Worst Nitghmare Index';
+            inSheetModel.returnDataLastYear = this.mockData.getReturnDataLastYear3();
+            inSheetModel.returnDataBenchmarkLastYear = this.mockData.getReturnDataLastYear1(); // take the first series as benchmark      
+        }
+    };
+    SheetRestService.fillReturnDataLastAll = function (inSheetModel) {
+        var id = inSheetModel.id;
+        if (id == 1 || id == 4 || id == 7 || id == 10 || id == 13 || id == 16) {
+            inSheetModel.benchmark = 'S&P 1312';
+            inSheetModel.returnDataAll = this.mockData.getReturnDataAll1();
+            inSheetModel.returnDataBenchmarkAll = this.mockData.getReturnDataAll2(); // take the second series as benchmark
+        }
+        else if (id == 2 || id == 5 || id == 8 || id == 11 || id == 14) {
+            inSheetModel.benchmark = 'Best Dream Index';
+            inSheetModel.returnDataAll = this.mockData.getReturnDataAll2();
+            inSheetModel.returnDataBenchmarkAll = this.mockData.getReturnDataAll3(); // take the third series as benchmark
+        }
+        else {
+            inSheetModel.benchmark = 'Worst Nitghmare Index';
+            inSheetModel.returnDataAll = this.mockData.getReturnDataAll3();
+            inSheetModel.returnDataBenchmarkAll = this.mockData.getReturnDataAll1(); // take the first series as benchmark
+        }
+    };
+    SheetRestService.mockData = new mockData_1.MockData();
     return SheetRestService;
 })();
 exports.SheetRestService = SheetRestService;

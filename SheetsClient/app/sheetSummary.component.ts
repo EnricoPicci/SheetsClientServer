@@ -8,13 +8,14 @@ import {SheetDetailComponent} from './sheetDetail.component';
 import {SheetSortCriteriaEnum} from './sheetSortCriteria';
 
 import {StringNumericConverter} from '../utilities/stringNumericConverter';
+import {HttpErrorManagerComponent} from '../utilities/httpErrorManager.component';
 
 @Component({
     selector: 'sheet-summary',
 	providers: [],
     templateUrl: '../templates/sheetSummary.html',
     styleUrls: ['../styles/common.css', '../styles/sheetSummary.css'],
-	directives: [ROUTER_DIRECTIVES],
+	directives: [ROUTER_DIRECTIVES, HttpErrorManagerComponent],
     inputs: ['sheet', 'isIconized', 'metricToShowInSheetSummary'],
 })
 export class SheetSummaryComponent implements OnInit { 
@@ -24,7 +25,8 @@ export class SheetSummaryComponent implements OnInit {
     public isIconized = false;
     public metricToShowInSheetSummary = SheetSortCriteriaEnum.OneMonthReturn;
     
-    public errorMessage: string;
+    public httpErrorResponse: string;
+    //public errorMessage: string;
     
     constructor(
         private _router: Router,
@@ -41,7 +43,7 @@ export class SheetSummaryComponent implements OnInit {
             this._sheetBackEnd.getSomeSheets(id, 1)
             .subscribe(
                 sheets => this.sheet = sheets[0],
-                error => this.errorMessage = <any>error
+                error => this.httpErrorResponse = <any>error
             );
         }
     }
@@ -51,11 +53,7 @@ export class SheetSummaryComponent implements OnInit {
         this.sheet.isSelectedForComparison = inSelected;
         this.selectionCriteriaChanged.next(this.sheet);
     }
-    
-    /*hasPositiveOneMonthReturn() {
-        return this.hasPositiveReturn(this.sheet.oneMonthReturn);
-    }*/
-    
+     
     hasPositiveReturn() {
         let ret = true;
         if(this.getMetricToShow()) {

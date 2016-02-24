@@ -1,4 +1,4 @@
-System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '../ng2Highcharts/src/directives/ng2-highcharts', '../ng2Highcharts/src/directives/ng2-highstocks'], function(exports_1) {
+System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '../ng2Highcharts/src/directives/ng2-highcharts', '../ng2Highcharts/src/directives/ng2-highstocks', '../utilities/httpErrorManager.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, sheetBackEnd_service_1, returnPeriod_1, ng2_highcharts_1, ng2_highstocks_1;
+    var core_1, sheetBackEnd_service_1, returnPeriod_1, ng2_highcharts_1, ng2_highstocks_1, httpErrorManager_component_1;
     var SheetReturnData;
     return {
         setters:[
@@ -26,6 +26,9 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
             },
             function (ng2_highstocks_1_1) {
                 ng2_highstocks_1 = ng2_highstocks_1_1;
+            },
+            function (httpErrorManager_component_1_1) {
+                httpErrorManager_component_1 = httpErrorManager_component_1_1;
             }],
         execute: function() {
             SheetReturnData = (function () {
@@ -53,31 +56,64 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
                     }
                 };
                 SheetReturnData.prototype.setLastMonthSeries = function () {
+                    var _this = this;
                     var series = new Array();
+                    var counter = 0;
                     for (var i = 0; i < this.sheets.length; i++) {
                         var oneSheet = this.sheets[i];
                         if (oneSheet.returnDataLastMonth.isEmpty()) {
-                            this._sheetBackEnd.fillReturnData(oneSheet, returnPeriod_1.ReturnPeriod.lastMonth);
+                            this._sheetBackEnd.getReturnData(oneSheet, returnPeriod_1.ReturnPeriod.lastMonth)
+                                .subscribe(function (returnData) {
+                                oneSheet.returnDataLastMonth.data = returnData[0];
+                                oneSheet.returnDataBenchmarkLastMonth.data = returnData[1];
+                                counter = counter + 1;
+                                _this.pushChartDataLastMonth(series, oneSheet, counter);
+                                /*series.push({
+                                    name: oneSheet.title,
+                                    data: oneSheet.returnDataLastMonth.data
+                                });
+                                series.push({
+                                    name: oneSheet.benchmark,
+                                    data: oneSheet.returnDataBenchmarkLastMonth.data
+                                });
+                                counter = counter + 1;
+                                // the last thread to be executed sets the series for the chart
+                                if (counter == this.sheets.length) {
+                                    this.currentPeriod = ReturnPeriod.lastMonth;
+                                    this.periodText = 'Last month';
+                                    this.setSeriesInChartOptions(series);
+                                }*/
+                            }, function (error) { return _this.httpErrorResponse = error; });
                         }
-                        series.push({
-                            name: oneSheet.title,
-                            data: oneSheet.returnDataLastMonth.data
-                        });
-                        series.push({
-                            name: oneSheet.benchmark,
-                            data: oneSheet.returnDataBenchmarkLastMonth.data
-                        });
+                        else {
+                            counter = counter + 1;
+                            this.pushChartDataLastMonth(series, oneSheet, counter);
+                        }
                     }
-                    this.currentPeriod = returnPeriod_1.ReturnPeriod.lastMonth;
-                    this.periodText = 'Last month';
-                    this.setSeriesInChartOptions(series);
+                };
+                SheetReturnData.prototype.pushChartDataLastMonth = function (inSeries, inSheet, inCounter) {
+                    inSeries.push({
+                        name: inSheet.title,
+                        data: inSheet.returnDataLastMonth.data
+                    });
+                    inSeries.push({
+                        name: inSheet.benchmark,
+                        data: inSheet.returnDataBenchmarkLastMonth.data
+                    });
+                    // the last thread to be executed sets the series for the chart
+                    if (inCounter == this.sheets.length) {
+                        this.currentPeriod = returnPeriod_1.ReturnPeriod.lastMonth;
+                        this.periodText = 'Last month';
+                        this.setSeriesInChartOptions(inSeries);
+                    }
                 };
                 SheetReturnData.prototype.setLastYearSeries = function () {
-                    var series = new Array();
+                    var _this = this;
+                    /*let series = new Array<any>();
                     for (var i = 0; i < this.sheets.length; i++) {
-                        var oneSheet = this.sheets[i];
+                        let oneSheet = this.sheets[i];
                         if (oneSheet.returnDataLastYear.isEmpty()) {
-                            this._sheetBackEnd.fillReturnData(oneSheet, returnPeriod_1.ReturnPeriod.lastYear);
+                            this._sheetBackEnd.getReturnData(oneSheet, ReturnPeriod.lastYear);
                         }
                         series.push({
                             name: oneSheet.title,
@@ -88,16 +124,66 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
                             data: oneSheet.returnDataBenchmarkLastYear.data
                         });
                     }
-                    this.currentPeriod = returnPeriod_1.ReturnPeriod.lastYear;
+                    this.currentPeriod = ReturnPeriod.lastYear;
                     this.periodText = 'Last year';
-                    this.setSeriesInChartOptions(series);
-                };
-                SheetReturnData.prototype.setAllSeries = function () {
+                    this.setSeriesInChartOptions(series);*/
                     var series = new Array();
+                    var counter = 0;
                     for (var i = 0; i < this.sheets.length; i++) {
                         var oneSheet = this.sheets[i];
+                        if (oneSheet.returnDataLastYear.isEmpty()) {
+                            this._sheetBackEnd.getReturnData(oneSheet, returnPeriod_1.ReturnPeriod.lastYear)
+                                .subscribe(function (returnData) {
+                                oneSheet.returnDataLastYear.data = returnData[0];
+                                oneSheet.returnDataBenchmarkLastYear.data = returnData[1];
+                                counter = counter + 1;
+                                _this.pushChartDataLastYear(series, oneSheet, counter);
+                                /*series.push({
+                                    name: oneSheet.title,
+                                    data: oneSheet.returnDataLastYear.data
+                                });
+                                series.push({
+                                    name: oneSheet.benchmark,
+                                    data: oneSheet.returnDataBenchmarkLastYear.data
+                                });
+                                counter = counter + 1;
+                                // the last thread to be executed sets the series for the chart
+                                if (counter == this.sheets.length) {
+                                    this.currentPeriod = ReturnPeriod.lastYear;
+                                    this.periodText = 'Last year';
+                                    this.setSeriesInChartOptions(series);
+                                }*/
+                            }, function (error) { return _this.httpErrorResponse = error; });
+                        }
+                        else {
+                            counter = counter + 1;
+                            this.pushChartDataLastYear(series, oneSheet, counter);
+                        }
+                    }
+                };
+                SheetReturnData.prototype.pushChartDataLastYear = function (inSeries, inSheet, inCounter) {
+                    inSeries.push({
+                        name: inSheet.title,
+                        data: inSheet.returnDataLastYear.data
+                    });
+                    inSeries.push({
+                        name: inSheet.benchmark,
+                        data: inSheet.returnDataBenchmarkLastYear.data
+                    });
+                    // the last thread to be executed sets the series for the chart
+                    if (inCounter == this.sheets.length) {
+                        this.currentPeriod = returnPeriod_1.ReturnPeriod.lastYear;
+                        this.periodText = 'Last year';
+                        this.setSeriesInChartOptions(inSeries);
+                    }
+                };
+                SheetReturnData.prototype.setAllSeries = function () {
+                    var _this = this;
+                    /*let series = new Array<any>();
+                    for (var i = 0; i < this.sheets.length; i++) {
+                        let oneSheet = this.sheets[i];
                         if (oneSheet.returnDataAll.isEmpty()) {
-                            this._sheetBackEnd.fillReturnData(oneSheet, returnPeriod_1.ReturnPeriod.all);
+                            this._sheetBackEnd.getReturnData(oneSheet, ReturnPeriod.all);
                         }
                         series.push({
                             name: oneSheet.title,
@@ -108,9 +194,58 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
                             data: oneSheet.returnDataBenchmarkAll.data
                         });
                     }
-                    this.currentPeriod = returnPeriod_1.ReturnPeriod.all;
+                    this.currentPeriod = ReturnPeriod.all;
                     this.periodText = 'Da inizio';
-                    this.setSeriesInChartOptions(series);
+                    this.setSeriesInChartOptions(series);*/
+                    var series = new Array();
+                    var counter = 0;
+                    for (var i = 0; i < this.sheets.length; i++) {
+                        var oneSheet = this.sheets[i];
+                        if (oneSheet.returnDataAll.isEmpty()) {
+                            this._sheetBackEnd.getReturnData(oneSheet, returnPeriod_1.ReturnPeriod.all)
+                                .subscribe(function (returnData) {
+                                oneSheet.returnDataAll.data = returnData[0];
+                                oneSheet.returnDataBenchmarkAll.data = returnData[1];
+                                counter = counter + 1;
+                                _this.pushChartDataAll(series, oneSheet, counter);
+                                /*series.push({
+                                    name: oneSheet.title,
+                                    data: oneSheet.returnDataAll.data
+                                });
+                                series.push({
+                                    name: oneSheet.benchmark,
+                                    data: oneSheet.returnDataBenchmarkAll.data
+                                });
+                                counter = counter + 1;
+                                // the last thread to be executed sets the series for the chart
+                                if (counter == this.sheets.length) {
+                                    this.currentPeriod = ReturnPeriod.all;
+                                    this.periodText = 'Ab origine';
+                                    this.setSeriesInChartOptions(series);
+                                }*/
+                            }, function (error) { return _this.httpErrorResponse = error; });
+                        }
+                        else {
+                            counter = counter + 1;
+                            this.pushChartDataAll(series, oneSheet, counter);
+                        }
+                    }
+                };
+                SheetReturnData.prototype.pushChartDataAll = function (inSeries, inSheet, inCounter) {
+                    inSeries.push({
+                        name: inSheet.title,
+                        data: inSheet.returnDataAll.data
+                    });
+                    inSeries.push({
+                        name: inSheet.benchmark,
+                        data: inSheet.returnDataBenchmarkAll.data
+                    });
+                    // the last thread to be executed sets the series for the chart
+                    if (inCounter == this.sheets.length) {
+                        this.currentPeriod = returnPeriod_1.ReturnPeriod.all;
+                        this.periodText = 'Ab origine';
+                        this.setSeriesInChartOptions(inSeries);
+                    }
                 };
                 SheetReturnData.prototype.createNewchartOptions = function () {
                     return {
@@ -192,7 +327,7 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
                         providers: [],
                         templateUrl: '../templates/sheetReturnData.html',
                         styleUrls: ['../styles/common.css', '../styles/sheetReturnData.css'],
-                        directives: [ng2_highstocks_1.Ng2Highstocks, ng2_highcharts_1.Ng2Highcharts],
+                        directives: [ng2_highstocks_1.Ng2Highstocks, ng2_highcharts_1.Ng2Highcharts, httpErrorManager_component_1.HttpErrorManagerComponent],
                     }), 
                     __metadata('design:paramtypes', [sheetBackEnd_service_1.SheetBackEnd])
                 ], SheetReturnData);

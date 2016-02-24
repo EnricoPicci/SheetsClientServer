@@ -19,7 +19,7 @@ router.use(function (req, res, next) {
 });
 
 /*
- * GET one sheet or the entire list of sheets
+ * GET one sheet
  */
 router.get('/sheet', function (req, res) {
     var idOfSheetToGet = req.query.id;
@@ -75,6 +75,15 @@ router.get('/searchSheetsByKeyword', function (req, res) {
 });
 
 /*
+ * GET return data for one sheet for a certain period
+ */
+router.get('/getReturnData', function (req, res) {
+    var sheetId = req.query.sheetId;
+    var returnPeriod = req.query.returnPeriod;
+    SheetRestService.getReturnData(sheetId, returnPeriod, res);
+});
+
+/*
  * GET information about the capacity of accounts and portfolio of a customer
  */
 router.get('/getAccountAndPortfolioCapacityForInvestment', function (req, res) {
@@ -101,7 +110,7 @@ router.post('/addsheet', function(req, res) {
 /*
  * POST to save one proposal.
  */
-router.post('/validateAndSaveProposal1', function(req, res) {
+router.post('/validateAndSaveProposal', function(req, res) {
     var proposalToSave = req.body;
     SheetRestService.validateAndSaveProposal(proposalToSave, res);
 });
