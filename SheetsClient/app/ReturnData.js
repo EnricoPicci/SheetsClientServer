@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var ReturnData;
     return {
         setters:[],
@@ -11,9 +13,9 @@ System.register([], function(exports_1) {
                     return this.data.length == 0;
                 };
                 return ReturnData;
-            })();
+            }());
             exports_1("ReturnData", ReturnData);
         }
     }
 });
-//# sourceMappingURL=returnData.js.map
+//# sourceMappingURL=ReturnData.js.map

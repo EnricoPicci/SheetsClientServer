@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var ReturnPeriod;
     return {
         setters:[],
@@ -13,4 +15,4 @@ System.register([], function(exports_1) {
         }
     }
 });
-//# sourceMappingURL=returnPeriod.js.map
+//# sourceMappingURL=ReturnPeriod.js.map

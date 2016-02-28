@@ -1,4 +1,6 @@
-System.register(['angular2/core', './proposal', './proposalInvestment', './proposalInvestmentSource', './proposalInvestment.component', './sheetAssetComposition.component', './sheetSummary.component', './userLogged', './sheetBackEnd.service', '../utilities/httpErrorManager.component'], function(exports_1) {
+System.register(['angular2/core', './proposal', './proposalInvestment', './proposalInvestmentSource', './proposalInvestment.component', './sheetAssetComposition.component', './sheetSummary.component', './userLogged', './sheetBackEnd.service', '../utilities/httpErrorManager.component'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -54,10 +56,10 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                     this.resetMessages();
                     // if the input passed is sheet, then we need to create a proposal starting from the sheet passed
                     if (this.sheet) {
-                        var assets = this.sheet.assetGroups;
+                        var assets_1 = this.sheet.assetGroups;
                         this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
                             .subscribe(function (investmentSources) {
-                            _this.proposal = new proposal_1.Proposal(assets, _this._userLogged.customerId, _this.sheet);
+                            _this.proposal = new proposal_1.Proposal(assets_1, _this._userLogged.customerId, _this.sheet);
                             for (var i = 0; i < investmentSources.length; i++) {
                                 var investmentSourcesFromBackEnd = investmentSources[i];
                                 var investmentSource = new proposalInvestmentSource_1.ProposalInvestmentSource(investmentSourcesFromBackEnd.type, investmentSourcesFromBackEnd.id, investmentSourcesFromBackEnd.maxCapacity);
@@ -183,7 +185,7 @@ System.register(['angular2/core', './proposal', './proposalInvestment', './propo
                     __metadata('design:paramtypes', [userLogged_1.UserLogged, sheetBackEnd_service_1.SheetBackEnd])
                 ], ProposalComponent);
                 return ProposalComponent;
-            })();
+            }());
             exports_1("ProposalComponent", ProposalComponent);
         }
     }

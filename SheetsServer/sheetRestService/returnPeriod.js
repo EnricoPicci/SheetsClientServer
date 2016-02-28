@@ -1,3 +1,4 @@
+"use strict";
 (function (ReturnPeriod) {
     ReturnPeriod[ReturnPeriod["lastMonth"] = 0] = "lastMonth";
     ReturnPeriod[ReturnPeriod["lastYear"] = 1] = "lastYear";

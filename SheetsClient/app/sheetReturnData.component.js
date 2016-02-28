@@ -1,4 +1,6 @@
-System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '../ng2Highcharts/src/directives/ng2-highcharts', '../ng2Highcharts/src/directives/ng2-highstocks', '../utilities/httpErrorManager.component'], function(exports_1) {
+System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '../ng2Highcharts/src/directives/ng2-highcharts', '../ng2Highcharts/src/directives/ng2-highstocks', '../utilities/httpErrorManager.component'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -332,7 +334,7 @@ System.register(['angular2/core', './sheetBackEnd.service', './returnPeriod', '.
                     __metadata('design:paramtypes', [sheetBackEnd_service_1.SheetBackEnd])
                 ], SheetReturnData);
                 return SheetReturnData;
-            })();
+            }());
             exports_1("SheetReturnData", SheetReturnData);
         }
     }

@@ -1,1 +1,1 @@
-{"version":3,"file":"proposalInvestmentSourceType.js","sourceRoot":"","sources":["proposalInvestmentSourceType.ts"],"names":["ProposalInvestmentSourceType"],"mappings":";;;;;YAAA,WAAY,4BAA4B;gBAAEA,qFAAOA,CAAAA;gBAAEA,yFAASA,CAAAA;YAAAA,CAACA,EAAjD,4BAA4B,KAA5B,4BAA4B,QAAqB;oFAAA;YAAA,CAAC"}
+{"version":3,"file":"proposalInvestmentSourceType.js","sourceRoot":"","sources":["proposalInvestmentSourceType.ts"],"names":[],"mappings":";;;;;;;YAAA,WAAY,4BAA4B;gBAAE,qFAAO,CAAA;gBAAE,yFAAS,CAAA;YAAA,CAAC,EAAjD,4BAA4B,KAA5B,4BAA4B,QAAqB;oFAAA;YAAA,CAAC"}

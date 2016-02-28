@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var SheetBackEnd;
     return {
         setters:[],
@@ -33,7 +35,7 @@ System.register([], function(exports_1) {
                 // an order to buy a sheet is issued from the front end
                 SheetBackEnd.prototype.buildBuyMessageForTheBackEnd = function (inProposal) { };
                 return SheetBackEnd;
-            })();
+            }());
             exports_1("SheetBackEnd", SheetBackEnd);
         }
     }

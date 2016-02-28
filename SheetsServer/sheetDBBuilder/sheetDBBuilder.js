@@ -1,5 +1,6 @@
 ///<reference path="../typings/mongodb/mongodb.d.ts" />
 ///<reference path="../typings/mongoose/mongoose.d.ts" />
+"use strict";
 var mongoose = require("mongoose");
 var SheetDBBuilder = (function () {
     function SheetDBBuilder() {
@@ -3003,7 +3004,7 @@ var SheetDBBuilder = (function () {
         ];
     };
     return SheetDBBuilder;
-})();
+}());
 exports.SheetDBBuilder = SheetDBBuilder;
 module.exports = SheetDBBuilder;
 //# sourceMappingURL=sheetDBBuilder.js.map

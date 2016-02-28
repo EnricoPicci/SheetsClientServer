@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var UserLogged;
     return {
         setters:[],
@@ -12,7 +14,7 @@ System.register([], function(exports_1) {
                     return this.pbId == null || this.pbId.trim().length == 0;
                 };
                 return UserLogged;
-            })();
+            }());
             exports_1("UserLogged", UserLogged);
         }
     }

@@ -1,3 +1,4 @@
+"use strict";
 //import {SheetDBBuilder} from './sheetDBBuilder';
 var SheetDBBuilder = require('./sheetDBBuilder');
 var Main = (function () {
@@ -6,7 +7,7 @@ var Main = (function () {
         builder.connectAndOpen();
     }
     return Main;
-})();
+}());
 var main = new Main();
 module.exports = main;
 //# sourceMappingURL=createSheetDB.js.map

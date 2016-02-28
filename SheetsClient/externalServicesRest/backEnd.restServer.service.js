@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sheet', './sheetJSON', '../app/assetGroup', '../app/asset', '../app/proposal', './proposalJSON', '../app/proposalInvestment', '../app/proposalInvestmentSource', '../externalServicesClientMock/backEnd.clientMock.service', '../environmentSettings/environment.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sheet', './sheetJSON', '../app/assetGroup', '../app/asset', '../app/proposal', './proposalJSON', '../app/proposalInvestment', '../app/proposalInvestmentSource', '../externalServicesClientMock/backEnd.clientMock.service', '../environmentSettings/environment.service'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -324,7 +326,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     __metadata('design:paramtypes', [http_1.Http, environment_service_1.Environment])
                 ], BackEndRest);
                 return BackEndRest;
-            })(backEnd_clientMock_service_1.BackEndClientMock);
+            }(backEnd_clientMock_service_1.BackEndClientMock));
             exports_1("BackEndRest", BackEndRest);
         }
     }

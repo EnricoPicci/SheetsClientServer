@@ -1,8 +1,11 @@
 ///<reference path="../typings/mongodb/mongodb.d.ts" />
 ///<reference path="../typings/mongoose/mongoose.d.ts" />
+"use strict";
 var sheetConnectionManager_1 = require('../sheetConnectionManager/sheetConnectionManager');
 var mockData_1 = require('./mockData');
 var returnPeriod_1 = require('./returnPeriod');
+var nodemailer = require('nodemailer');
+var mg = require('nodemailer-mailgun-transport');
 var SheetRestService = (function () {
     function SheetRestService() {
     }
@@ -88,22 +91,23 @@ var SheetRestService = (function () {
         if (inProposal.isValid) {
             sheetConnectionManager_1.SheetConnectionManager.connectAndOpen();
             var ProposalModel = sheetConnectionManager_1.SheetConnectionManager.getProposalModel();
-            var proposalToSave = new ProposalModel(inProposal);
+            var proposalToSave_1 = new ProposalModel(inProposal);
             ProposalModel.count({}, function (err, count) {
                 if (err) {
                     return console.error(err);
                 }
                 else {
-                    if (proposalToSave.id == null) {
-                        proposalToSave.id = count;
+                    if (proposalToSave_1.id == null) {
+                        proposalToSave_1.id = count;
                     }
                     ;
-                    proposalToSave.save(function (err) {
+                    proposalToSave_1.save(function (err) {
                         if (err) {
                             return console.error(err);
                         }
                         else {
-                            inHttpRes.json({ result: "OK", id: proposalToSave.id });
+                            inHttpRes.json({ result: "OK", id: proposalToSave_1.id });
+                            sendMailForNewProposal();
                         }
                     });
                 }
@@ -401,6 +405,32 @@ var SheetRestService = (function () {
     };
     SheetRestService.mockData = new mockData_1.MockData();
     return SheetRestService;
-})();
+}());
 exports.SheetRestService = SheetRestService;
+var sendMailForNewProposal = function () {
+    var auth = {
+        auth: {
+            api_key: 'key-5258e19c6ca5564c06ce5552f181d067',
+            domain: 'sandbox2bae1d8b19864001920f8b327494ce41.mailgun.org'
+        }
+    };
+    var transporter = nodemailer.createTransport(mg(auth));
+    var mailOpts = {
+        from: 'office@yourdomain.com',
+        to: 'enrico.piccinin@gmail.com',
+        subject: 'test subject',
+        text: 'test message form mailgun',
+        html: '<b>test message form mailgun</b>'
+    };
+    transporter.sendMail(mailOpts, function (err, response) {
+        if (err) {
+            console.log('error sending mail --- ' + err);
+            return "Mail error.";
+        }
+        else {
+            console.log('mail actually sent');
+            return "Mail sent.";
+        }
+    });
+};
 //# sourceMappingURL=sheetRestService.js.map

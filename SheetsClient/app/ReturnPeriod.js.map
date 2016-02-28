@@ -1,1 +1,1 @@
-{"version":3,"file":"returnPeriod.js","sourceRoot":"","sources":["returnPeriod.ts"],"names":["ReturnPeriod"],"mappings":";;;;;YAAA,WAAY,YAAY;gBAAEA,yDAASA,CAAAA;gBAAEA,uDAAQA,CAAAA;gBAAEA,6CAAGA,CAAAA;YAAAA,CAACA,EAAvC,YAAY,KAAZ,YAAY,QAA2B;oDAAA;YAAA,CAAC"}
+{"version":3,"file":"ReturnPeriod.js","sourceRoot":"","sources":["ReturnPeriod.ts"],"names":[],"mappings":";;;;;;;YAAA,WAAY,YAAY;gBAAE,yDAAS,CAAA;gBAAE,uDAAQ,CAAA;gBAAE,6CAAG,CAAA;YAAA,CAAC,EAAvC,YAAY,KAAZ,YAAY,QAA2B;oDAAA;YAAA,CAAC"}

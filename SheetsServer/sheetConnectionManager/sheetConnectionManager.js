@@ -1,5 +1,6 @@
 ///<reference path="../typings/mongodb/mongodb.d.ts" />
 ///<reference path="../typings/mongoose/mongoose.d.ts" />
+"use strict";
 var mongoose = require("mongoose");
 //import {SheetDBBuilder} from '../sheetDBBuilder/sheetDBBuilder';
 var SheetDBBuilder = require('../sheetDBBuilder/sheetDBBuilder');
@@ -37,6 +38,6 @@ var SheetConnectionManager = (function () {
         return this.proposalModel;
     };
     return SheetConnectionManager;
-})();
+}());
 exports.SheetConnectionManager = SheetConnectionManager;
 //# sourceMappingURL=sheetConnectionManager.js.map

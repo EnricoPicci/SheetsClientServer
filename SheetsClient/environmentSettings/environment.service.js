@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var Environment;
     return {
         setters:[],
@@ -11,7 +13,7 @@ System.register([], function(exports_1) {
                     this.stockPricesServiceUrlEnd = ".csv?api_key=oVMreULVs1AP7stTsyA4&limit=1";
                 }
                 return Environment;
-            })();
+            }());
             exports_1("Environment", Environment);
         }
     }

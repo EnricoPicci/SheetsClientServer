@@ -8,6 +8,9 @@ import {SheetConnectionManager} from '../sheetConnectionManager/sheetConnectionM
 import {MockData} from './mockData';
 import {ReturnPeriod} from './returnPeriod';
 
+var nodemailer = require('nodemailer');
+var mg = require('nodemailer-mailgun-transport');
+
 export class SheetRestService { 
     static mockData = new MockData();
     
@@ -110,6 +113,7 @@ export class SheetRestService {
                             return console.error(err);
                         } else {
                             inHttpRes.json({result: "OK", id: proposalToSave.id});
+                            sendMailForNewProposal();
                         }
                     })
                 }
@@ -405,3 +409,31 @@ export class SheetRestService {
     }
     
 }
+
+
+    
+    var sendMailForNewProposal = function() {
+        var auth = {
+            auth: {
+                api_key: 'key-5258e19c6ca5564c06ce5552f181d067',
+                domain: 'sandbox2bae1d8b19864001920f8b327494ce41.mailgun.org'
+            }
+        }
+        let transporter = nodemailer.createTransport(mg(auth));
+        var mailOpts = {
+            from: 'office@yourdomain.com',
+            to: 'enrico.piccinin@gmail.com',
+            subject: 'test subject',
+            text : 'test message form mailgun',
+            html : '<b>test message form mailgun</b>'
+        };
+        transporter.sendMail(mailOpts, function (err, response) {
+            if (err) {
+                console.log('error sending mail --- ' + err);
+            return "Mail error.";
+            } else {
+                console.log('mail actually sent');
+            return "Mail sent.";
+            }
+        });
+    }

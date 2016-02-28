@@ -1,3 +1,4 @@
+"use strict";
 var MockData = (function () {
     function MockData() {
     }
@@ -47,6 +48,6 @@ var MockData = (function () {
         ];
     };
     return MockData;
-})();
+}());
 exports.MockData = MockData;
 //# sourceMappingURL=mockData.js.map
