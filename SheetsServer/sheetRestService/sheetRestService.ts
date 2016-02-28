@@ -434,6 +434,8 @@ export class SheetRestService {
             }
         }
         let transporter = nodemailer.createTransport(mg(auth));
+        //var url = 'http://localhost:3000/Proposal/?proposalId=';
+        var url = 'http://ec2-54-213-172-98.us-west-2.compute.amazonaws.com:8080/Proposal/?proposalId=';
         var mailOpts = {
             from: 'sheetsCustomerCare@sheetsCorporation.com',
             //to: 'enrico.piccinin@gmail.com',
@@ -442,7 +444,7 @@ export class SheetRestService {
             subject: inUserLogged.customerId + ', you have a new proposal',
             //text : 'test message form mailgun',
             text : 'Dear ' + inUserLogged.customerId,
-            html : '<br><p>' + inUserLogged.pbId + ' has prepared for you a new <a href="http://localhost:3000/Proposal/?proposalId=' + inProposal.id + '">proposal</a></p>'
+            html : '<br><p>' + inUserLogged.pbId + ' has prepared for you a new <a href="' + url + inProposal.id + '">proposal</a></p>'
         };
         transporter.sendMail(mailOpts, function (err, response) {
             if (err) {
