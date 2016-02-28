@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var SheetWeightAdjuster;
     return {
         setters:[],
@@ -220,7 +218,7 @@ System.register([], function(exports_1, context_1) {
                     }
                 };
                 return SheetWeightAdjuster;
-            }());
+            })();
             exports_1("SheetWeightAdjuster", SheetWeightAdjuster);
         }
     }

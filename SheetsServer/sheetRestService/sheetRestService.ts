@@ -93,13 +93,27 @@ export class SheetRestService {
             }
         )
     }
+         
+    public static getProposal(inProposalId: string, inHttpRes: any) {
+        SheetConnectionManager.connectAndOpen();
+        SheetConnectionManager.getProposalModel().findOne({id: inProposalId}, function (err, proposalModel) {
+                if (err) {
+                    return console.error(err);
+                } else {
+                    inHttpRes.json(proposalModel);
+                }
+            }
+        )
+    }
     
-    public static validateAndSaveProposal(inProposal: any, inHttpRes: any) {
-        let validationResults = this.validateProposal(inProposal);
-        if (inProposal.isValid) {
+    public static validateAndSaveProposal(inProposalAndUserLogged: any, inHttpRes: any) {
+        let proposal = inProposalAndUserLogged.proposal;
+        let userLogged = inProposalAndUserLogged.userLogged;
+        let validationResults = this.validateProposal(proposal);
+        if (proposal.isValid) {
             SheetConnectionManager.connectAndOpen();
             let ProposalModel = SheetConnectionManager.getProposalModel();
-            let proposalToSave = new ProposalModel(inProposal);
+            let proposalToSave = new ProposalModel(proposal);
             ProposalModel.count({}, function (err, count) {
                 if (err) {
                     return console.error(err);
@@ -113,7 +127,7 @@ export class SheetRestService {
                             return console.error(err);
                         } else {
                             inHttpRes.json({result: "OK", id: proposalToSave.id});
-                            sendMailForNewProposal();
+                            sendMailForNewProposal(proposalToSave, userLogged);
                         }
                     })
                 }
@@ -412,7 +426,7 @@ export class SheetRestService {
 
 
     
-    var sendMailForNewProposal = function() {
+    var sendMailForNewProposal = function(inProposal, inUserLogged) {
         var auth = {
             auth: {
                 api_key: 'key-5258e19c6ca5564c06ce5552f181d067',
@@ -421,11 +435,14 @@ export class SheetRestService {
         }
         let transporter = nodemailer.createTransport(mg(auth));
         var mailOpts = {
-            from: 'office@yourdomain.com',
-            to: 'enrico.piccinin@gmail.com',
-            subject: 'test subject',
-            text : 'test message form mailgun',
-            html : '<b>test message form mailgun</b>'
+            from: 'sheetsCustomerCare@sheetsCorporation.com',
+            //to: 'enrico.piccinin@gmail.com',
+            to: inUserLogged.mail,
+            //subject: 'test subject',
+            subject: inUserLogged.customerId + ', you have a new proposal',
+            //text : 'test message form mailgun',
+            text : 'Dear ' + inUserLogged.customerId,
+            html : '<br><p>' + inUserLogged.pbId + ' has prepared for you a new <a href="http://localhost:3000/Proposal/?proposalId=' + inProposal.id + '">proposal</a></p>'
         };
         transporter.sendMail(mailOpts, function (err, response) {
             if (err) {

@@ -1,6 +1,4 @@
-System.register(['angular2/core', '../utilities/slider.component', './sheetWeightAdjuster.service', './sheetReturnData.component', './sheetCompositionCharts.component', './userLogged', './sheetBackEnd.service', '../utilities/stringNumericConverter'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', '../utilities/slider.component', './sheetWeightAdjuster.service', './sheetReturnData.component', './sheetCompositionCharts.component', './userLogged', './sheetBackEnd.service', '../utilities/stringNumericConverter'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -255,7 +253,7 @@ System.register(['angular2/core', '../utilities/slider.component', './sheetWeigh
                     __metadata('design:paramtypes', [sheetWeightAdjuster_service_1.SheetWeightAdjuster, userLogged_1.UserLogged, sheetBackEnd_service_1.SheetBackEnd])
                 ], SheetAssetCompositionComponent);
                 return SheetAssetCompositionComponent;
-            }());
+            })();
             exports_1("SheetAssetCompositionComponent", SheetAssetCompositionComponent);
         }
     }

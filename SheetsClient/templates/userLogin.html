@@ -68,6 +68,11 @@ bace end system responsible for the execution of the orders on the market.
             <div [hidden]="pbId.valid || pbId.pristine" class="alert alert-danger" style="width: 100%;">
                 The customer ID is mandatory
             </div>
+            <div class="form-group" style="width: 100%;">
+                <label for="CustomerMail" style="width: 25%; float: left">Customer mail</label>
+                <input type="text" class="form-control"
+                    [(ngModel)]="_user.mail" ngControl="mail" #mail="ngForm" style="width: 50%;">
+            </div>
             <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid">Login</button>
             </form>
         </div>

@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var StringNumericConverter;
     return {
         setters:[],
@@ -15,7 +13,7 @@ System.register([], function(exports_1, context_1) {
                     return ret;
                 };
                 return StringNumericConverter;
-            }());
+            })();
             exports_1("StringNumericConverter", StringNumericConverter);
         }
     }

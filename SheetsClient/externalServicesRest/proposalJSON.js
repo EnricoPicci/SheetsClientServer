@@ -1,6 +1,4 @@
-System.register(['./proposalInvestmentJSON', './assetGroupJSON'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['./proposalInvestmentJSON', './assetGroupJSON'], function(exports_1) {
     var proposalInvestmentJSON_1, assetGroupJSON_1;
     var ProposalJSON;
     return {
@@ -55,7 +53,7 @@ System.register(['./proposalInvestmentJSON', './assetGroupJSON'], function(expor
                     }
                 };
                 return ProposalJSON;
-            }());
+            })();
             exports_1("ProposalJSON", ProposalJSON);
         }
     }

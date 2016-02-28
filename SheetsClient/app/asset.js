@@ -1,6 +1,4 @@
-System.register(['./assetAbstract'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['./assetAbstract'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -34,7 +32,7 @@ System.register(['./assetAbstract'], function(exports_1, context_1) {
                     return formattedString;
                 };
                 return Asset;
-            }(assetAbstract_1.AssetAbstract));
+            })(assetAbstract_1.AssetAbstract);
             exports_1("Asset", Asset);
         }
     }

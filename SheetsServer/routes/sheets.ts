@@ -100,6 +100,14 @@ router.get('/getProposals', function (req, res) {
 });
 
 /*
+ * GET one proposal
+ */
+router.get('/getProposal', function (req, res) {
+    var proposalId = req.query.proposalId;
+    SheetRestService.getProposal(proposalId, res);
+});
+
+/*
  * POST to add one sheet.
  */
 router.post('/addsheet', function(req, res) {

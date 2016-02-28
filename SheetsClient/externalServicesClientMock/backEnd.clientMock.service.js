@@ -1,6 +1,4 @@
-System.register(['../app/sheet', '../app/sheetBackEnd.service', '../app/asset', '../app/assetGroup', '../app/returnPeriod', './mockData'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['../app/sheet', '../app/sheetBackEnd.service', '../app/asset', '../app/assetGroup', '../app/returnPeriod', './mockData'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -354,7 +352,7 @@ System.register(['../app/sheet', '../app/sheetBackEnd.service', '../app/asset', 
                     }
                 };
                 return BackEndClientMock;
-            }(sheetBackEnd_service_1.SheetBackEnd));
+            })(sheetBackEnd_service_1.SheetBackEnd);
             exports_1("BackEndClientMock", BackEndClientMock);
         }
     }

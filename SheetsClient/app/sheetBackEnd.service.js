@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var SheetBackEnd;
     return {
         setters:[],
@@ -26,8 +24,9 @@ System.register([], function(exports_1, context_1) {
                 SheetBackEnd.prototype.addSheet = function (inSheet) { };
                 SheetBackEnd.prototype.getAccountAndPortfolioCapacityForInvestment = function (inCustomerId) { };
                 SheetBackEnd.prototype.getProposalsForCustomer = function (inCustomerId) { };
-                SheetBackEnd.prototype.validateAndSaveProposal = function (inProposal) { };
-                SheetBackEnd.prototype.sendProposal = function (inProposal) { };
+                SheetBackEnd.prototype.getProposal = function (inProposalId) { };
+                SheetBackEnd.prototype.validateAndSaveProposal = function (inProposal, inUserLogged) { };
+                SheetBackEnd.prototype.sendProposal = function (inProposal, inUser) { };
                 SheetBackEnd.prototype.getStockPrices = function (inAsset) { };
                 ;
                 // this is a method for demo purposes only
@@ -35,7 +34,7 @@ System.register([], function(exports_1, context_1) {
                 // an order to buy a sheet is issued from the front end
                 SheetBackEnd.prototype.buildBuyMessageForTheBackEnd = function (inProposal) { };
                 return SheetBackEnd;
-            }());
+            })();
             exports_1("SheetBackEnd", SheetBackEnd);
         }
     }

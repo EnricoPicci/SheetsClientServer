@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var SheetSortCriteriaEnum, SheetSortCriteria;
     return {
         setters:[],
@@ -22,7 +20,7 @@ System.register([], function(exports_1, context_1) {
                     { id: SheetSortCriteriaEnum.Name, value: 'Name' }
                 ];
                 return SheetSortCriteria;
-            }());
+            })();
             exports_1("SheetSortCriteria", SheetSortCriteria);
         }
     }

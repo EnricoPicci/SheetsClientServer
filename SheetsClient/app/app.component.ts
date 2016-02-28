@@ -27,5 +27,6 @@ import {ProposalCollectionComponent} from './proposalCollection.component';
     {path: '/SheetDetail/:id', name: 'SheetDetail', component: SheetOrProposalDetailComponent},
     {path: '/SheetComparator/', name: 'SheetComparator', component: SheetComparatorComponent},
     {path: '/Proposals/', name: 'ProposalCollection', component: ProposalCollectionComponent},
+    {path: '/Proposal/', name: 'Proposal', component: ProposalComponent},
 ])
 export class AppComponent { }

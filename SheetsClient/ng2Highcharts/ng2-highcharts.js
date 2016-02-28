@@ -1,6 +1,4 @@
-System.register(['./src/directives/ng2-highcharts'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['./src/directives/ng2-highcharts'], function(exports_1) {
     var ng2_highcharts_1;
     function exportStar_1(m) {
         var exports = {};

@@ -4,6 +4,7 @@ import {Sheet} from './sheet';
 import {ReturnPeriod} from './returnPeriod';
 import {Asset} from './asset';
 import {Proposal} from './proposal';
+import {UserLogged} from './userLogged';
 
 export abstract class SheetBackEnd {
 	getSheet(inId?: number) : any {return null}
@@ -28,8 +29,9 @@ export abstract class SheetBackEnd {
     addSheet(inSheet: Sheet) : any {}
     getAccountAndPortfolioCapacityForInvestment(inCustomerId: string) : any {}
     getProposalsForCustomer(inCustomerId: string) : any {}
-    validateAndSaveProposal(inProposal: Proposal) : any {}
-    sendProposal(inProposal: Proposal) : any {}
+    getProposal(inProposalId: number) : any {}
+    validateAndSaveProposal(inProposal: Proposal, inUserLogged: UserLogged) : any {}
+    sendProposal(inProposal: Proposal, inUser: UserLogged) : any {}
     
     getStockPrices(inAsset: Asset) {};
     
