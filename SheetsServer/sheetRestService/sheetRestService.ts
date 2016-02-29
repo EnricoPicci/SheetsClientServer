@@ -435,7 +435,7 @@ export class SheetRestService {
         }
         let transporter = nodemailer.createTransport(mg(auth));
         //var url = 'http://localhost:3000/Proposal/?proposalId=';
-        var url = 'http://ec2-54-213-172-98.us-west-2.compute.amazonaws.com:8080/?proposalId=';
+        var url = 'http://ec2-54-213-172-98.us-west-2.compute.amazonaws.com:8080/Proposal/?proposalId=';
         var mailOpts = {
             from: 'sheetsCustomerCare@sheetsCorporation.com',
             //to: 'enrico.piccinin@gmail.com',
