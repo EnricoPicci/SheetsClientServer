@@ -23,10 +23,17 @@ System.register(['angular2/core', 'angular2/router', './userLogged'], function(e
             }],
         execute: function() {
             UserLoginComponent = (function () {
-                function UserLoginComponent(_router, _user) {
+                function UserLoginComponent(_router, _user, _routeParams) {
                     this._router = _router;
                     this._user = _user;
+                    this._routeParams = _routeParams;
                 }
+                /*ngOnInit() {
+                    let proposalId = +this._routeParams.get('proposalId');
+                    if (proposalId) {
+                        this._router.navigate(['Proposal']);
+                    }
+                }*/
                 UserLoginComponent.prototype.onSubmit = function () {
                     console.log('pb id --- ' + this._user.pbId);
                     console.log('customer id --- ' + this._user.customerId);
@@ -39,7 +46,7 @@ System.register(['angular2/core', 'angular2/router', './userLogged'], function(e
                         templateUrl: '../templates/userLogin.html',
                         styleUrls: ['../styles/common.css'],
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, userLogged_1.UserLogged])
+                    __metadata('design:paramtypes', [router_1.Router, userLogged_1.UserLogged, router_1.RouteParams])
                 ], UserLoginComponent);
                 return UserLoginComponent;
             })();

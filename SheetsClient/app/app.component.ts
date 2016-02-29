@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouteConfig, ROUTER_DIRECTIVES, RouteParams, Router} from 'angular2/router';
 
 import {SheetDashboardComponent} from './sheetDashboard.component';
 import {SheetCollection} from './sheetCollection.component';
@@ -29,4 +29,16 @@ import {ProposalCollectionComponent} from './proposalCollection.component';
     {path: '/Proposals/', name: 'ProposalCollection', component: ProposalCollectionComponent},
     {path: '/Proposal/', name: 'Proposal', component: ProposalComponent},
 ])
-export class AppComponent { }
+export class AppComponent { 
+    /*constructor(
+        private _router: Router,
+        private _routeParams: RouteParams
+    ) { }
+    
+    ngOnInit() {
+        let proposalId = +this._routeParams.get('proposalId');
+        if (proposalId) {
+            this._router.navigate(['Proposal']);
+        }
+    }*/
+}

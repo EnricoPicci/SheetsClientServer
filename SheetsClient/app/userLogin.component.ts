@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {Router} from 'angular2/router';
+import {Router, RouteParams} from 'angular2/router';
 
 import {UserLogged} from './userLogged';
 
@@ -11,7 +11,15 @@ import {UserLogged} from './userLogged';
 })
 
 export class UserLoginComponent { 
-    constructor(private _router: Router, private _user: UserLogged) {}
+    constructor(private _router: Router, private _user: UserLogged,
+        private _routeParams: RouteParams) {}
+        
+    /*ngOnInit() {
+        let proposalId = +this._routeParams.get('proposalId');
+        if (proposalId) {
+            this._router.navigate(['Proposal']);
+        }
+    }*/
     
     onSubmit() {
         console.log('pb id --- ' + this._user.pbId);
