@@ -27,6 +27,7 @@ System.register(['angular2/core', 'angular2/router', './userLogged'], function(e
                     this._router = _router;
                     this._user = _user;
                     this._routeParams = _routeParams;
+                    this.isValidOrEmptyMail = true;
                 }
                 /*ngOnInit() {
                     let proposalId = +this._routeParams.get('proposalId');
@@ -37,7 +38,16 @@ System.register(['angular2/core', 'angular2/router', './userLogged'], function(e
                 UserLoginComponent.prototype.onSubmit = function () {
                     console.log('pb id --- ' + this._user.pbId);
                     console.log('customer id --- ' + this._user.customerId);
-                    this._router.navigate(['SheetDashboard']);
+                    this.isValidOrEmptyMail = this.validateMail();
+                    if (this.isValidOrEmptyMail) {
+                        this._router.navigate(['SheetDashboard']);
+                    }
+                };
+                UserLoginComponent.prototype.validateMail = function () {
+                    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    var isValid = this._user.mail == null || this._user.mail.trim().length == 0 || filter.test(this._user.mail);
+                    console.log('mail valid  -- ' + isValid);
+                    return isValid;
                 };
                 UserLoginComponent = __decorate([
                     core_1.Component({

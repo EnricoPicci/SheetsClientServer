@@ -59,7 +59,7 @@ back end system responsible for the execution of the orders on the market.
 </div>
 
 
-         <div class="container" style="width: 30%; float: left; border-size:thin; border-style:solid; 
+         <div class="container" style="width: 35%; float: left; border-size:thin; border-style:solid; 
             border-color:darkred; background-color: whitesmoke;">
             <!--h3>Login Form</h3-->
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm" style="margin-top: 15;">
@@ -73,13 +73,17 @@ back end system responsible for the execution of the orders on the market.
                 <input type="text" class="form-control" required
                     [(ngModel)]="_user.customerId" ngControl="customerId" #customerId="ngForm" style="width: 60%; margin-left: 10">
             </div>
-            <div [hidden]="pbId.valid || pbId.pristine" class="alert alert-danger" style="width: 100%;">
+            <div [hidden]="customerId.valid || customerId.pristine" class="alert alert-danger" style="width: 100%;">
                 The customer ID is mandatory
             </div>
             <div class="form-group" style="width: 100%;">
                 <label for="CustomerMail" style="width: 25%; float: left; font-weight: 300; padding-left: 10">Customer mail</label>
-                <input type="text" class="form-control"
+                <input type="email" class="form-control"
                     [(ngModel)]="_user.mail" ngControl="mail" #mail="ngForm" style="width: 60%; margin-left: 10">
+            </div>
+            <!--div [hidden]="isValidEmail() || mail.valid || mail.pristine" class="alert alert-danger" style="width: 100%;"-->
+            <div [hidden]="isValidOrEmptyMail || mail.pristine" class="alert alert-danger" style="width: 70%;">
+                Gimme a valid email please
             </div>
             <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid" 
                 style="background-color: lightblue; color: darkblue; margin-left: 10">Login</button>

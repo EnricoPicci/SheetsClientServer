@@ -7,7 +7,7 @@ System.register([], function(exports_1) {
                 function UserLogged() {
                     this.pbId = null;
                     this.customerId = null;
-                    this.email = null;
+                    this.mail = null;
                 }
                 UserLogged.prototype.isCustomer = function () {
                     return this.pbId == null || this.pbId.trim().length == 0;
