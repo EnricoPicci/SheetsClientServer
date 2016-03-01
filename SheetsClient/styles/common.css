@@ -123,10 +123,14 @@
     width: 80%;
     text-align: right;
     padding-right: 2;
-    border: none;
+    /*border: none;*/
 }
 
 .clickable{
     cursor: pointer;
     color: #1BA2DC
+}
+
+.errorMessage {
+    color: darkred;
 }

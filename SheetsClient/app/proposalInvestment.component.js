@@ -20,8 +20,14 @@ System.register(['angular2/core'], function(exports_1) {
                 function ProposalInvestmentComponent() {
                 }
                 ProposalInvestmentComponent.prototype.onInvestmentChange = function (inInvestmentElement, inInvestmentInput) {
-                    inInvestmentElement.amount = parseFloat(inInvestmentInput.value);
-                    this.proposal.updateInvestment();
+                    if (isNaN(inInvestmentInput.value)) {
+                        inInvestmentElement.isValid = false;
+                    }
+                    else {
+                        inInvestmentElement.isValid = true;
+                        inInvestmentElement.amount = parseFloat(inInvestmentInput.value);
+                        this.proposal.updateInvestment();
+                    }
                 };
                 ProposalInvestmentComponent = __decorate([
                     core_1.Component({

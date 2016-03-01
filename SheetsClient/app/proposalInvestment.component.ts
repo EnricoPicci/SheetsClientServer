@@ -17,7 +17,12 @@ export class ProposalInvestmentComponent {
     public proposal: Proposal;
     
     onInvestmentChange(inInvestmentElement: ProposalInvestment, inInvestmentInput: any) {
-        inInvestmentElement.amount = parseFloat(inInvestmentInput.value);
-        this.proposal.updateInvestment();
+        if (isNaN(inInvestmentInput.value)) {
+            inInvestmentElement.isValid = false;
+        } else {
+            inInvestmentElement.isValid = true;
+            inInvestmentElement.amount = parseFloat(inInvestmentInput.value);
+            this.proposal.updateInvestment();            
+        }
     }
 }

@@ -10,10 +10,6 @@ undefined-->
             <div id="banner"></div>
         </div>
         <div id="details">
-            <!--sheet-summary [sheet]="sheet"  [isIconized]="true"></sheet-summary>
-            <div id="investmentTitle" class="sectionTitle" style="float: none;">
-                <h3>Proposta per Foglio</h3>
-            </div-->
             <div id="investmentHeading" style="width: 100%;">
                 <div id="investmentTitle" class="sectionTitle">
                     <h3>Proposal for Sheet</h3>
@@ -24,14 +20,13 @@ undefined-->
                 <proposalInvestmentCmp id="proposalInvestment" [proposal]="proposal"></proposalInvestmentCmp>
             </div>
             <div id="comment" class="comment">Note
-                <!--input type="text" id="commentText" [(ngModel)]="proposal.comment" [disabled]="_userLogged.isCustomer()"/-->
                 <textarea #commentTextEl id="commentText" rows="3" cols="120" [(ngModel)]="proposal.comment" 
                     [disabled]="_userLogged.isCustomer()" [class.invalidField]="!isCommentFilled()"></textarea>
                 <div id="errorMessageComment" class="alert alert-danger" [hidden]="!errorMessageComment">{{errorMessageComment}}</div>
             </div>
             <div id="buttons" class="buttonRoster">
-                <button id="saveButton" class="basicButton" type="button" (click)="onSaveProposal()" [hidden]="_userLogged.isCustomer()">Save</button>
-                <!--button id="sendButton" class="basicButton" type="button" (click)="onSendProposal()">Invia</button-->
+                <button id="saveButton" class="basicButton" type="button" (click)="onSaveProposal()" 
+                    [hidden]="_userLogged.isCustomer()" [hidden]="saveButtonDisabled">Save</button>
                 <button id="buyButton" class="basicButton" type="button" (mouseup)="onBuyProposal()" [hidden]="!_userLogged.isCustomer() || buyOrderSent">Buy</button>
             </div>
             <div id="message" class="message" [hidden]="!proposalMessage">{{proposalMessage}}</div>

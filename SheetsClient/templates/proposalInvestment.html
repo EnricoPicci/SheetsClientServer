@@ -21,15 +21,12 @@
                     <span>€</span>
                 </td>
                 <td  class="investmentAmount">
-                    <!--input type="number" [max]="investmentElement.source.maxCapacity" 
-                        [(ngModel)]="investmentElement.amount" style="width: 100%;"-->
-                    <!--input #investmentInput type="number" [max]="investmentElement.source.maxCapacity" 
-                        [value]="investmentElement.getAmountFormatted()" pattern="(^\d+(\.|\,)\d{2})"
-                        (change)="onInvestmentChange(investmentElement, investmentInput)" style="width: 100%;"-->
                     <input #investmentInput type="text" 
                         [value]="investmentElement.getAmountFormatted()" 
-                        (change)="onInvestmentChange(investmentElement, investmentInput)" style="width: 95%; text-align: right;">
+                        (change)="onInvestmentChange(investmentElement, investmentInput)" 
+                        style="width: 95%; text-align: right;" [class.invalidField]="!investmentElement.isValid">
                     <span>€</span>
+                    <span [hidden]="investmentElement.isValid" class="errorMessage">Insert valid amount</span>
                 </td>
             </tr>
         </tbody>

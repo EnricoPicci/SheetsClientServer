@@ -17,6 +17,7 @@ export abstract class AssetAbstract {
     public newWeight: any;
     
     public investmentAmount: number;
+    public isWeightValid = true;
     
     constructor(inName: string, 
                         inWeight: number, 

@@ -36,6 +36,8 @@ export class ProposalComponent {
     public buyOrderSent = false;
     public buyMessageForTheBackEnd: string;
     
+    public saveButtonDisabled = false;
+    
     constructor(
         private _userLogged: UserLogged,
         private _backEnd: SheetBackEnd,
@@ -115,9 +117,11 @@ export class ProposalComponent {
              element.focus();
             }, 0);
         } else {
+            this.saveButtonDisabled = true;
             this._backEnd.validateAndSaveProposal(this.proposal, this._userLogged)
                 .subscribe(
                     backEndResponse => {
+                        //this.saveButtonDisabled = false;
                         if (backEndResponse.result == 'OK') {
                             this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved';
                         } else {
@@ -138,7 +142,10 @@ export class ProposalComponent {
                             this.errorMessage = 'Invalid. Reduce investment indicated below';
                         }
                     },
-                        error => this.httpErrorResponse = <any>error
+                    error => {
+                        this.saveButtonDisabled = false;
+                        this.httpErrorResponse = <any>error
+                    }
                 );
         }
     }

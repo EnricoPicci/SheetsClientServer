@@ -3,6 +3,7 @@ import {ProposalInvestmentSource} from './proposalInvestmentSource';
 export class ProposalInvestment { 
     public source: ProposalInvestmentSource;
     public amount = 0;
+    public isValid = true;
     
     constructor(inSource: ProposalInvestmentSource) {
         this.source = inSource;

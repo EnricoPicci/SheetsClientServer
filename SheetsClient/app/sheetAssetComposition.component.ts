@@ -109,16 +109,21 @@ export class SheetAssetCompositionComponent {
     }
     
     onSetAssetGroupWeight(inWeigthElement: any, inAssetGroup: AssetGroup) {
-        let oldWeightValue = inAssetGroup.weight;
-        let newWeightValue = parseFloat(inWeigthElement.value);
-        let isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAssetGroup);
-        if (isNewWeightAllowed) {
-            this.setAssetGroupWeight(newWeightValue, inAssetGroup);
-            if (oldWeightValue == newWeightValue) {
-                inWeigthElement.value = oldWeightValue.toFixed(2);
-            }
+        if (isNaN(inWeigthElement.value)) {
+            inAssetGroup.isWeightValid = false;
         } else {
-            this.highlightInputFieldWithErrors(inWeigthElement, inAssetGroup.weight);
+            inAssetGroup.isWeightValid = true;
+            let oldWeightValue = inAssetGroup.weight;
+            let newWeightValue = parseFloat(inWeigthElement.value);
+            let isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAssetGroup);
+            if (isNewWeightAllowed) {
+                this.setAssetGroupWeight(newWeightValue, inAssetGroup);
+                if (oldWeightValue == newWeightValue) {
+                    inWeigthElement.value = oldWeightValue.toFixed(2);
+                }
+            } else {
+                this.highlightInputFieldWithErrors(inWeigthElement, inAssetGroup.weight);
+            }
         }
     }
     
@@ -135,16 +140,21 @@ export class SheetAssetCompositionComponent {
     }
     
     onSetAssetWeight(inWeigthElement: any, inAsset: Asset, inAssetGroup: AssetGroup) {
-        let oldWeightValue = inAsset.weight;
-        let newWeightValue = parseFloat(inWeigthElement.value);
-        let isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAsset);
-        if (isNewWeightAllowed) {
-            this.setAssetWeight(newWeightValue, inAsset, inAssetGroup);
-            if (oldWeightValue == newWeightValue) {
-                inWeigthElement.value = oldWeightValue.toFixed(2);
-            }
+        if (isNaN(inWeigthElement.value)) {
+            inAsset.isWeightValid = false;
         } else {
-            this.highlightInputFieldWithErrors(inWeigthElement, inAsset.weight);
+            inAsset.isWeightValid = true;
+            let oldWeightValue = inAsset.weight;
+            let newWeightValue = parseFloat(inWeigthElement.value);
+            let isNewWeightAllowed = this.validateNewWeight(newWeightValue, inAsset);
+            if (isNewWeightAllowed) {
+                this.setAssetWeight(newWeightValue, inAsset, inAssetGroup);
+                if (oldWeightValue == newWeightValue) {
+                    inWeigthElement.value = oldWeightValue.toFixed(2);
+                }
+            } else {
+                this.highlightInputFieldWithErrors(inWeigthElement, inAsset.weight);
+            }            
         }
     }
     

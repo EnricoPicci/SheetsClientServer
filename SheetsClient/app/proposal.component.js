@@ -52,6 +52,7 @@ System.register(['angular2/core', 'angular2/router', './proposal', './proposalIn
                     this._backEnd = _backEnd;
                     this._routeParams = _routeParams;
                     this.buyOrderSent = false;
+                    this.saveButtonDisabled = false;
                 }
                 ProposalComponent.prototype.ngOnInit = function () {
                     var _this = this;
@@ -113,8 +114,10 @@ System.register(['angular2/core', 'angular2/router', './proposal', './proposalIn
                         }, 0);
                     }
                     else {
+                        this.saveButtonDisabled = true;
                         this._backEnd.validateAndSaveProposal(this.proposal, this._userLogged)
                             .subscribe(function (backEndResponse) {
+                            //this.saveButtonDisabled = false;
                             if (backEndResponse.result == 'OK') {
                                 _this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved';
                             }
@@ -135,7 +138,10 @@ System.register(['angular2/core', 'angular2/router', './proposal', './proposalIn
                                 }
                                 _this.errorMessage = 'Invalid. Reduce investment indicated below';
                             }
-                        }, function (error) { return _this.httpErrorResponse = error; });
+                        }, function (error) {
+                            _this.saveButtonDisabled = false;
+                            _this.httpErrorResponse = error;
+                        });
                     }
                 };
                 ProposalComponent.prototype.onSendProposal = function () {

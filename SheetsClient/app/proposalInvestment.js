@@ -6,6 +6,7 @@ System.register([], function(exports_1) {
             ProposalInvestment = (function () {
                 function ProposalInvestment(inSource) {
                     this.amount = 0;
+                    this.isValid = true;
                     this.source = inSource;
                 }
                 ProposalInvestment.prototype.getAmountFormatted = function () {

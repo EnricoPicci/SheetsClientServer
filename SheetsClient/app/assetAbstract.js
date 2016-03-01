@@ -8,6 +8,7 @@ System.register([], function(exports_1) {
                     this.show = true;
                     this.locked = false;
                     this.relativeStartOfScale = 0;
+                    this.isWeightValid = true;
                     this.name = inName;
                     this.weight = inWeight;
                     this.oneMonthRet = inOneMonthRet;
