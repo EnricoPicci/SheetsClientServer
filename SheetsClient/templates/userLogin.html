@@ -1,18 +1,20 @@
+<div style="width: 100%; float: left">
 <p>
 This is a Prototype that I have developed using the MEAN stack, in particular <mark>Angular2</mark> for the Front End. 
 <br>
 The Client, a Financial Institution, wants to launch on the market a new Family of products dedicated exclusively 
-to the Digital channel. Each of these products represent a bundle of financial instruments (stocks, bonds, funds) 
+to the Digital channel. Each of these products represents a bundle of financial instruments (stocks, bonds, funds) 
 selected by the Financial Institution around a certain investment theme (e.g. Automotive in East Asia or Energy 
 in North America). Inspiration for this family of Products has been derived from Motif (<a target="_blank" 
 href="https://www.motifinvesting.com/motifs#catalog=our">www.motifinvesting.com</a>).
 <br>
-In a series of workshops where the client has  presented the main characteristics of the products and how the presale/sale 
-processes should be developed on the Digital channel.
+The main characteristics of the products and how the presale/sale processes should be developed on the Digital channel have
+been derived from some conversations I held with the client.
 <br>
-Starting from the what has emerged from the Workshops, leveraging Motif as an example, I have developed the Prototype. 
-<br>
-<br>
+Starting from the what has emerged in these conversations, leveraging Motif as an example, I have built the Prototype. 
+</p>
+</div>
+<div style="width: 60%; float: left">
 The prototype has been developed with <mark>Angular2</mark> and <mark>Typescript</mark> for the front end, <mark>Express/NodeJS</mark>
  to build a simple light server using <mark>MongoDB</mark> as DB.
 <br>
@@ -22,16 +24,21 @@ screen sizes) and multi browser support (now the prototype works best with Chrom
 A part from these 2 points, we think that the Prototype in its front end (Angular2) part is 'production quality' code. 
 We leverage greatly the composition pattern (via Angular2 components) and have based the solution on a sound Object Oriented
 model (made possible by the use of Typescript).
-<br>
-<br>
-You can use any credential to login.
-<br>
-If you fill both the PFA and Customer IDs then it means that you are working as a PFA who wants to prepare a proposal for a Customer.
-<br>
-If you fill just the Customer ID (leaving the PFA ID empty) then it means that you are entering as a customer and you are 
-entitle to view the proposals that the PFA has prepared for you.
-<br>
-<br>
+</div>
+        <div class="container" style="width: 40%; float: right">
+            <div style="width: 20%; height: 20%; float: left; padding-left: 10;">
+                <img src="./images/angular2.jpeg" width="120" height="100"/>
+            </div>
+            <div style="width: 30%; height: 20%; float: left; padding-top: 23; padding-left: 40">
+                <img src="./images/typescript.png" width="120" height="40" />
+            </div>
+            <div style="width: 20%; height: 20%; float: left; margin-left: -10">
+                <img src="./images/expressNodeMongo.jpg" width="150" height="100"/>
+            </div>
+        </div>
+        
+<div style="width: 100%; float: left">
+<p>
 The prototype covers the following <strong><em>functionalities</em></strong>:
 <br>
 - <strong>Dashboard</strong> (basically the <strong>Product Catalogue</strong>): in this page all the available products are shown with different search and
@@ -47,32 +54,45 @@ the customized version.
 <br>
 - <strong>Proposal list and detail view</strong>: if we enter as customer, we can see the list of our proposals, we can select one, modify the 
 amount of investment and, eventually, decide to buy. The process ends with the creation of a message which can go to the 
-bace end system responsible for the execution of the orders on the market.
+back end system responsible for the execution of the orders on the market.
 </p>    
+</div>
 
 
-
-         <div class="container" style="width: 30%;">
-            <h1>Login Form</h1>
-            <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+         <div class="container" style="width: 30%; float: left; border-size:thin; border-style:solid; 
+            border-color:darkred; background-color: whitesmoke;">
+            <!--h3>Login Form</h3-->
+            <form (ngSubmit)="onSubmit()" #loginForm="ngForm" style="margin-top: 15;">
             <div class="form-group" style="width: 100%;">
-                <label for="PBId" style="width: 25%; float: left">PFA ID</label>
+                <label for="PBId" style="width: 25%; float: left; font-weight: 300; padding-left: 10">PFA ID</label>
                 <input type="text" class="form-control"
-                    [(ngModel)]="_user.pbId" ngControl="pbId" #pbId="ngForm" style="width: 50%;">
+                    [(ngModel)]="_user.pbId" ngControl="pbId" #pbId="ngForm" style="width: 60%; margin-left: 10">
             </div>
             <div class="form-group" style="width: 100%;">
-                <label for="CustomerId" style="width: 25%; float: left">Customer ID</label>
+                <label for="CustomerId" style="width: 25%; float: left; font-weight: 300; padding-left: 10">Customer ID</label>
                 <input type="text" class="form-control" required
-                    [(ngModel)]="_user.customerId" ngControl="customerId" #customerId="ngForm" style="width: 50%;">
+                    [(ngModel)]="_user.customerId" ngControl="customerId" #customerId="ngForm" style="width: 60%; margin-left: 10">
             </div>
             <div [hidden]="pbId.valid || pbId.pristine" class="alert alert-danger" style="width: 100%;">
                 The customer ID is mandatory
             </div>
             <div class="form-group" style="width: 100%;">
-                <label for="CustomerMail" style="width: 25%; float: left">Customer mail</label>
+                <label for="CustomerMail" style="width: 25%; float: left; font-weight: 300; padding-left: 10">Customer mail</label>
                 <input type="text" class="form-control"
-                    [(ngModel)]="_user.mail" ngControl="mail" #mail="ngForm" style="width: 50%;">
+                    [(ngModel)]="_user.mail" ngControl="mail" #mail="ngForm" style="width: 60%; margin-left: 10">
             </div>
-            <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid">Login</button>
+            <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid" 
+                style="background-color: lightblue; color: darkblue; margin-left: 10">Login</button>
             </form>
         </div>
+        
+        
+
+<div style="width: 40%; float: left; margin-left:10; font-size: smaller">
+You can use any credential to login.
+<br>
+If you fill both the PFA and Customer IDs then it means that you are working as a PFA who wants to prepare a proposal for a Customer. 
+If a Customer Mail is provided, when a proposal is saved, a mail is sent to the mail address.<br>
+If you fill just the Customer ID (leaving the PFA ID empty) then it means that you are entering as a customer and you are 
+entitled to view the proposals that the PFA has prepared for you. 
+</div>
