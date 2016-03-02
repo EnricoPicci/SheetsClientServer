@@ -120,6 +120,9 @@ System.register(['angular2/core', 'angular2/router', './proposal', './proposalIn
                             //this.saveButtonDisabled = false;
                             if (backEndResponse.result == 'OK') {
                                 _this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved';
+                                if (_this._userLogged.mail != null && _this._userLogged.mail.trim().length > 0) {
+                                    _this.proposalMessage = _this.proposalMessage + '. An email has been sent to ' + _this._userLogged.mail + '.';
+                                }
                             }
                             else {
                                 // all assets are valid at the beginning of the loop that defines

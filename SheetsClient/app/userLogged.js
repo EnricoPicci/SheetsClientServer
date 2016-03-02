@@ -5,9 +5,9 @@ System.register([], function(exports_1) {
         execute: function() {
             UserLogged = (function () {
                 function UserLogged() {
-                    this.pbId = null;
-                    this.customerId = null;
-                    this.mail = null;
+                    this.pbId = 'Jane Advisor';
+                    this.customerId = 'Jack Client';
+                    this.mail = 'jack.client@gmail.com';
                 }
                 UserLogged.prototype.isCustomer = function () {
                     return this.pbId == null || this.pbId.trim().length == 0;

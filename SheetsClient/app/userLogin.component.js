@@ -27,14 +27,9 @@ System.register(['angular2/core', 'angular2/router', './userLogged'], function(e
                     this._router = _router;
                     this._user = _user;
                     this._routeParams = _routeParams;
+                    this.showDetails = false;
                     this.isValidOrEmptyMail = true;
                 }
-                /*ngOnInit() {
-                    let proposalId = +this._routeParams.get('proposalId');
-                    if (proposalId) {
-                        this._router.navigate(['Proposal']);
-                    }
-                }*/
                 UserLoginComponent.prototype.onSubmit = function () {
                     console.log('pb id --- ' + this._user.pbId);
                     console.log('customer id --- ' + this._user.customerId);
@@ -48,6 +43,19 @@ System.register(['angular2/core', 'angular2/router', './userLogged'], function(e
                     var isValid = this._user.mail == null || this._user.mail.trim().length == 0 || filter.test(this._user.mail);
                     console.log('mail valid  -- ' + isValid);
                     return isValid;
+                };
+                UserLoginComponent.prototype.toggleShowDetails = function () {
+                    this.showDetails = !this.showDetails;
+                };
+                UserLoginComponent.prototype.getDetailsMessage = function () {
+                    var message;
+                    if (this.showDetails) {
+                        message = 'Hide details, I had enough';
+                    }
+                    else {
+                        message = 'Wanna read some details?';
+                    }
+                    return message;
                 };
                 UserLoginComponent = __decorate([
                     core_1.Component({

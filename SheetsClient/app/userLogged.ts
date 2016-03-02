@@ -1,7 +1,7 @@
 export class UserLogged { 
-    public pbId: string = null;
-    public customerId: string = null;
-    public mail: string = null;
+    public pbId: string = 'Jane Advisor';
+    public customerId: string = 'Jack Client';
+    public mail: string = 'jack.client@gmail.com';
     
     constructor() {}
     

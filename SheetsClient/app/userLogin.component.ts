@@ -11,17 +11,11 @@ import {UserLogged} from './userLogged';
 })
 
 export class UserLoginComponent { 
+    public showDetails = false;
     public isValidOrEmptyMail = true;
     
     constructor(private _router: Router, private _user: UserLogged,
         private _routeParams: RouteParams) {}
-        
-    /*ngOnInit() {
-        let proposalId = +this._routeParams.get('proposalId');
-        if (proposalId) {
-            this._router.navigate(['Proposal']);
-        }
-    }*/
     
     onSubmit() {
         console.log('pb id --- ' + this._user.pbId);
@@ -38,4 +32,19 @@ export class UserLoginComponent {
         console.log('mail valid  -- ' + isValid);
         return isValid;
     }
+    
+    toggleShowDetails() {
+        this.showDetails = !this.showDetails;
+    }
+    
+    getDetailsMessage() {
+        let message;
+        if (this.showDetails) {
+            message = 'Hide details, I had enough';
+        } else {
+            message = 'Wanna read some details?';
+        }
+        return message;
+    }
+    
 }

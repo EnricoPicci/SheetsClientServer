@@ -1,30 +1,35 @@
-<div style="width: 100%; float: left">
-<p>
-This is a Prototype that I have developed using the MEAN stack, in particular <mark>Angular2</mark> for the Front End. 
-<br>
-The Client, a Financial Institution, wants to launch on the market a new Family of products dedicated exclusively 
-to the Digital channel. Each of these products represents a bundle of financial instruments (stocks, bonds, funds) 
-selected by the Financial Institution around a certain investment theme (e.g. Automotive in East Asia or Energy 
-in North America). Inspiration for this family of Products has been derived from Motif (<a target="_blank" 
-href="https://www.motifinvesting.com/motifs#catalog=our">www.motifinvesting.com</a>).
-<br>
-The main characteristics of the products and how the presale/sale processes should be developed on the Digital channel have
-been derived from some conversations I held with the client.
-<br>
-Starting from the what has emerged in these conversations, leveraging Motif as an example, I have built the Prototype. 
-</p>
+<div>
+    <h2>Selling a Family of financial products - A prototype</h2>
+    <br>
+    <span class="clickable" (click)="toggleShowDetails()" style="text-decoration: underline;">{{getDetailsMessage()}}</span>
 </div>
-<div style="width: 60%; float: left">
-The prototype has been developed with <mark>Angular2</mark> and <mark>Typescript</mark> for the front end, <mark>Express/NodeJS</mark>
- to build a simple light server using <mark>MongoDB</mark> as DB.
-<br>
-We need still to work on ‘Responsiveness’ (i.e. make the site work optimally on different devices which have different 
-screen sizes) and multi browser support (now the prototype works best with Chrome and last Safari).
-<br>
-A part from these 2 points, we think that the Prototype in its front end (Angular2) part is 'production quality' code. 
-We leverage greatly the composition pattern (via Angular2 components) and have based the solution on a sound Object Oriented
-model (made possible by the use of Typescript).
-</div>
+
+<div [hidden]="!showDetails">
+    <div style="width: 100%; float: left">
+    <p>
+    This is a Prototype that I have developed using the MEAN stack, in particular <mark>Angular2</mark> for the Front End. 
+    <br>
+    Imagine that a Financial Institution wants to launch on the market a new Family of products. 
+    Each of these products represents a bundle of financial instruments 
+    selected by the Financial Institution around a certain investment theme (e.g. Automotive in East Asia or Energy 
+    in North America). Inspiration for this family of Products may be derived from Motif (<a target="_blank" 
+    href="https://www.motifinvesting.com/motifs#catalog=our">www.motifinvesting.com</a>).
+    <br>
+    Leveraging Motif as an example, and using some imagination, I have built the Prototype. 
+    </p>
+    </div>
+    <div style="width: 60%; float: left">
+    The prototype has been developed with <mark>Angular2</mark> and <mark>Typescript</mark> for the front end, <mark>Express/NodeJS</mark>
+    to build a simple light server using <mark>MongoDB</mark> as DB.
+    <br>
+    We need still to work on ‘Responsiveness’ (i.e. make the site work optimally on different devices which have different 
+    screen sizes) and multi browser support (now the prototype works best with Chrome and last Safari).
+    <br>
+    A part from these 2 points, we think that the Prototype in its front end (Angular2) part is 'production quality' code. 
+    We leverage greatly the composition pattern (via Angular2 components) and have based the solution on a sound Object Oriented
+    model (made possible by the use of Typescript).
+    </div>
+
         <div class="container" style="width: 40%; float: right">
             <div style="width: 20%; height: 20%; float: left; padding-left: 10;">
                 <img src="./images/angular2.jpeg" width="120" height="100"/>
@@ -37,27 +42,33 @@ model (made possible by the use of Typescript).
             </div>
         </div>
         
-<div style="width: 100%; float: left">
-<p>
-The prototype covers the following <strong><em>functionalities</em></strong>:
-<br>
-- <strong>Dashboard</strong> (basically the <strong>Product Catalogue</strong>): in this page all the available products are shown with different search and
-sorting criteria
-<br>
-- <strong>Detailed View</strong>: shows the details of a single product (e.g. description, financial data, charts, assets that compose the 
-product); through this view we can also customize the product (within the limits set by the min/max rules) and save 
-the customized version.
-<br>
-- <strong>Compare view</strong>: we can compare 2 Products
-<br>
-- <strong>Proposal view</strong>: starting from the Details view we can create a Proposal (if we are acting as PFA)
-<br>
-- <strong>Proposal list and detail view</strong>: if we enter as customer, we can see the list of our proposals, we can select one, modify the 
-amount of investment and, eventually, decide to buy. The process ends with the creation of a message which can go to the 
-back end system responsible for the execution of the orders on the market.
-</p>    
+    <div style="width: 100%; float: left">
+    <p>
+    The prototype covers the following <strong><em>functionalities</em></strong>:
+    <br>
+    - <strong>Dashboard</strong> (basically the <strong>Product Catalogue</strong>): in this page all the available products are shown with different search and
+    sorting criteria
+    <br>
+    - <strong>Detailed View</strong>: shows the details of a single product (e.g. description, financial data, charts, assets that compose the 
+    product); through this view we can also customize the product (within the limits set by the min/max rules) and save 
+    the customized version.
+    <br>
+    - <strong>Compare view</strong>: we can compare 2 Products
+    <br>
+    - <strong>Proposal view</strong>: starting from the Details view we can create a Proposal (if we are acting as PFA)
+    <br>
+    - <strong>Proposal list and detail view</strong>: if we enter as customer, we can see the list of our proposals, we can select one, modify the 
+    amount of investment and, eventually, decide to buy. The process ends with the creation of a message which can go to the 
+    back end system responsible for the execution of the orders on the market.
+    </p>
+    </div>
+    <span class="clickable" (click)="toggleShowDetails()" style="text-decoration: underline;">{{getDetailsMessage()}}</span>
 </div>
 
+<div style="width: 100%; float: left">
+    <h4 style="color: darkred">Do not be afraid if you see this login form and you think you do not know any credential. 
+        You may use the default data or provide your own. No control is performed.</h4>
+</div>
 
          <div class="container" style="width: 35%; float: left; border-size:thin; border-style:solid; 
             border-color:darkred; background-color: whitesmoke;">
@@ -73,7 +84,7 @@ back end system responsible for the execution of the orders on the market.
                 <input type="text" class="form-control" required
                     [(ngModel)]="_user.customerId" ngControl="customerId" #customerId="ngForm" style="width: 60%; margin-left: 10">
             </div>
-            <div [hidden]="customerId.valid || customerId.pristine" class="alert alert-danger" style="width: 100%;">
+            <div [hidden]="customerId.valid || customerId.pristine" class="alert alert-danger" style="width: 70%;">
                 The customer ID is mandatory
             </div>
             <div class="form-group" style="width: 100%;">

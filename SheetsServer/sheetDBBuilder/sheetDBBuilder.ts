@@ -899,8 +899,8 @@ export class SheetDBBuilder {
                             ],
                             "name": "Jamaica",
                             "weight": 35,
-                            "oneMonthRet": "-21%",
-                            "oneYearRet": "2%",
+                            "oneMonthRet": "7%",
+                            "oneYearRet": "12%",
                             "minWeight": 15,
                             "maxWeight": 42
                         },
