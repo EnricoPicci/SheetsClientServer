@@ -74,6 +74,20 @@ router.get('/getReturnData', function (req, res) {
     sheetRestService_1.SheetRestService.getReturnData(sheetId, returnPeriod, res);
 });
 /*
+ * GET the updated VaR for one sheet
+ */
+router.get('/getValueAtRisk', function (req, res) {
+    var sheetId = req.query.sheetId;
+    sheetRestService_1.SheetRestService.getValueAtRisk(sheetId, res);
+});
+/*
+ * GET the updated Volatility for one sheet
+ */
+router.get('/getVolatility', function (req, res) {
+    var sheetId = req.query.sheetId;
+    sheetRestService_1.SheetRestService.getVolatility(sheetId, res);
+});
+/*
  * GET information about the capacity of accounts and portfolio of a customer
  */
 router.get('/getAccountAndPortfolioCapacityForInvestment', function (req, res) {

@@ -16,10 +16,10 @@ System.register([], function(exports_1) {
                 SheetBackEnd.prototype.selectSheets = function (publicPersonal, generalTags, valueBasedTags, sectorsTags) { return null; };
                 SheetBackEnd.prototype.searchSheetsByKeyword = function (inSearchString) { return null; };
                 SheetBackEnd.prototype.getReturnData = function (inSheet, inPeriod) { return null; };
-                SheetBackEnd.prototype.updateReturnData = function (inSheet, inPeriod) { };
-                SheetBackEnd.prototype.updateValueAtRisk = function (inSheet) { };
+                //updateReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) {}
+                SheetBackEnd.prototype.updateValueAtRisk = function (inSheet) { return null; };
                 ;
-                SheetBackEnd.prototype.updateVolatility = function (inSheet) { };
+                SheetBackEnd.prototype.updateVolatility = function (inSheet) { return null; };
                 ;
                 SheetBackEnd.prototype.addSheet = function (inSheet) { };
                 SheetBackEnd.prototype.getAccountAndPortfolioCapacityForInvestment = function (inCustomerId) { };

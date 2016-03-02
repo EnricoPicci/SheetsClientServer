@@ -21,10 +21,10 @@ export abstract class SheetBackEnd {
     searchSheetsByKeyword(inSearchString: string) : any {return null}
     
     getReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) : any {return null}
-    updateReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) {}
+    //updateReturnData(inSheet: Sheet, inPeriod: ReturnPeriod) {}
     
-    updateValueAtRisk(inSheet: Sheet) {};
-    updateVolatility(inSheet: Sheet) {};
+    updateValueAtRisk(inSheet: Sheet) : any {return null};
+    updateVolatility(inSheet: Sheet) : any {return null};
     
     addSheet(inSheet: Sheet) : any {}
     getAccountAndPortfolioCapacityForInvestment(inCustomerId: string) : any {}

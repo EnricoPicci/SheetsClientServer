@@ -14,11 +14,10 @@ import {ProposalInvestment} from '../app/proposalInvestment';
 import {ProposalInvestmentSource} from '../app/proposalInvestmentSource';
 import {UserLogged} from '../app/userlogged';
 
-import {BackEndClientMock} from '../externalServicesClientMock/backEnd.clientMock.service';
 import {Environment} from '../environmentSettings/environment.service';
 
 @Injectable()
-export class BackEndRest extends BackEndClientMock {
+export class BackEndRest extends SheetBackEnd {
     constructor(private _http: Http, private _environment: Environment) {
         super();
     }
@@ -184,41 +183,6 @@ export class BackEndRest extends BackEndClientMock {
                     for (var i = 0; i < data.length; i++) {
                         let proposalJSON = data[i];
                         let proposalFromBackEnd = this.createProposal(proposalJSON);
-                        /*proposalFromBackEnd.id = proposalJSON.id;
-                        proposalFromBackEnd.comment = proposalJSON.comment;
-                        let thisArrayOfAssetGroups = new Array<AssetGroup>();
-                        proposalFromBackEnd.assetGroups = thisArrayOfAssetGroups;
-                        // the assetGroups of the sheet referenced by the newly created proposal are 
-                        // set so that we can use components originally designed for sheets also with 
-                        // proposals (e.g. SheetAssetCompositionComponent
-                        proposalFromBackEnd.sheet.assetGroups = thisArrayOfAssetGroups;
-                        for (var j = 0; j < proposalJSON.assetGroupJSONs.length; j++) {
-                            let thisAssetGroupJSON = proposalJSON.assetGroupJSONs[j];
-                            let thisArrayOfAssets = new Array<Asset>();
-                            for (var k = 0; k < thisAssetGroupJSON.assetJSONs.length; k++) {
-                                let thisAssetJSON = thisAssetGroupJSON.assetJSONs[k];
-                                // the min and max values of the asset are set because they are required by SheetAssetCompositionComponent
-                                let thisAsset = new Asset(thisAssetJSON.name, thisAssetJSON.symbol, thisAssetJSON.weight,
-                                null, null, 0, 1);
-                                thisAsset.investmentAmount = thisAssetJSON.investmentAmount;
-                                thisArrayOfAssets.push(thisAsset);
-                            }
-                            // the min and max values of the asset are set because they are required by SheetAssetCompositionComponent
-                            let thisAssetGroup = new AssetGroup(thisAssetGroupJSON.name, thisAssetGroupJSON.weight,
-                                                                    null, null, thisArrayOfAssets, 0, 1);
-                            thisAssetGroup.investmentAmount = thisAssetGroupJSON.investmentAmount;
-                            proposalFromBackEnd.assetGroups.push(thisAssetGroup);
-                        }
-                        let thisArrayOfProposalInvestments = new Array<ProposalInvestment>();
-                        proposalFromBackEnd.investmentElements = thisArrayOfProposalInvestments;
-                        for (var j = 0; j < proposalJSON.proposalInvestmentJSONs.length; j++) { 
-                            let thisProposalInvestmentJSON = proposalJSON.proposalInvestmentJSONs[j];
-                            let thisProposalInvestmentSource = new ProposalInvestmentSource(thisProposalInvestmentJSON.source.type,
-                                                                        thisProposalInvestmentJSON.source.id, null)
-                            let thisProposalInvestment = new ProposalInvestment(thisProposalInvestmentSource);
-                            thisProposalInvestment.amount = thisProposalInvestmentJSON.amount;
-                            proposalFromBackEnd.investmentElements.push(thisProposalInvestment);
-                        }*/
                         proposalsRetrieved.push(proposalFromBackEnd);
                     }
                     return proposalsRetrieved;
@@ -246,6 +210,28 @@ export class BackEndRest extends BackEndClientMock {
             .map(res => res.json())
             .catch(this.handleError)
     }
+    
+    updateValueAtRisk(inSheet: Sheet) {
+        let myUrl = this._environment.baseServiceUrl + 'getValueAtRisk/?sheetId=' + inSheet.id;
+        return this._http.get(myUrl)
+            .map(res => {
+                    let newVaR = res.json().VaR;
+                    inSheet.valueAtRisk = newVaR;
+                }
+            )
+            .catch(this.handleError)
+    };
+    
+    updateVolatility(inSheet: Sheet) {
+        let myUrl = this._environment.baseServiceUrl + 'getVolatility/?sheetId=' + inSheet.id;
+        return this._http.get(myUrl)
+            .map(res => {
+                    let newVolatility = res.json().volatility;
+                    inSheet.volatility = newVolatility;
+                }
+            )
+            .catch(this.handleError)     
+    };
     
     private handleError (error: Response) {
         console.error('http error');
@@ -294,17 +280,6 @@ export class BackEndRest extends BackEndClientMock {
         sheetFromBackEnd.benchmark = inSheetJson.benchmark;
         return sheetFromBackEnd;
     }
-    
-    /*private createProposal(inProposalJSON: any) {
-        let skinnySheetFromBackEnd = new Sheet(inProposalJSON.sheetId, inProposalJSON.title, null, inProposalJSON.imageUrl,
-        null, null, null, null, null, null);
-        //skinnySheetFromBackEnd.originalSheetID = inProposalJSON.originalSheetID;
-        let proposal = new Proposal(null, inProposalJSON.customerId, skinnySheetFromBackEnd);
-        proposal.isValid = inProposalJSON.isValid;
-        proposal.id = inProposalJSON.id;
-        proposal.comment = inProposalJSON.comment;
-        return proposal;
-    }*/
     
     private createProposal(inProposalJSON: any) {
         let skinnySheetFromBackEnd = new Sheet(inProposalJSON.sheetId, inProposalJSON.title, null, inProposalJSON.imageUrl,

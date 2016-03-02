@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sheet', './sheetJSON', '../app/assetGroup', '../app/asset', '../app/proposal', './proposalJSON', '../app/proposalInvestment', '../app/proposalInvestmentSource', '../externalServicesClientMock/backEnd.clientMock.service', '../environmentSettings/environment.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sheet', './sheetJSON', '../app/assetGroup', '../app/asset', '../app/sheetBackEnd.service', '../app/proposal', './proposalJSON', '../app/proposalInvestment', '../app/proposalInvestmentSource', '../environmentSettings/environment.service'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -13,7 +13,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, Observable_1, sheet_1, sheetJSON_1, assetGroup_1, asset_1, proposal_1, proposalJSON_1, proposalInvestment_1, proposalInvestmentSource_1, backEnd_clientMock_service_1, environment_service_1;
+    var core_1, http_1, Observable_1, sheet_1, sheetJSON_1, assetGroup_1, asset_1, sheetBackEnd_service_1, proposal_1, proposalJSON_1, proposalInvestment_1, proposalInvestmentSource_1, environment_service_1;
     var BackEndRest;
     return {
         setters:[
@@ -38,6 +38,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
             function (asset_1_1) {
                 asset_1 = asset_1_1;
             },
+            function (sheetBackEnd_service_1_1) {
+                sheetBackEnd_service_1 = sheetBackEnd_service_1_1;
+            },
             function (proposal_1_1) {
                 proposal_1 = proposal_1_1;
             },
@@ -49,9 +52,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
             },
             function (proposalInvestmentSource_1_1) {
                 proposalInvestmentSource_1 = proposalInvestmentSource_1_1;
-            },
-            function (backEnd_clientMock_service_1_1) {
-                backEnd_clientMock_service_1 = backEnd_clientMock_service_1_1;
             },
             function (environment_service_1_1) {
                 environment_service_1 = environment_service_1_1;
@@ -205,41 +205,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                         for (var i = 0; i < data.length; i++) {
                             var proposalJSON = data[i];
                             var proposalFromBackEnd = _this.createProposal(proposalJSON);
-                            /*proposalFromBackEnd.id = proposalJSON.id;
-                            proposalFromBackEnd.comment = proposalJSON.comment;
-                            let thisArrayOfAssetGroups = new Array<AssetGroup>();
-                            proposalFromBackEnd.assetGroups = thisArrayOfAssetGroups;
-                            // the assetGroups of the sheet referenced by the newly created proposal are
-                            // set so that we can use components originally designed for sheets also with
-                            // proposals (e.g. SheetAssetCompositionComponent
-                            proposalFromBackEnd.sheet.assetGroups = thisArrayOfAssetGroups;
-                            for (var j = 0; j < proposalJSON.assetGroupJSONs.length; j++) {
-                                let thisAssetGroupJSON = proposalJSON.assetGroupJSONs[j];
-                                let thisArrayOfAssets = new Array<Asset>();
-                                for (var k = 0; k < thisAssetGroupJSON.assetJSONs.length; k++) {
-                                    let thisAssetJSON = thisAssetGroupJSON.assetJSONs[k];
-                                    // the min and max values of the asset are set because they are required by SheetAssetCompositionComponent
-                                    let thisAsset = new Asset(thisAssetJSON.name, thisAssetJSON.symbol, thisAssetJSON.weight,
-                                    null, null, 0, 1);
-                                    thisAsset.investmentAmount = thisAssetJSON.investmentAmount;
-                                    thisArrayOfAssets.push(thisAsset);
-                                }
-                                // the min and max values of the asset are set because they are required by SheetAssetCompositionComponent
-                                let thisAssetGroup = new AssetGroup(thisAssetGroupJSON.name, thisAssetGroupJSON.weight,
-                                                                        null, null, thisArrayOfAssets, 0, 1);
-                                thisAssetGroup.investmentAmount = thisAssetGroupJSON.investmentAmount;
-                                proposalFromBackEnd.assetGroups.push(thisAssetGroup);
-                            }
-                            let thisArrayOfProposalInvestments = new Array<ProposalInvestment>();
-                            proposalFromBackEnd.investmentElements = thisArrayOfProposalInvestments;
-                            for (var j = 0; j < proposalJSON.proposalInvestmentJSONs.length; j++) {
-                                let thisProposalInvestmentJSON = proposalJSON.proposalInvestmentJSONs[j];
-                                let thisProposalInvestmentSource = new ProposalInvestmentSource(thisProposalInvestmentJSON.source.type,
-                                                                            thisProposalInvestmentJSON.source.id, null)
-                                let thisProposalInvestment = new ProposalInvestment(thisProposalInvestmentSource);
-                                thisProposalInvestment.amount = thisProposalInvestmentJSON.amount;
-                                proposalFromBackEnd.investmentElements.push(thisProposalInvestment);
-                            }*/
                             proposalsRetrieved.push(proposalFromBackEnd);
                         }
                         return proposalsRetrieved;
@@ -263,6 +228,26 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };
+                BackEndRest.prototype.updateValueAtRisk = function (inSheet) {
+                    var myUrl = this._environment.baseServiceUrl + 'getValueAtRisk/?sheetId=' + inSheet.id;
+                    return this._http.get(myUrl)
+                        .map(function (res) {
+                        var newVaR = res.json().VaR;
+                        inSheet.valueAtRisk = newVaR;
+                    })
+                        .catch(this.handleError);
+                };
+                ;
+                BackEndRest.prototype.updateVolatility = function (inSheet) {
+                    var myUrl = this._environment.baseServiceUrl + 'getVolatility/?sheetId=' + inSheet.id;
+                    return this._http.get(myUrl)
+                        .map(function (res) {
+                        var newVolatility = res.json().volatility;
+                        inSheet.volatility = newVolatility;
+                    })
+                        .catch(this.handleError);
+                };
+                ;
                 BackEndRest.prototype.handleError = function (error) {
                     console.error('http error');
                     console.error(error);
@@ -303,16 +288,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     sheetFromBackEnd.benchmark = inSheetJson.benchmark;
                     return sheetFromBackEnd;
                 };
-                /*private createProposal(inProposalJSON: any) {
-                    let skinnySheetFromBackEnd = new Sheet(inProposalJSON.sheetId, inProposalJSON.title, null, inProposalJSON.imageUrl,
-                    null, null, null, null, null, null);
-                    //skinnySheetFromBackEnd.originalSheetID = inProposalJSON.originalSheetID;
-                    let proposal = new Proposal(null, inProposalJSON.customerId, skinnySheetFromBackEnd);
-                    proposal.isValid = inProposalJSON.isValid;
-                    proposal.id = inProposalJSON.id;
-                    proposal.comment = inProposalJSON.comment;
-                    return proposal;
-                }*/
                 BackEndRest.prototype.createProposal = function (inProposalJSON) {
                     var skinnySheetFromBackEnd = new sheet_1.Sheet(inProposalJSON.sheetId, inProposalJSON.title, null, inProposalJSON.imageUrl, null, null, null, null, null, null);
                     //skinnySheetFromBackEnd.originalSheetID = inProposalJSON.originalSheetID;
@@ -381,7 +356,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     __metadata('design:paramtypes', [http_1.Http, environment_service_1.Environment])
                 ], BackEndRest);
                 return BackEndRest;
-            })(backEnd_clientMock_service_1.BackEndClientMock);
+            })(sheetBackEnd_service_1.SheetBackEnd);
             exports_1("BackEndRest", BackEndRest);
         }
     }

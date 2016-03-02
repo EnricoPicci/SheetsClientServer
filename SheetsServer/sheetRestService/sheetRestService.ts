@@ -316,6 +316,20 @@ export class SheetRestService {
         inHttpRes.json(returnData);
     }
     
+    public static getValueAtRisk(inSheetId: string, inHttpRes: any) {
+        let max = 10;
+        let min = 0;
+        let newVaR = Math.random() * (max - min) + min;
+        inHttpRes.json({VaR: newVaR});
+    }
+    
+    public static getVolatility(inSheetId: string, inHttpRes: any) {
+        let max = 25;
+        let min = 0;
+        let newVolatility = Math.random() * (max - min) + min;
+        inHttpRes.json({volatility: newVolatility});
+    }
+    
     private static fillReturnDataArrayLastMonth(id: number, inRetunrData: Array<any>) {
         if (id == 1 || id == 4 || id == 7 || id == 10 || id == 13 || id == 16) {
             inRetunrData[0] = this.mockData.getReturnDataLastMonth1();

@@ -27,6 +27,8 @@ export class SheetCompositionCharts {
     
     private _subscriptionToSheetCompositionChange: any;
     
+    public httpErrorResponse: string;
+    
     constructor(
         private _sheetBackEnd: SheetBackEnd
     ) { }
@@ -46,12 +48,22 @@ export class SheetCompositionCharts {
         this.highchartsOptionsForGroups.series = this.getSeriesForAssetGroups();
         this.highchartsOptionsForAssets = this.createNewHighstocksOptionsForPieChart('Asset Composition');
         this.highchartsOptionsForAssets.series = this.getSeriesForAssets();
-        this._sheetBackEnd.updateValueAtRisk(this.sheet);
-        this._sheetBackEnd.updateVolatility(this.sheet);
-        this.highchartsOptionsForValueAtRisk = this.createNewHighstocksOptionsForGaugeChart
-                                                        ('VaR', this.sheet.valueAtRisk, 0, 10, 3, 6);
-        this.highchartsOptionsForVolatility = this.createNewHighstocksOptionsForGaugeChart
-                                                        ('Volatility', this.sheet.volatility, 0, 25, 8, 18);
+        this._sheetBackEnd.updateValueAtRisk(this.sheet)
+            .subscribe(
+                returnData => {
+                    this.highchartsOptionsForValueAtRisk = this.createNewHighstocksOptionsForGaugeChart
+                        ('VaR', this.sheet.valueAtRisk, 0, 10, 3, 6);
+                },
+                error => this.httpErrorResponse = <any>error                                        
+            );
+        this._sheetBackEnd.updateVolatility(this.sheet)
+            .subscribe(
+                returnData => {
+                    this.highchartsOptionsForVolatility = this.createNewHighstocksOptionsForGaugeChart
+                        ('Volatility', this.sheet.volatility, 0, 25, 8, 18);
+                },
+                error => this.httpErrorResponse = <any>error
+            );
     }
     
     createNewHighstocksOptionsForPieChart(inTitle: string) {

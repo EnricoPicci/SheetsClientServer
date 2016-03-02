@@ -38,14 +38,19 @@ System.register(['angular2/core', './sheetBackEnd.service', '../ng2Highcharts/sr
                     this._subscriptionToSheetCompositionChange = this.sheet.getChangeCompositionEvent().unsubscribe();
                 };
                 SheetCompositionCharts.prototype.generateCharts = function () {
+                    var _this = this;
                     this.highchartsOptionsForGroups = this.createNewHighstocksOptionsForPieChart('Group composition');
                     this.highchartsOptionsForGroups.series = this.getSeriesForAssetGroups();
                     this.highchartsOptionsForAssets = this.createNewHighstocksOptionsForPieChart('Asset Composition');
                     this.highchartsOptionsForAssets.series = this.getSeriesForAssets();
-                    this._sheetBackEnd.updateValueAtRisk(this.sheet);
-                    this._sheetBackEnd.updateVolatility(this.sheet);
-                    this.highchartsOptionsForValueAtRisk = this.createNewHighstocksOptionsForGaugeChart('VaR', this.sheet.valueAtRisk, 0, 10, 3, 6);
-                    this.highchartsOptionsForVolatility = this.createNewHighstocksOptionsForGaugeChart('Volatility', this.sheet.volatility, 0, 25, 8, 18);
+                    this._sheetBackEnd.updateValueAtRisk(this.sheet)
+                        .subscribe(function (returnData) {
+                        _this.highchartsOptionsForValueAtRisk = _this.createNewHighstocksOptionsForGaugeChart('VaR', _this.sheet.valueAtRisk, 0, 10, 3, 6);
+                    }, function (error) { return _this.httpErrorResponse = error; });
+                    this._sheetBackEnd.updateVolatility(this.sheet)
+                        .subscribe(function (returnData) {
+                        _this.highchartsOptionsForVolatility = _this.createNewHighstocksOptionsForGaugeChart('Volatility', _this.sheet.volatility, 0, 25, 8, 18);
+                    }, function (error) { return _this.httpErrorResponse = error; });
                 };
                 SheetCompositionCharts.prototype.createNewHighstocksOptionsForPieChart = function (inTitle) {
                     return {

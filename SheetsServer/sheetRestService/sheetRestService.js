@@ -305,6 +305,18 @@ var SheetRestService = (function () {
         }
         inHttpRes.json(returnData);
     };
+    SheetRestService.getValueAtRisk = function (inSheetId, inHttpRes) {
+        var max = 10;
+        var min = 0;
+        var newVaR = Math.random() * (max - min) + min;
+        inHttpRes.json({ VaR: newVaR });
+    };
+    SheetRestService.getVolatility = function (inSheetId, inHttpRes) {
+        var max = 25;
+        var min = 0;
+        var newVolatility = Math.random() * (max - min) + min;
+        inHttpRes.json({ volatility: newVolatility });
+    };
     SheetRestService.fillReturnDataArrayLastMonth = function (id, inRetunrData) {
         if (id == 1 || id == 4 || id == 7 || id == 10 || id == 13 || id == 16) {
             inRetunrData[0] = this.mockData.getReturnDataLastMonth1();
