@@ -26,7 +26,7 @@ undefined-->
             </div>
             <div id="buttons" class="buttonRoster">
                 <button id="saveButton" class="basicButton" type="button" (click)="onSaveProposal()" 
-                    [hidden]="_userLogged.isCustomer()" [hidden]="saveButtonDisabled">Save</button>
+                    [hidden]="_userLogged.isCustomer() || !showSaveButton" [disabled]="!proposal.isValid()">Save</button>
                 <button id="buyButton" class="basicButton" type="button" (mouseup)="onBuyProposal()" [hidden]="!_userLogged.isCustomer() || buyOrderSent">Buy</button>
             </div>
             <div id="message" class="message" [hidden]="!proposalMessage">{{proposalMessage}}</div>

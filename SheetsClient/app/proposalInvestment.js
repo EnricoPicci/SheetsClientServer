@@ -6,7 +6,7 @@ System.register([], function(exports_1) {
             ProposalInvestment = (function () {
                 function ProposalInvestment(inSource) {
                     this.amount = 0;
-                    this.isValid = true;
+                    this.isAmountNumberValid = true;
                     this.source = inSource;
                 }
                 ProposalInvestment.prototype.getAmountFormatted = function () {
@@ -15,6 +15,22 @@ System.register([], function(exports_1) {
                         formattedString = this.amount.toLocaleString('it-IT');
                     }
                     return formattedString;
+                };
+                ProposalInvestment.prototype.getErrorMessage = function () {
+                    var message = 'Error. Amount not valid.';
+                    if (!this.isAmountNumberValid) {
+                        message = 'Amount not valid';
+                    }
+                    else if (this.isHigherThanCapacity()) {
+                        message = 'Amount higher than capacity';
+                    }
+                    return message;
+                };
+                ProposalInvestment.prototype.isHigherThanCapacity = function () {
+                    return this.amount > this.source.maxCapacity;
+                };
+                ProposalInvestment.prototype.isValid = function () {
+                    return this.isAmountNumberValid && !this.isHigherThanCapacity();
                 };
                 return ProposalInvestment;
             })();

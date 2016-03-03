@@ -36,7 +36,7 @@ export class ProposalComponent {
     public buyOrderSent = false;
     public buyMessageForTheBackEnd: string;
     
-    public saveButtonDisabled = false;
+    public showSaveButton = true;
     
     constructor(
         private _userLogged: UserLogged,
@@ -52,11 +52,29 @@ export class ProposalComponent {
         // if id is null it means we have been called within the single-page (and we hope we have been passed a full Sheet or Proposal 
         // instance)
         if (proposalId) {
+            // the page is entered directly from the mail sent to the customer; since I set the pbId as default,
+            // I need to clear it here in order to enable the BUY button
+            this._userLogged.pbId = null;
             this._backEnd.getProposal(proposalId)
             .subscribe(
                 proposal => {
                     this.proposal = proposal;
                     this.sheet = proposal.sheet;
+                    this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
+                        .subscribe(
+                            investmentSources => {
+                                for (var i = 0; i < investmentSources.length; i++) {
+                                    let investmentSourcesFromBackEnd = investmentSources[i];
+                                    let investmentSource = new ProposalInvestmentSource(
+                                                                    investmentSourcesFromBackEnd.type,
+                                                                    investmentSourcesFromBackEnd.id,
+                                                                    investmentSourcesFromBackEnd.maxCapacity);
+                                    let investment = this.proposal.investmentElements[i];
+                                    investment.source = investmentSource;
+                                }
+                            },
+                            error => this.httpErrorResponse = <any>error
+                        );
                 },
                 error => this.httpErrorResponse = <any>error
             );
@@ -85,7 +103,7 @@ export class ProposalComponent {
         // expect to have a proposal as input; in this case we do not need to create the proposal
         // but only to feed the maxCapacity information to each investmentSource (we assume the maxCapacity
         // info has to be collected fresh any time the component is created since it can vary over time)
-        else {
+        /*else {
             if (!this.proposal) {
                 console.error('either sheet or proposal has to be passed as input');
             } else {
@@ -103,7 +121,7 @@ export class ProposalComponent {
                         error => this.httpErrorResponse = <any>error
                     );
             }
-        }
+        }*/
     }
     
     onSaveProposal() {
@@ -117,11 +135,11 @@ export class ProposalComponent {
              element.focus();
             }, 0);
         } else {
-            this.saveButtonDisabled = true;
+            this.showSaveButton = false;
             this._backEnd.validateAndSaveProposal(this.proposal, this._userLogged)
                 .subscribe(
                     backEndResponse => {
-                        //this.saveButtonDisabled = false;
+                        //this.showSaveButton = false;
                         if (backEndResponse.result == 'OK') {
                             this.proposalMessage = 'Proposal no: ' + backEndResponse.id + ' saved';
                             if (this._userLogged.mail != null && this._userLogged.mail.trim().length > 0) {
@@ -142,17 +160,17 @@ export class ProposalComponent {
                                     }
                                 }
                             }
+                            this.showSaveButton = true;
                             this.errorMessage = 'Invalid. Reduce investment indicated below';
                         }
                     },
                     error => {
-                        this.saveButtonDisabled = false;
+                        this.showSaveButton = true;
                         this.httpErrorResponse = <any>error
                     }
                 );
         }
     }
-    
         
     onSendProposal() {
         this.resetMessages();

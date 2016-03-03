@@ -286,7 +286,7 @@ export class BackEndRest extends SheetBackEnd {
         null, null, null, null, null, null);
         //skinnySheetFromBackEnd.originalSheetID = inProposalJSON.originalSheetID;
         let proposalFromBackEnd = new Proposal(null, inProposalJSON.customerId, skinnySheetFromBackEnd);
-        proposalFromBackEnd.isValid = inProposalJSON.isValid;
+        //proposalFromBackEnd.isValid = inProposalJSON.isValid;
         proposalFromBackEnd.id = inProposalJSON.id;
         proposalFromBackEnd.comment = inProposalJSON.comment;
         

@@ -21,8 +21,8 @@ undefined-->
                         <th class="investedAmountClass">Invested value</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="#proposal of proposals">
-                    <tr class="proposalClass">
+                <tbody>
+                    <tr  *ngFor="#proposal of proposals" class="proposalClass">
                         <td class="iconClass">
                             <sheet-summary [sheet]="proposal.sheet"  [isIconized]="true"></sheet-summary>
                         </td>

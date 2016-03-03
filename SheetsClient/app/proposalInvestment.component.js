@@ -20,12 +20,21 @@ System.register(['angular2/core'], function(exports_1) {
                 function ProposalInvestmentComponent() {
                 }
                 ProposalInvestmentComponent.prototype.onInvestmentChange = function (inInvestmentElement, inInvestmentInput) {
-                    if (isNaN(inInvestmentInput.value)) {
-                        inInvestmentElement.isValid = false;
+                    //inInvestmentElement.isHigherThanCapacity = false;
+                    var newAmount;
+                    if (inInvestmentInput.value == null || inInvestmentInput.value.trim().length == 0) {
+                        newAmount = 0;
                     }
                     else {
-                        inInvestmentElement.isValid = true;
-                        inInvestmentElement.amount = parseFloat(inInvestmentInput.value);
+                        newAmount = parseFloat(inInvestmentInput.value);
+                    }
+                    if (isNaN(newAmount)) {
+                        inInvestmentElement.isAmountNumberValid = false;
+                    }
+                    else {
+                        //inInvestmentElement.isHigherThanCapacity = true;
+                        inInvestmentElement.isAmountNumberValid = true;
+                        inInvestmentElement.amount = newAmount;
                         this.proposal.updateInvestment();
                     }
                 };

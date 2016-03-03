@@ -10,7 +10,7 @@ export class Proposal {
     public customerId: string;
     public investmentElements = new Array<ProposalInvestment>();
     public comment: string;
-    public isValid = false;
+    //public isValid = false;
     
     constructor(inAssets: Array<AssetGroup>, inCustomerId: string, inSheet: Sheet
     ) { 
@@ -57,6 +57,16 @@ export class Proposal {
             commentShortText = this.comment.substring(0, 100) + '...';
         }
         return commentShortText;
+    }
+    
+    isValid() {
+        let validComment = (this.comment != null) && (this.comment.length > 0);
+        let validInvestmentElements = true;
+        for (var i = 0; i < this.investmentElements.length; i++) {
+            validInvestmentElements = validInvestmentElements 
+                                        && this.investmentElements[i].isValid();
+        }
+        return validComment && validInvestmentElements;
     }
     
 }

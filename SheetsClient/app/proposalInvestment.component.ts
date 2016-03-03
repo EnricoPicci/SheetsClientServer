@@ -12,17 +12,35 @@ import {Proposal} from './proposal';
     directives: [],
 	inputs: ['proposal'],
 })
-export class ProposalInvestmentComponent { 
-    //public investmentElements: Array<ProposalInvestment>;
+export class ProposalInvestmentComponent {
     public proposal: Proposal;
     
     onInvestmentChange(inInvestmentElement: ProposalInvestment, inInvestmentInput: any) {
-        if (isNaN(inInvestmentInput.value)) {
-            inInvestmentElement.isValid = false;
+        //inInvestmentElement.isHigherThanCapacity = false;
+        let newAmount;
+        if (inInvestmentInput.value == null || inInvestmentInput.value.trim().length == 0) {
+            newAmount = 0;
         } else {
-            inInvestmentElement.isValid = true;
-            inInvestmentElement.amount = parseFloat(inInvestmentInput.value);
-            this.proposal.updateInvestment();            
+            newAmount = parseFloat(inInvestmentInput.value);
+        }
+        if (isNaN(newAmount)) {
+            inInvestmentElement.isAmountNumberValid = false;
+            //inInvestmentElement.amount = 0;
+        } else {
+            //inInvestmentElement.isHigherThanCapacity = true;
+            inInvestmentElement.isAmountNumberValid = true;
+            inInvestmentElement.amount = newAmount;
+            this.proposal.updateInvestment();
+            /*if (newAmount > inInvestmentElement.source.maxCapacity) {
+                inInvestmentElement.isHigherThanCapacity = true;
+                inInvestmentElement.isValid = false;
+                inInvestmentElement.amount = newAmount;
+            } else {
+                inInvestmentElement.isValid = true;
+                inInvestmentElement.amount = newAmount;
+                this.proposal.updateInvestment();
+            }*/
         }
     }
+    
 }

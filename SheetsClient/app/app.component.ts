@@ -30,15 +30,5 @@ import {ProposalCollectionComponent} from './proposalCollection.component';
     {path: '/Proposal/', name: 'Proposal', component: ProposalComponent},
 ])
 export class AppComponent { 
-    /*constructor(
-        private _router: Router,
-        private _routeParams: RouteParams
-    ) { }
-    
-    ngOnInit() {
-        let proposalId = +this._routeParams.get('proposalId');
-        if (proposalId) {
-            this._router.navigate(['Proposal']);
-        }
-    }*/
+
 }

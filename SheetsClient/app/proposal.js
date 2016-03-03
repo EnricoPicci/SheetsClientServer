@@ -4,9 +4,9 @@ System.register([], function(exports_1) {
         setters:[],
         execute: function() {
             Proposal = (function () {
+                //public isValid = false;
                 function Proposal(inAssets, inCustomerId, inSheet) {
                     this.investmentElements = new Array();
-                    this.isValid = false;
                     this.assetGroups = inAssets;
                     this.customerId = inCustomerId;
                     this.sheet = inSheet;
@@ -45,6 +45,15 @@ System.register([], function(exports_1) {
                         commentShortText = this.comment.substring(0, 100) + '...';
                     }
                     return commentShortText;
+                };
+                Proposal.prototype.isValid = function () {
+                    var validComment = (this.comment != null) && (this.comment.length > 0);
+                    var validInvestmentElements = true;
+                    for (var i = 0; i < this.investmentElements.length; i++) {
+                        validInvestmentElements = validInvestmentElements
+                            && this.investmentElements[i].isValid();
+                    }
+                    return validComment && validInvestmentElements;
                 };
                 return Proposal;
             })();

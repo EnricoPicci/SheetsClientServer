@@ -26,7 +26,7 @@
                         (change)="onInvestmentChange(investmentElement, investmentInput)" 
                         style="width: 95%; text-align: right;" [class.invalidField]="!investmentElement.isValid">
                     <span>€</span>
-                    <span [hidden]="investmentElement.isValid" class="errorMessage">Insert valid amount</span>
+                    <span [hidden]="investmentElement.isValid()" class="errorMessage">{{investmentElement.getErrorMessage()}}</span>
                 </td>
             </tr>
         </tbody>

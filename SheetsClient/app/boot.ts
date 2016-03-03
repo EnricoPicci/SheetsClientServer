@@ -8,7 +8,6 @@ import 'rxjs/Rx';
 
 import {AppComponent} from './app.component';
 import {SheetBackEnd} from './sheetBackEnd.service';
-import {BackEndClientMock} from '../externalServicesClientMock/backEnd.clientMock.service';
 import {BackEndRest} from '../externalServicesRest/backEnd.restServer.service';
 import {SheetWeightAdjuster} from './sheetWeightAdjuster.service';
 import {UserLogged} from './userLogged'; 

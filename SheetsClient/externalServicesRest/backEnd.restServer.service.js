@@ -292,7 +292,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../app/sh
                     var skinnySheetFromBackEnd = new sheet_1.Sheet(inProposalJSON.sheetId, inProposalJSON.title, null, inProposalJSON.imageUrl, null, null, null, null, null, null);
                     //skinnySheetFromBackEnd.originalSheetID = inProposalJSON.originalSheetID;
                     var proposalFromBackEnd = new proposal_1.Proposal(null, inProposalJSON.customerId, skinnySheetFromBackEnd);
-                    proposalFromBackEnd.isValid = inProposalJSON.isValid;
+                    //proposalFromBackEnd.isValid = inProposalJSON.isValid;
                     proposalFromBackEnd.id = inProposalJSON.id;
                     proposalFromBackEnd.comment = inProposalJSON.comment;
                     var thisArrayOfAssetGroups = new Array();
