@@ -1,4 +1,4 @@
-import {Component, ViewChild} from 'angular2/core';
+import {Component, ViewChild, Input} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 
 import {Sheet} from './sheet';
@@ -19,19 +19,21 @@ import {HttpErrorManagerComponent} from '../utilities/httpErrorManager.component
     templateUrl: '../templates/proposal.html',
 	styleUrls: ['../styles/common.css', '../styles/proposal.css'],
     directives: [SheetAssetCompositionComponent, ProposalInvestmentComponent, SheetSummaryComponent, HttpErrorManagerComponent],
-	inputs: ['sheet', 'proposal'],
+	//inputs: ['sheet', 'proposal'],
 })
 export class ProposalComponent { 
     @ViewChild('buyMessage') buyMessageElementRef;
     @ViewChild('commentTextEl') commentTextElementRef;
+    @ViewChild('title') titleElementRef;
     
-    @Input('sheets') set setSheets(inSheets: Sheet[]) {
-        this.sheets = inSheets;
-        this.setLastMonthSeries();
-        for (var i = 0; i < this.sheets.length; i++) {
-            this._subscriptionToSheetCompositionChange = this.sheets[i].getChangeCompositionEvent().
-                                                        subscribe(inSheet => this.updateReturnData(inSheet));
-        }
+    @Input('proposal') set setProposal(inProposal: Proposal) {
+        //this.proposal = inProposal;
+        this.getProposalFromId(inProposal.id);
+    }
+    
+    @Input('sheet') set setSheet(inSheet: Sheet) {
+        this.sheet = inSheet;
+        this.createProposalFromSheet(inSheet);
     }
     
     public proposal: Proposal;
@@ -67,7 +69,7 @@ export class ProposalComponent {
             this.getProposalFromId(proposalId);
         } 
         // if the input passed is a proposal, then we need to create a FULL proposal starting from its Id
-        else if (this.proposal) {
+        /*else if (this.proposal) {
             this.getProposalFromId(this.proposal.id);
         }
         // if the input passed is sheet, then we need to create an empty proposal starting from the sheet passed
@@ -89,7 +91,7 @@ export class ProposalComponent {
                     },
                     error => this.httpErrorResponse = <any>error
                 );
-        } 
+        } */
     }
     
     private getProposalFromId(inProposalId) {
@@ -110,9 +112,30 @@ export class ProposalComponent {
                                     let investment = this.proposal.investmentElements[i];
                                     investment.source = investmentSource;
                                 }
+                                this.titleElementRef.nativeElement.scrollIntoView();
                             },
                             error => this.httpErrorResponse = <any>error
                         );
+                },
+                error => this.httpErrorResponse = <any>error
+            );
+    }
+    
+    private createProposalFromSheet(inSheet: Sheet) {
+        let assets = this.sheet.assetGroups;
+        this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
+            .subscribe(
+                investmentSources => {
+                    this.proposal = new Proposal(assets, this._userLogged.customerId, this.sheet);
+                    for (var i = 0; i < investmentSources.length; i++) {
+                        let investmentSourcesFromBackEnd = investmentSources[i];
+                        let investmentSource = new ProposalInvestmentSource(
+                                                        investmentSourcesFromBackEnd.type,
+                                                        investmentSourcesFromBackEnd.id,
+                                                        investmentSourcesFromBackEnd.maxCapacity);
+                        let investment = new ProposalInvestment(investmentSource);
+                        this.proposal.investmentElements.push(investment);
+                    }
                 },
                 error => this.httpErrorResponse = <any>error
             );
