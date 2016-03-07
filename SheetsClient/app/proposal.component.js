@@ -54,6 +54,19 @@ System.register(['angular2/core', 'angular2/router', './proposal', './proposalIn
                     this.buyOrderSent = false;
                     this.showSaveButton = true;
                 }
+                Object.defineProperty(ProposalComponent.prototype, "setSheets", {
+                    set: function (inSheets) {
+                        var _this = this;
+                        this.sheets = inSheets;
+                        this.setLastMonthSeries();
+                        for (var i = 0; i < this.sheets.length; i++) {
+                            this._subscriptionToSheetCompositionChange = this.sheets[i].getChangeCompositionEvent().
+                                subscribe(function (inSheet) { return _this.updateReturnData(inSheet); });
+                        }
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 ProposalComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this.resetMessages();
@@ -66,22 +79,12 @@ System.register(['angular2/core', 'angular2/router', './proposal', './proposalIn
                         // the page is entered directly from the mail sent to the customer; since I set the pbId as default,
                         // I need to clear it here in order to enable the BUY button
                         this._userLogged.pbId = null;
-                        this._backEnd.getProposal(proposalId)
-                            .subscribe(function (proposal) {
-                            _this.proposal = proposal;
-                            _this.sheet = proposal.sheet;
-                            _this._backEnd.getAccountAndPortfolioCapacityForInvestment(_this._userLogged.customerId)
-                                .subscribe(function (investmentSources) {
-                                for (var i = 0; i < investmentSources.length; i++) {
-                                    var investmentSourcesFromBackEnd = investmentSources[i];
-                                    var investmentSource = new proposalInvestmentSource_1.ProposalInvestmentSource(investmentSourcesFromBackEnd.type, investmentSourcesFromBackEnd.id, investmentSourcesFromBackEnd.maxCapacity);
-                                    var investment = _this.proposal.investmentElements[i];
-                                    investment.source = investmentSource;
-                                }
-                            }, function (error) { return _this.httpErrorResponse = error; });
-                        }, function (error) { return _this.httpErrorResponse = error; });
+                        this.getProposalFromId(proposalId);
                     }
-                    // if the input passed is sheet, then we need to create a proposal starting from the sheet passed
+                    else if (this.proposal) {
+                        this.getProposalFromId(this.proposal.id);
+                    }
+                    // if the input passed is sheet, then we need to create an empty proposal starting from the sheet passed
                     if (this.sheet) {
                         var assets = this.sheet.assetGroups;
                         this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
@@ -95,29 +98,23 @@ System.register(['angular2/core', 'angular2/router', './proposal', './proposalIn
                             }
                         }, function (error) { return _this.httpErrorResponse = error; });
                     }
-                    // if we enter the else, it means that sheet has not been passed as input and therefore we
-                    // expect to have a proposal as input; in this case we do not need to create the proposal
-                    // but only to feed the maxCapacity information to each investmentSource (we assume the maxCapacity
-                    // info has to be collected fresh any time the component is created since it can vary over time)
-                    /*else {
-                        if (!this.proposal) {
-                            console.error('either sheet or proposal has to be passed as input');
-                        } else {
-                            this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
-                                .subscribe(
-                                    investmentSources => {
-                                        for (var i = 0; i < investmentSources.length; i++) {
-                                            let investmentSourcesFromBackEnd = investmentSources[i];
-                                            this.proposal.investmentElements[i].source.maxCapacity = investmentSourcesFromBackEnd.maxCapacity;
-                                        }
-                                        // the sheet property is set so that we can use components originally designed for sheets also with
-                                        // proposals (e.g. SheetAssetCompositionComponent)
-                                        this.sheet = this.proposal.sheet;
-                                    },
-                                    error => this.httpErrorResponse = <any>error
-                                );
-                        }
-                    }*/
+                };
+                ProposalComponent.prototype.getProposalFromId = function (inProposalId) {
+                    var _this = this;
+                    this._backEnd.getProposal(inProposalId)
+                        .subscribe(function (proposal) {
+                        _this.proposal = proposal;
+                        _this.sheet = proposal.sheet;
+                        _this._backEnd.getAccountAndPortfolioCapacityForInvestment(_this._userLogged.customerId)
+                            .subscribe(function (investmentSources) {
+                            for (var i = 0; i < investmentSources.length; i++) {
+                                var investmentSourcesFromBackEnd = investmentSources[i];
+                                var investmentSource = new proposalInvestmentSource_1.ProposalInvestmentSource(investmentSourcesFromBackEnd.type, investmentSourcesFromBackEnd.id, investmentSourcesFromBackEnd.maxCapacity);
+                                var investment = _this.proposal.investmentElements[i];
+                                investment.source = investmentSource;
+                            }
+                        }, function (error) { return _this.httpErrorResponse = error; });
+                    }, function (error) { return _this.httpErrorResponse = error; });
                 };
                 ProposalComponent.prototype.onSaveProposal = function () {
                     var _this = this;
@@ -208,6 +205,11 @@ System.register(['angular2/core', 'angular2/router', './proposal', './proposalIn
                     core_1.ViewChild('commentTextEl'), 
                     __metadata('design:type', Object)
                 ], ProposalComponent.prototype, "commentTextElementRef", void 0);
+                __decorate([
+                    Input('sheets'), 
+                    __metadata('design:type', Array), 
+                    __metadata('design:paramtypes', [Array])
+                ], ProposalComponent.prototype, "setSheets", null);
                 ProposalComponent = __decorate([
                     core_1.Component({
                         selector: 'proposalCmp',

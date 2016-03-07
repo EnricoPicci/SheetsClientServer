@@ -22,8 +22,17 @@ import {HttpErrorManagerComponent} from '../utilities/httpErrorManager.component
 	inputs: ['sheet', 'proposal'],
 })
 export class ProposalComponent { 
-    @ViewChild('buyMessage') buyMessageElementRef;commentTextEl
+    @ViewChild('buyMessage') buyMessageElementRef;
     @ViewChild('commentTextEl') commentTextElementRef;
+    
+    @Input('sheets') set setSheets(inSheets: Sheet[]) {
+        this.sheets = inSheets;
+        this.setLastMonthSeries();
+        for (var i = 0; i < this.sheets.length; i++) {
+            this._subscriptionToSheetCompositionChange = this.sheets[i].getChangeCompositionEvent().
+                                                        subscribe(inSheet => this.updateReturnData(inSheet));
+        }
+    }
     
     public proposal: Proposal;
     public sheet: Sheet;
@@ -55,7 +64,36 @@ export class ProposalComponent {
             // the page is entered directly from the mail sent to the customer; since I set the pbId as default,
             // I need to clear it here in order to enable the BUY button
             this._userLogged.pbId = null;
-            this._backEnd.getProposal(proposalId)
+            this.getProposalFromId(proposalId);
+        } 
+        // if the input passed is a proposal, then we need to create a FULL proposal starting from its Id
+        else if (this.proposal) {
+            this.getProposalFromId(this.proposal.id);
+        }
+        // if the input passed is sheet, then we need to create an empty proposal starting from the sheet passed
+        if (this.sheet) {
+            let assets = this.sheet.assetGroups;
+            this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
+                .subscribe(
+                    investmentSources => {
+                        this.proposal = new Proposal(assets, this._userLogged.customerId, this.sheet);
+                        for (var i = 0; i < investmentSources.length; i++) {
+                            let investmentSourcesFromBackEnd = investmentSources[i];
+                            let investmentSource = new ProposalInvestmentSource(
+                                                            investmentSourcesFromBackEnd.type,
+                                                            investmentSourcesFromBackEnd.id,
+                                                            investmentSourcesFromBackEnd.maxCapacity);
+                            let investment = new ProposalInvestment(investmentSource);
+                            this.proposal.investmentElements.push(investment);
+                        }
+                    },
+                    error => this.httpErrorResponse = <any>error
+                );
+        } 
+    }
+    
+    private getProposalFromId(inProposalId) {
+        this._backEnd.getProposal(inProposalId)
             .subscribe(
                 proposal => {
                     this.proposal = proposal;
@@ -78,50 +116,6 @@ export class ProposalComponent {
                 },
                 error => this.httpErrorResponse = <any>error
             );
-        }
-        // if the input passed is sheet, then we need to create a proposal starting from the sheet passed
-        if (this.sheet) {
-            let assets = this.sheet.assetGroups;
-            this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
-                .subscribe(
-                    investmentSources => {
-                        this.proposal = new Proposal(assets, this._userLogged.customerId, this.sheet);
-                        for (var i = 0; i < investmentSources.length; i++) {
-                            let investmentSourcesFromBackEnd = investmentSources[i];
-                            let investmentSource = new ProposalInvestmentSource(
-                                                            investmentSourcesFromBackEnd.type,
-                                                            investmentSourcesFromBackEnd.id,
-                                                            investmentSourcesFromBackEnd.maxCapacity);
-                            let investment = new ProposalInvestment(investmentSource);
-                            this.proposal.investmentElements.push(investment);
-                        }
-                    },
-                    error => this.httpErrorResponse = <any>error
-                );
-        } 
-        // if we enter the else, it means that sheet has not been passed as input and therefore we
-        // expect to have a proposal as input; in this case we do not need to create the proposal
-        // but only to feed the maxCapacity information to each investmentSource (we assume the maxCapacity
-        // info has to be collected fresh any time the component is created since it can vary over time)
-        /*else {
-            if (!this.proposal) {
-                console.error('either sheet or proposal has to be passed as input');
-            } else {
-                this._backEnd.getAccountAndPortfolioCapacityForInvestment(this._userLogged.customerId)
-                    .subscribe(
-                        investmentSources => {
-                            for (var i = 0; i < investmentSources.length; i++) {
-                                let investmentSourcesFromBackEnd = investmentSources[i];
-                                this.proposal.investmentElements[i].source.maxCapacity = investmentSourcesFromBackEnd.maxCapacity;
-                            }
-                            // the sheet property is set so that we can use components originally designed for sheets also with 
-                            // proposals (e.g. SheetAssetCompositionComponent)
-                            this.sheet = this.proposal.sheet;
-                        },
-                        error => this.httpErrorResponse = <any>error
-                    );
-            }
-        }*/
     }
     
     onSaveProposal() {
