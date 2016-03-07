@@ -435,8 +435,10 @@ exports.SheetRestService = SheetRestService;
 var sendMailForNewProposal = function (inProposal, inUserLogged) {
     var auth = {
         auth: {
+            //api_key: 'key-5258e19c6ca5564c06ce5552f181d067',
+            //domain: 'sandbox2bae1d8b19864001920f8b327494ce41.mailgun.org'
             api_key: 'key-5258e19c6ca5564c06ce5552f181d067',
-            domain: 'sandbox2bae1d8b19864001920f8b327494ce41.mailgun.org'
+            domain: 'mg.cocoon-techies.it'
         }
     };
     var transporter = nodemailer.createTransport(mg(auth));
