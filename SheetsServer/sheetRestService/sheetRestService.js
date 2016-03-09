@@ -443,7 +443,7 @@ var sendMailForNewProposal = function (inProposal, inUserLogged) {
     };
     var transporter = nodemailer.createTransport(mg(auth));
     //var url = 'http://localhost:3000/Proposal/?proposalId=';
-    var url = 'http://ec2-54-213-172-98.us-west-2.compute.amazonaws.com:8080/Proposal/?proposalId=';
+    //var url = 'http://ec2-54-213-172-98.us-west-2.compute.amazonaws.com:8080/Proposal/?proposalId=';
     var mailOpts = {
         from: 'sheetsCustomerCare@sheetsCorporation.com',
         //to: 'enrico.piccinin@gmail.com',
@@ -452,7 +452,8 @@ var sendMailForNewProposal = function (inProposal, inUserLogged) {
         subject: inUserLogged.customerId + ', you have a new proposal',
         //text : 'test message form mailgun',
         text: 'Dear ' + inUserLogged.customerId,
-        html: '<br><p>' + inUserLogged.pbId + ' has prepared for you a new <a href="' + url + inProposal.id + '">proposal</a></p>'
+        //html : '<br><p>' + inUserLogged.pbId + ' has prepared for you a new <a href="' + url + inProposal.id + '">proposal</a></p>'
+        html: getMailHtmlBody(inProposal, inUserLogged)
     };
     transporter.sendMail(mailOpts, function (err, response) {
         if (err) {
@@ -465,4 +466,66 @@ var sendMailForNewProposal = function (inProposal, inUserLogged) {
         }
     });
 };
+function getMailHtmlBody(inProposal, inUserLogged) {
+    //var url = 'http://ec2-54-213-172-98.us-west-2.compute.amazonaws.com:8080/Proposal/?proposalId=';
+    var url = 'http://ec2-54-213-172-98.us-west-2.compute.amazonaws.com:8080/';
+    var htmlBody;
+    htmlBody = '<br><p>' + inUserLogged.pbId + ' has prepared for you a new <a href="' + url + 'Proposal/?proposalId=' + inProposal.id + '">proposal</a>';
+    //htmlBody = htmlBody + ' around a new fantastic product:</p><br>';
+    //htmlBody = htmlBody + '<img class="iconImage" src={{sheet.imageUrl}}><span class="iconName">{{sheet.title}}</span>';
+    htmlBody = htmlBody + '<br> I will contact you soon.<br>Best regards<br><br>';
+    htmlBody = htmlBody + '<br> Message sent via Sheets app, powered by<br>';
+    htmlBody = htmlBody + '<div class="container" style="width: 100%; float: left">';
+    htmlBody = htmlBody + '<div style="width: 20%; height: 20%; float: left; padding-left: 0;">';
+    htmlBody = htmlBody + '<img src="' + url + 'images/angular2.jpeg" width="120" height="100"/></div>';
+    htmlBody = htmlBody + '</div>';
+    htmlBody = htmlBody + '<div class="container" style="width: 100%; float: left">';
+    htmlBody = htmlBody + '<div style="width: 16%; height: 20%; float: left; margin-top: 23; padding-left: 0">';
+    htmlBody = htmlBody + '<img src="' + url + 'images/typescript.png" width="120" height="40" /></div>';
+    htmlBody = htmlBody + '</div>';
+    htmlBody = htmlBody + '<div class="container" style="width: 100%; float: left">';
+    htmlBody = htmlBody + '<div style="width: 20%; height: 20%; float: left; margin-left: -10">';
+    htmlBody = htmlBody + '<img src="' + url + 'images/expressNodeMongo.jpg" width="150" height="100"/></div>';
+    htmlBody = htmlBody + '</div>';
+    /*htmlBody = htmlBody + '<div class="container" style="width: 100%; float: left">';
+    htmlBody = htmlBody + '<div style="width: 20%; height: 20%; float: left; padding-left: 10;">';
+    htmlBody = htmlBody + '<img src="' + url + 'images/angular2.jpeg" width="120" height="100"/>';
+    htmlBody = htmlBody + '</div><div style="width: 16%; height: 20%; float: left; padding-top: 23; padding-left: 40">';
+    htmlBody = htmlBody + '<img src="' + url + 'images/typescript.png" width="120" height="40" />';
+    htmlBody = htmlBody + '</div><div style="width: 20%; height: 20%; float: left; margin-left: -10">';
+    htmlBody = htmlBody + '<img src="' + url + 'images/expressNodeMongo.jpg" width="150" height="100"/></div></div>';*/
+    return htmlBody;
+}
+/*var sendMailForNewProposal = function(inProposal, inUserLogged) {
+    var auth = {
+        auth: {
+            //api_key: 'key-5258e19c6ca5564c06ce5552f181d067',
+            //domain: 'sandbox2bae1d8b19864001920f8b327494ce41.mailgun.org'
+            api_key: 'key-5258e19c6ca5564c06ce5552f181d067',
+            domain: 'mg.cocoon-techies.it'
+        }
+    }
+    let transporter = nodemailer.createTransport(mg(auth));
+    //var url = 'http://localhost:3000/Proposal/?proposalId=';
+    var url = 'http://ec2-54-213-172-98.us-west-2.compute.amazonaws.com:8080/Proposal/?proposalId=';
+    var mailOpts = {
+        from: 'sheetsCustomerCare@sheetsCorporation.com',
+        //to: 'enrico.piccinin@gmail.com',
+        to: inUserLogged.mail,
+        //subject: 'test subject',
+        subject: inUserLogged.customerId + ', you have a new proposal',
+        //text : 'test message form mailgun',
+        text : 'Dear ' + inUserLogged.customerId,
+        html : '<br><p>' + inUserLogged.pbId + ' has prepared for you a new <a href="' + url + inProposal.id + '">proposal</a></p>'
+    };
+    transporter.sendMail(mailOpts, function (err, response) {
+        if (err) {
+            console.log('error sending mail --- ' + err);
+        return "Mail error.";
+        } else {
+            console.log('mail actually sent');
+        return "Mail sent.";
+        }
+    });
+}*/ 
 //# sourceMappingURL=sheetRestService.js.map
